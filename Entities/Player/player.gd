@@ -1,7 +1,6 @@
 extends CharacterBody2D
 
 
-const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
 var player_facing = 1
@@ -16,15 +15,20 @@ var player_facing = 1
 @export var  attack_duration: float = 0.15
 
 #Dash Variables
-@export var dash_speed: float = 2000.0
-@export var dash_duration: float = 0.2
+@export var dash_speed: float = 800.0
+@export var dash_duration: float = 0.1
 var is_dashing: bool = false
 var can_dash: bool = true
+
+#Player Stats
+@export var dmg: float = 2.0
+@export var health: int = 10
+@export var speed: float = 200.0
+@export var dodge_chance: float = 0.0
 
 
 
 func _ready() -> void:
-	sprite.flip_h = true
 	attack_pivot.visible = false
 	sword_hitbox.disabled = true
 
@@ -45,15 +49,15 @@ func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	var direction := Input.get_axis("D_Pad_Left", "D_Pad_Right")
 	if direction:
-		velocity.x = direction * SPEED
+		velocity.x = direction * speed
 		if direction > 0:
-			sprite.flip_h = true
-		elif direction < 0:
 			sprite.flip_h = false
-		attack_pivot.scale.x = direction * -1
+		elif direction < 0:
+			sprite.flip_h = true
+		attack_pivot.scale.x = direction
 		player_facing = sign(direction)
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, speed)
 	
 	#Handle Dash
 	if Input.is_action_just_pressed("D_Pad_Down"):
@@ -76,7 +80,6 @@ func _trigger_attack() -> void:
 	sword_hitbox.disabled = true
 	
 func _start_dash() -> void:
-	print("Timer Started")
 	is_dashing = true
 	can_dash = false
 	
@@ -85,7 +88,21 @@ func _start_dash() -> void:
 
 func _on_dash_timer_timeout() -> void:
 	is_dashing = false
-	print("Timer Finished")
 	
 	await get_tree().create_timer(0.5).timeout
 	can_dash = true
+
+
+func _on_sword_hit_box_body_entered(body: Node2D) -> void:
+	if body.has_method("take_damage"):
+		body.take_damage(dmg)
+
+func player_take_damage(amount: int) -> void:
+	health -= amount
+	print("Player Health Remaining: ", health)
+	
+	if health <= 0:
+		die()
+
+func die() -> void:
+	pass
