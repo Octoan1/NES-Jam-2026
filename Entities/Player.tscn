@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://buxpwecnlehmm"]
+
+[ext_resource type="Texture2D" uid="uid://ci7rh4054c1u0" path="res://Assets/Taco_Top_Hat.png" id="1_41wu2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1iada"]
+
+[node name="Player" type="Node2D" unique_id=148223934]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=709701207]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1506499174]
+shape = SubResource("RectangleShape2D_1iada")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=806130085]
+texture = ExtResource("1_41wu2")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=1515961634]
