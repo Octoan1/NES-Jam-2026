@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dtq5y77dqse0b"]
+
+[ext_resource type="Script" uid="uid://54h7x68bm0tq" path="res://Entities/Test Dummy/test_dummy.gd" id="1_sake5"]
+[ext_resource type="Texture2D" uid="uid://ci7rh4054c1u0" path="res://Assets/Taco_Top_Hat.png" id="1_slm2x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sake5"]
+
+[node name="TestDummy" type="CharacterBody2D" unique_id=275402485]
+collision_layer = 8
+script = ExtResource("1_sake5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1465234490]
+scale = Vector2(0.11796769, 0.11796769)
+texture = ExtResource("1_slm2x")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=293757783]
+collision_layer = 16
+collision_mask = 2
+
+[node name="Giving hit Box" type="CollisionShape2D" parent="Area2D" unique_id=1874953152]
+scale = Vector2(2.2523124, 2.2523124)
+shape = SubResource("RectangleShape2D_sake5")
+debug_color = Color(0.99999994, 0.04040745, 0.05316665, 0.41960785)
+
+[node name="Getting Hit Box" type="CollisionShape2D" parent="." unique_id=209212395]
+scale = Vector2(2.2523124, 2.2523124)
+shape = SubResource("RectangleShape2D_sake5")
+debug_color = Color(1.6845763e-06, 0.6451902, 0.27192447, 0.41960785)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
