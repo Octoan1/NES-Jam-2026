@@ -6,12 +6,28 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_41wu2"]
 size = Vector2(395, 397)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1iada"]
+size = Vector2(287, 255.5)
+
 [node name="Player" type="CharacterBody2D" unique_id=316049185]
+collision_layer = 8
 script = ExtResource("1_1iada")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=934832511]
+[node name="Sprite" type="Sprite2D" parent="." unique_id=934832511]
 texture = ExtResource("1_41wu2")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1714244896]
+[node name="HitBox" type="CollisionShape2D" parent="." unique_id=1714244896]
 position = Vector2(0.5, -0.5)
 shape = SubResource("RectangleShape2D_41wu2")
+
+[node name="AttackPivot" type="Node2D" parent="." unique_id=1609111732]
+
+[node name="SwordHitBox" type="Area2D" parent="AttackPivot" unique_id=1658241746]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackPivot/SwordHitBox" unique_id=1584981506]
+position = Vector2(-315, 65)
+shape = SubResource("RectangleShape2D_1iada")
+disabled = true
+debug_color = Color(0.9958411, 0, 0.20626324, 0.41960785)
