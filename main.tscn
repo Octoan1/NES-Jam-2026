@@ -8,6 +8,8 @@ size = Vector2(1232, 192)
 [node name="Main" type="Node2D" unique_id=1017056218]
 
 [node name="Player" parent="." unique_id=316049185 instance=ExtResource("1_ig7tw")]
+position = Vector2(118, 89)
+scale = Vector2(0.2605514, 0.2605514)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=396454737]
 
