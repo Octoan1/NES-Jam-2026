@@ -50,7 +50,7 @@ func _physics_process(delta: float) -> void:
 			sprite.flip_h = true
 		elif direction < 0:
 			sprite.flip_h = false
-		attack_pivot.scale.x = direction
+		attack_pivot.scale.x = direction * -1
 		player_facing = sign(direction)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
