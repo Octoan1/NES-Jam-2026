@@ -98,9 +98,11 @@ func _on_sword_hit_box_body_entered(body: Node2D) -> void:
 		body.take_damage(dmg)
 
 func player_take_damage(amount: int) -> void:
-	if randf() > dodge_chance:
+	if randf() >= dodge_chance:
 		health -= amount
 		print("Player Health Remaining: ", health)
+	else:
+		print("Attack Dodged")
 	
 	if health <= 0:
 		die()
