@@ -19,7 +19,6 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=256
 window/size/viewport_height=224
-window/size/mode=3
 window/stretch/mode="canvas_items"
 
 [file_customization]
@@ -76,4 +75,5 @@ B_Button={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"

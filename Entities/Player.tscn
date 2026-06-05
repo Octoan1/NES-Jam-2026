@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://buxpwecnlehmm"]
 
 [ext_resource type="Script" uid="uid://dha2h40hql2pn" path="res://Entities/player.gd" id="1_1iada"]
-[ext_resource type="Texture2D" uid="uid://ci7rh4054c1u0" path="res://Assets/Taco_Top_Hat.png" id="1_41wu2"]
+[ext_resource type="Texture2D" uid="uid://dmcl1vnqtexq4" path="res://Aseprite/player_16x16.png" id="2_1iada"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_41wu2"]
 size = Vector2(395, 397)
@@ -14,7 +14,7 @@ collision_layer = 8
 script = ExtResource("1_1iada")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=934832511]
-texture = ExtResource("1_41wu2")
+texture = ExtResource("2_1iada")
 
 [node name="HitBox" type="CollisionShape2D" parent="." unique_id=1714244896]
 position = Vector2(0.5, -0.5)
