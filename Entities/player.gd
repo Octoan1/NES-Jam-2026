@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-const SPEED = 300.0
+const SPEED = 200.0
 const JUMP_VELOCITY = -400.0
 
 var player_facing = 1
@@ -16,15 +16,14 @@ var player_facing = 1
 @export var  attack_duration: float = 0.15
 
 #Dash Variables
-@export var dash_speed: float = 2000.0
-@export var dash_duration: float = 0.2
+@export var dash_speed: float = 800.0
+@export var dash_duration: float = 0.1
 var is_dashing: bool = false
 var can_dash: bool = true
 
 
 
 func _ready() -> void:
-	sprite.flip_h = true
 	attack_pivot.visible = false
 	sword_hitbox.disabled = true
 
@@ -47,10 +46,10 @@ func _physics_process(delta: float) -> void:
 	if direction:
 		velocity.x = direction * SPEED
 		if direction > 0:
-			sprite.flip_h = true
-		elif direction < 0:
 			sprite.flip_h = false
-		attack_pivot.scale.x = direction * -1
+		elif direction < 0:
+			sprite.flip_h = true
+		attack_pivot.scale.x = direction
 		player_facing = sign(direction)
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
@@ -76,7 +75,6 @@ func _trigger_attack() -> void:
 	sword_hitbox.disabled = true
 	
 func _start_dash() -> void:
-	print("Timer Started")
 	is_dashing = true
 	can_dash = false
 	
@@ -85,7 +83,6 @@ func _start_dash() -> void:
 
 func _on_dash_timer_timeout() -> void:
 	is_dashing = false
-	print("Timer Finished")
 	
 	await get_tree().create_timer(0.5).timeout
 	can_dash = true
