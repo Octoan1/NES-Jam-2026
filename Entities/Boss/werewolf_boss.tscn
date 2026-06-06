@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://p8kp02s5o2hh"]
+
+[ext_resource type="Texture2D" uid="uid://bwtu4q2ycoyo8" path="res://Assets/werewolf.png" id="1_mnpil"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_upsjp"]
+size = Vector2(17, 32)
+
+[node name="WerewolfBoss" type="CharacterBody2D" unique_id=918016002]
+collision_layer = 24
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1718629205]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_upsjp")
+debug_color = Color(0.9924596, 0, 0.25810924, 0.41960785)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1256249856]
+texture = ExtResource("1_mnpil")
