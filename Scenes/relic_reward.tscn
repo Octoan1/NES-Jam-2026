@@ -66,3 +66,7 @@ grow_horizontal = 2
 theme_override_fonts/font = ExtResource("7_103om")
 theme_override_font_sizes/font_size = 10
 text = "Select a cursed relic!"
+
+[connection signal="relic_selected" from="Panel/Relic1" to="." method="_on_relic_1_relic_selected"]
+[connection signal="relic_selected" from="Panel/Relic2" to="." method="_on_relic_2_relic_selected"]
+[connection signal="relic_selected" from="Panel/Relic3" to="." method="_on_relic_3_relic_selected"]

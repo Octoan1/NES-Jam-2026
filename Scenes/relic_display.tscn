@@ -121,3 +121,5 @@ autowrap_mode = 2
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 160.0
+
+[connection signal="pressed" from="Relic1Confirmed" to="." method="_on_relic_1_confirmed_pressed"]

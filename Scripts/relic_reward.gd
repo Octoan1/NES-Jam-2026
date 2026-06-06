@@ -1,15 +1,15 @@
 extends Control
 
-@onready var relic_1_confirmed: Button = $Panel/Relic1/Relic1Confirmed
-@onready var relic_2_confirmed: Button = $Panel/Relic2/Relic2Confirmed
-@onready var relic_3_confirmed: Button = $Panel/Relic3/Relic3Confirmed
+@onready var relic_1: Panel = $Panel/Relic1
+@onready var relic_2: Panel = $Panel/Relic2
+@onready var relic_3: Panel = $Panel/Relic3
 
 var relic_choices: Array[Relic]
 
 func _ready():
 	randomize()
 	fill_rewards()
-	relic_1_confirmed.grab_focus()
+	relic_1.get_child(6).grab_focus()
 
 func fill_rewards():
 	var relics_copy = GameManager.relics.duplicate(true)
@@ -26,17 +26,14 @@ func fill_rewards():
 		
 		relics_copy.remove_at(random_index)
 
-
-
-
-func _on_relic_1_confirmed_pressed() -> void:
-	GameManager.relic_selected(relic_choices[0])
+func _on_relic_1_relic_selected(relic: Relic) -> void:
+	GameManager.relic_selected(relic)
 	self.queue_free()
 
-func _on_relic_2_confirmed_pressed() -> void:
-	GameManager.relic_selected(relic_choices[1])
+func _on_relic_2_relic_selected(relic: Relic) -> void:
+	GameManager.relic_selected(relic)
 	self.queue_free()
 
-func _on_relic_3_confirmed_pressed() -> void:
-	GameManager.relic_selected(relic_choices[2])
+func _on_relic_3_relic_selected(relic: Relic) -> void:
+	GameManager.relic_selected(relic)
 	self.queue_free()
