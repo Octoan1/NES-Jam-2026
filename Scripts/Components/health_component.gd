@@ -1,6 +1,8 @@
 extends Node
 class_name HealthComponent
 
+@export var debug_mode: bool = false
+
 @export var MAX_HEALTH := 10
 var health : float
 
@@ -13,7 +15,10 @@ func _ready() -> void:
 #func remove_health(attack: Attack):
 func attack_health(attack_damage: float) -> void:
 	health -= attack_damage
-	#print(owner.name + " health is now: "+ str(health))
+	
+	if debug_mode:
+		print(owner.name + " health is now: "+ str(health))
+		
 	damaged.emit()
 	
 	# death 

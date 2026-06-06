@@ -1,6 +1,8 @@
 extends Area2D
 class_name HurtboxComponent
 
+@export var debug_mode: bool = false
+
 @export var health_component : HealthComponent
 
 
@@ -14,5 +16,8 @@ func _ready() -> void:
 
 #func hurt(attack: Attack):
 func hurt(attack: float) -> void:
+	if debug_mode:
+		print(owner.name + "hurt")
+	
 	if health_component:
 		health_component.damage(attack)

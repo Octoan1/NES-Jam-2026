@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://buxpwecnlehmm" path="res://Entities/Player/Player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://dtq5y77dqse0b" path="res://Entities/Test Dummy/Test Dummy.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://wxffyjyjg2dj" path="res://Levels/werewolf_boss_fight.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://p8kp02s5o2hh" path="res://Entities/Boss/werewolf_boss.tscn" id="4_1bvp3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ig7tw"]
 size = Vector2(1232, 192)
@@ -10,6 +11,9 @@ size = Vector2(1232, 192)
 [node name="Main" type="Node2D" unique_id=1017056218]
 
 [node name="WerewolfBossFight" parent="." unique_id=547777875 instance=ExtResource("3_h2yge")]
+
+[node name="WerewolfBoss" parent="WerewolfBossFight" unique_id=918016002 instance=ExtResource("4_1bvp3")]
+position = Vector2(68, 112)
 
 [node name="TestDummy" parent="." unique_id=1990878293 instance=ExtResource("2_0xm2m")]
 position = Vector2(215, 150)
