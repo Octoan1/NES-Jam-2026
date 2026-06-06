@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://bljbanuhony4o"]
+
+[ext_resource type="Script" uid="uid://b45x76ks38rs1" path="res://Scripts/relic.gd" id="1_mo230"]
+
+[resource]
+script = ExtResource("1_mo230")
+name = "Ghost Tape"
+description = "Don't watch this at 3am!"
+pro = "A ghost summon helps you in battle."
+con = "Must beat the boss in 60 seconds or you die"
+effect_name = "GhostTape"
+metadata/_custom_type_script = "uid://b45x76ks38rs1"

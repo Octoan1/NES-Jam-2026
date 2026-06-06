@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://lsk0psi5tvrf"]
+
+[ext_resource type="Script" uid="uid://b45x76ks38rs1" path="res://Scripts/relic.gd" id="1_1hjbn"]
+
+[resource]
+script = ExtResource("1_1hjbn")
+name = "Mister Sword"
+description = "Legendary yet, refined."
+pro = "Your sword now shoots a projectile"
+con = "Your attacks are slower"
+effect_name = "MisterSword"
+metadata/_custom_type_script = "uid://b45x76ks38rs1"

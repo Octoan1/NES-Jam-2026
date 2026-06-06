@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://c5u5mt5wxj4op"]
+
+[ext_resource type="Script" uid="uid://b45x76ks38rs1" path="res://Scripts/relic.gd" id="1_njgnd"]
+
+[resource]
+script = ExtResource("1_njgnd")
+name = "Cursed Finger"
+description = "Delicious"
+pro = "In battle, 20 fingers will spawn over time. Collect them all to automatically win the fight."
+con = "The boss deals triple damage to the player."
+effect_name = "CursedFinger"
+metadata/_custom_type_script = "uid://b45x76ks38rs1"

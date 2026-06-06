@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://dw7jce60m4p50"]
+
+[ext_resource type="Script" uid="uid://b45x76ks38rs1" path="res://Scripts/relic.gd" id="1_j10hg"]
+
+[resource]
+script = ExtResource("1_j10hg")
+name = "Book of Death"
+description = "I grab a chip, and eat it"
+pro = "The boss automatically dies after 60 seconds"
+con = "Player has 1 health"
+effect_name = "DeathBook"
+metadata/_custom_type_script = "uid://b45x76ks38rs1"

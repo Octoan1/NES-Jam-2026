@@ -1,9 +1,13 @@
 [gd_scene format=3 uid="uid://vt2uj7cxgejg"]
 
+[ext_resource type="Script" uid="uid://bgdf834hrtibo" path="res://Scripts/game_manager.gd" id="1_0aiqp"]
 [ext_resource type="Script" uid="uid://dib85ovnfapt1" path="res://Scripts/ui_manager.gd" id="1_e3yc7"]
 [ext_resource type="PackedScene" uid="uid://xsjlb0si8fwb" path="res://Scenes/main_menu.tscn" id="1_qyrtj"]
 
-[node name="GameManager" type="Node2D" unique_id=332362889]
+[node name="ConnerScene" type="Node2D" unique_id=332362889]
+
+[node name="GameManager" type="Node" parent="." unique_id=591191411]
+script = ExtResource("1_0aiqp")
 
 [node name="UiManager" type="Node" parent="." unique_id=1766197533]
 script = ExtResource("1_e3yc7")
