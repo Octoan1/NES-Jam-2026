@@ -12,6 +12,8 @@ size = Vector2(287, 255.5)
 [node name="Player" type="CharacterBody2D" unique_id=316049185]
 collision_layer = 2
 script = ExtResource("1_1iada")
+dash_speed = 300.0
+speed = 100.0
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1970645673]
 texture = ExtResource("2_1iada")

@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-const JUMP_VELOCITY = -400.0
+
 
 var player_facing = 1
 
@@ -25,6 +25,7 @@ var can_dash: bool = true
 @export var health: int = 10
 @export var speed: float = 200.0
 @export var dodge_chance: float = 0.0
+@export var jump_velocity: float = -200
 
 
 
@@ -44,7 +45,7 @@ func _physics_process(delta: float) -> void:
 
 	# Handle jump.
 	if Input.is_action_just_pressed("A_Button") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		velocity.y = jump_velocity
 
 	# Get the input direction and handle the movement/deceleration.
 	var direction := Input.get_axis("D_Pad_Left", "D_Pad_Right")
