@@ -3,6 +3,6 @@
 [ext_resource type="FontFile" uid="uid://3vewde7t6leg" path="res://font.png" id="1_quxpd"]
 
 [resource]
-line_spacing = -2.0
+line_spacing = 1.0
 font = ExtResource("1_quxpd")
 font_size = 3
