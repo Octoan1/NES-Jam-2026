@@ -1,0 +1,397 @@
+[gd_scene format=3 uid="uid://b3klv6pypfa8n"]
+
+[ext_resource type="Script" uid="uid://b1cu4g30fjavh" path="res://Scripts/relic_reward.gd" id="1_2la4c"]
+[ext_resource type="Script" uid="uid://cxywqsycvi1gp" path="res://Scenes/relic_display.gd" id="2_tcnqf"]
+[ext_resource type="LabelSettings" uid="uid://cr4nw2pxwnqrs" path="res://Assets/UI_Settings/relic_label.tres" id="3_gh5xo"]
+[ext_resource type="LabelSettings" uid="uid://cc42v2wwqx0nh" path="res://Assets/UI_Settings/relic_description.tres" id="3_qgcmv"]
+[ext_resource type="LabelSettings" uid="uid://r7e4xr1c83ar" path="res://Assets/UI_Settings/relic_pro.tres" id="5_lmxuy"]
+[ext_resource type="LabelSettings" uid="uid://dgl2ryqy3up5s" path="res://Assets/UI_Settings/relic_con.tres" id="6_103om"]
+
+[node name="RelicReward" type="Control" unique_id=1570574333]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2la4c")
+
+[node name="Panel" type="Panel" parent="." unique_id=1593991532]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -96.0
+offset_top = -56.0
+offset_right = 96.0
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Relic1" type="Panel" parent="Panel" unique_id=860817820]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -56.0
+offset_right = 48.0
+offset_bottom = 56.0
+grow_vertical = 2
+script = ExtResource("2_tcnqf")
+
+[node name="Panel" type="Panel" parent="Panel/Relic1" unique_id=1829892080]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -30.0
+offset_right = 4.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RelicName" type="Label" parent="Panel/Relic1" unique_id=1071130337]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 27.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 8
+text = "Relic Name"
+label_settings = ExtResource("3_gh5xo")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="RelicDescription" type="Label" parent="Panel/Relic1" unique_id=259202070]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 4
+text = "Relic Description"
+label_settings = ExtResource("3_qgcmv")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="RelicIcon" type="TextureRect" parent="Panel/Relic1" unique_id=1505132844]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -30.0
+offset_right = 4.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RelicPro" type="Label" parent="Panel/Relic1" unique_id=506793374]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 5
+text = "+ Relic Pro"
+label_settings = ExtResource("5_lmxuy")
+autowrap_mode = 2
+
+[node name="RelicCon" type="Label" parent="Panel/Relic1" unique_id=692857942]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 28.0
+offset_right = 20.0
+offset_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 5
+text = "- Relic Con"
+label_settings = ExtResource("6_103om")
+autowrap_mode = 2
+
+[node name="Relic1Confirmed" type="Button" parent="Panel/Relic1" unique_id=789620220]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 112.0
+focus_neighbor_right = NodePath("../../Relic2/Relic2Confirmed")
+
+[node name="Relic2" type="Panel" parent="Panel" unique_id=1179551387]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -56.0
+offset_right = 24.0
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_tcnqf")
+
+[node name="Panel" type="Panel" parent="Panel/Relic2" unique_id=987427972]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -30.0
+offset_right = 4.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RelicName" type="Label" parent="Panel/Relic2" unique_id=1990079664]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 27.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 8
+text = "Relic Name"
+label_settings = ExtResource("3_gh5xo")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="RelicDescription" type="Label" parent="Panel/Relic2" unique_id=309755936]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 4
+text = "Relic Description"
+label_settings = ExtResource("3_qgcmv")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="RelicIcon" type="TextureRect" parent="Panel/Relic2" unique_id=457154969]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -30.0
+offset_right = 4.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RelicPro" type="Label" parent="Panel/Relic2" unique_id=1374742629]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 5
+text = "+ Relic Pro"
+label_settings = ExtResource("5_lmxuy")
+autowrap_mode = 2
+
+[node name="RelicCon" type="Label" parent="Panel/Relic2" unique_id=1318921249]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 28.0
+offset_right = 20.0
+offset_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 5
+text = "- Relic Con"
+label_settings = ExtResource("6_103om")
+autowrap_mode = 2
+
+[node name="Relic2Confirmed" type="Button" parent="Panel/Relic2" unique_id=513976259]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 112.0
+focus_neighbor_left = NodePath("../../Relic1/Relic1Confirmed")
+focus_neighbor_right = NodePath("../../Relic3/Relic3Confirmed")
+
+[node name="Relic3" type="Panel" parent="Panel" unique_id=329304853]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -56.0
+offset_bottom = 56.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("2_tcnqf")
+
+[node name="Panel" type="Panel" parent="Panel/Relic3" unique_id=1678964119]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -30.0
+offset_right = 4.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RelicName" type="Label" parent="Panel/Relic3" unique_id=449932120]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 27.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 8
+text = "Relic Name"
+label_settings = ExtResource("3_gh5xo")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="RelicDescription" type="Label" parent="Panel/Relic3" unique_id=1381939720]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 4
+text = "Relic Description"
+label_settings = ExtResource("3_qgcmv")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="RelicIcon" type="TextureRect" parent="Panel/Relic3" unique_id=661846040]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -30.0
+offset_right = 4.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RelicPro" type="Label" parent="Panel/Relic3" unique_id=245032019]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 5
+text = "+ Relic Pro"
+label_settings = ExtResource("5_lmxuy")
+autowrap_mode = 2
+
+[node name="RelicCon" type="Label" parent="Panel/Relic3" unique_id=322808090]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 28.0
+offset_right = 20.0
+offset_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 5
+text = "- Relic Con"
+label_settings = ExtResource("6_103om")
+autowrap_mode = 2
+
+[node name="Relic3Confirmed" type="Button" parent="Panel/Relic3" unique_id=678695957]
+layout_mode = 0
+offset_right = 48.0
+offset_bottom = 112.0
+focus_neighbor_left = NodePath("../../Relic2/Relic2Confirmed")
+
+[node name="Label" type="Label" parent="." unique_id=636006480]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -79.0
+offset_top = 20.0
+offset_right = 79.0
+offset_bottom = 43.0
+grow_horizontal = 2
+text = "Select a cursed relic!"
+
+[connection signal="pressed" from="Panel/Relic1/Relic1Confirmed" to="." method="_on_relic_1_confirmed_pressed"]
+[connection signal="pressed" from="Panel/Relic2/Relic2Confirmed" to="." method="_on_relic_2_confirmed_pressed"]
+[connection signal="pressed" from="Panel/Relic3/Relic3Confirmed" to="." method="_on_relic_3_confirmed_pressed"]

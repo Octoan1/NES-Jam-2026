@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://cc42v2wwqx0nh"]
+
+[ext_resource type="FontFile" uid="uid://3vewde7t6leg" path="res://font.png" id="1_quxpd"]
+
+[resource]
+line_spacing = -2.0
+font = ExtResource("1_quxpd")
+font_size = 3

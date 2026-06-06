@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://cr4nw2pxwnqrs"]
+
+[ext_resource type="FontFile" uid="uid://3vewde7t6leg" path="res://font.png" id="1_owl33"]
+
+[resource]
+line_spacing = -3.0
+font = ExtResource("1_owl33")
+font_size = 8

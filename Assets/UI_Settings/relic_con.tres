@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://dgl2ryqy3up5s"]
+
+[ext_resource type="FontFile" uid="uid://3vewde7t6leg" path="res://font.png" id="1_vuyw5"]
+
+[resource]
+line_spacing = -2.0
+font = ExtResource("1_vuyw5")
+font_size = 4
+font_color = Color(1, 0, 0.09411765, 1)
