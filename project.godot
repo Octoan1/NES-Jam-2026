@@ -32,7 +32,8 @@ folder_colors={
 "res://Entities/": "red",
 "res://Relics/": "purple",
 "res://Scenes/": "blue",
-"res://Scripts/": "pink"
+"res://Scripts/": "pink",
+"res://Scripts/Components/": "gray"
 }
 
 [input]
@@ -77,10 +78,10 @@ B_Button={
 [layer_names]
 
 2d_physics/layer_1="Ground"
-2d_physics/layer_2="Player Hit Box"
-2d_physics/layer_3="Player Attack Hit Box"
-2d_physics/layer_4="Enemy Hit Box"
-2d_physics/layer_5="Enemy Attack Hit Box"
+2d_physics/layer_2="Player Hurt Box"
+2d_physics/layer_3="Player Hit Box"
+2d_physics/layer_4="Enemy Hurt Box"
+2d_physics/layer_5="Enemy Hit Box"
 
 [physics]
 
