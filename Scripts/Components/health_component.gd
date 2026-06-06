@@ -12,8 +12,8 @@ signal damaged
 func _ready() -> void:
 	health = MAX_HEALTH
 	
-#func remove_health(attack: Attack):
-func attack_health(attack_damage: float) -> void:
+#func damage_health(attack: Attack):
+func damage_health(attack_damage: float) -> void:
 	health -= attack_damage
 	
 	if debug_mode:

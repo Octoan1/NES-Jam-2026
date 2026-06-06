@@ -19,6 +19,7 @@ collision_layer = 0
 
 [node name="HealthComponent" type="Node" parent="." unique_id=2090019854]
 script = ExtResource("1_3vbb2")
+debug_mode = true
 metadata/_custom_type_script = "uid://bp60vdvwyxe7f"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1256249856]
@@ -32,6 +33,7 @@ shape = SubResource("RectangleShape2D_upsjp")
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("3_2omb5")
+debug_mode = true
 health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://b33upjirfs7dt"
 
@@ -44,6 +46,7 @@ debug_color = Color(0, 1, 0, 0.1764706)
 collision_layer = 0
 collision_mask = 16
 script = ExtResource("4_2omb5")
+debug_mode = true
 metadata/_custom_type_script = "uid://b1c4qcf1gisb4"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1406590244]

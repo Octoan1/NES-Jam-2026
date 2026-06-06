@@ -2,12 +2,16 @@
 
 [ext_resource type="Script" uid="uid://dha2h40hql2pn" path="res://Entities/Player/player.gd" id="1_1iada"]
 [ext_resource type="Texture2D" uid="uid://dmcl1vnqtexq4" path="res://Aseprite/player_16x16.png" id="2_1iada"]
+[ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="3_vweq0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_41wu2"]
 size = Vector2(196.6822, 327.80368)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1iada"]
 size = Vector2(287, 255.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1des2"]
+size = Vector2(11, 10)
 
 [node name="Player" type="CharacterBody2D" unique_id=316049185]
 collision_layer = 2
@@ -37,6 +41,17 @@ scale = Vector2(0.04158888, 0.04158888)
 shape = SubResource("RectangleShape2D_1iada")
 disabled = true
 debug_color = Color(0.9958411, 0, 0.20626324, 0.41960785)
+
+[node name="HitboxComponent" type="Area2D" parent="AttackPivot" unique_id=1573164488]
+collision_layer = 4
+collision_mask = 8
+script = ExtResource("3_vweq0")
+metadata/_custom_type_script = "uid://b1c4qcf1gisb4"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackPivot/HitboxComponent" unique_id=432494613]
+position = Vector2(11.5, 1)
+shape = SubResource("RectangleShape2D_1des2")
+debug_color = Color(0.99607843, 0, 0.20784314, 0.41960785)
 
 [node name="DashTimer" type="Timer" parent="." unique_id=1907390099]
 wait_time = 0.2

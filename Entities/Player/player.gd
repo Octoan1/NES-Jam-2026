@@ -27,11 +27,14 @@ var can_dash: bool = true
 @export var dodge_chance: float = 0.0
 @export var jump_velocity: float = -200
 
+@onready var hitbox_component: HitboxComponent = $AttackPivot/HitboxComponent
 
 
 func _ready() -> void:
 	attack_pivot.visible = false
 	sword_hitbox.disabled = true
+
+	hitbox_component.monitoring = false # test
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -75,10 +78,14 @@ func _trigger_attack() -> void:
 	attack_pivot.visible = true
 	sword_hitbox.disabled = false
 	
+	hitbox_component.monitoring = true #test
+	
 	await get_tree().create_timer(attack_duration).timeout
 	
 	attack_pivot.visible = false
 	sword_hitbox.disabled = true
+	
+	hitbox_component.monitoring = false # test
 	
 func _start_dash() -> void:
 	is_dashing = true
