@@ -33,6 +33,7 @@ func _on_relic_1_confirmed_pressed() -> void:
 	var chosen_relic_index = GameManager.relics.find(relic_choices[0])
 	GameManager.relics.remove_at(chosen_relic_index)
 	GameManager.add_relic(relic_choices[0])
+	GameManager.update_properties()
 	
 	self.queue_free()
 
@@ -40,6 +41,7 @@ func _on_relic_2_confirmed_pressed() -> void:
 	var chosen_relic_index = GameManager.relics.find(relic_choices[1])
 	GameManager.relics.remove_at(chosen_relic_index)
 	GameManager.add_relic(relic_choices[1])
+	GameManager.update_properties()
 	
 	self.queue_free()
 
@@ -47,5 +49,6 @@ func _on_relic_3_confirmed_pressed() -> void:
 	var chosen_relic_index = GameManager.relics.find(relic_choices[2])
 	GameManager.relics.remove_at(chosen_relic_index)
 	GameManager.add_relic(relic_choices[2])
+	GameManager.update_properties()
 	
 	self.queue_free()

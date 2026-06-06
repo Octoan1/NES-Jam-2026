@@ -16,7 +16,7 @@ const TOY_TRUCK = preload("uid://bcjhgc20lxg20")
 var inventory: Array[Relic]
 var relics: Array[Relic]
 
-
+@onready var player: CharacterBody2D = $"../Player"
 
 
 func _ready():
@@ -99,12 +99,23 @@ func GoldRing():
 # Move faster
 # Floor is slippery
 func ToyTruck():
-	print("trucky")
+	# positive effect:
+	player.speed = 400.0
+	# negative effect:
+	
 
 # Adds 6 powerful relics into the loot pool. (Can be selected as future rewards.)
 # Lose 50% of all stats
 func GemGauntlet():
 	print("Blockbustery")
+	# positive effect:
+	
+	# negative effect:
+	player.speed = player.speed / 2
+	player.dmg = player.dmg / 2
+	player.health = player.health / 2
+	player.dodge_chance = player.dodge_chance / 2
+	
 
 # Your sword now shoots a projectile
 # Your attacks are slower
