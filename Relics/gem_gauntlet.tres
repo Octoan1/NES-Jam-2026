@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Relic" format=3 uid="uid://qdi73n2u07dy"]
+
+[ext_resource type="Script" uid="uid://b45x76ks38rs1" path="res://Scripts/relic.gd" id="1_7tyir"]
+
+[resource]
+script = ExtResource("1_7tyir")
+name = "Gem Gauntlet"
+description = "This power. It's infinity. War."
+pro = "Adds 6 powerful relics into the loot pool. (Can be selected as future rewards.)"
+con = "Lose 50% of all stats"
+effect_name = "GemGauntlet"
+metadata/_custom_type_script = "uid://b45x76ks38rs1"

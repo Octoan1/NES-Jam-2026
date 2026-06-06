@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://xsjlb0si8fwb"]
 
 [ext_resource type="Script" uid="uid://btsec807n3fno" path="res://Scenes/main_menu.gd" id="1_28flt"]
+[ext_resource type="Texture2D" uid="uid://ci7rh4054c1u0" path="res://Assets/Taco_Top_Hat.png" id="2_48xlc"]
 
 [node name="MainMenu" type="Control" unique_id=348174747]
 layout_mode = 3
@@ -58,6 +59,14 @@ focus_neighbor_top = NodePath("../OptionsButton")
 theme_override_font_sizes/font_size = 6
 text = "Quit"
 
+[node name="Selector" type="Sprite2D" parent="Panel" unique_id=1651033583]
+position = Vector2(89.99999, 9.999999)
+scale = Vector2(0.02, 0.02)
+texture = ExtResource("2_48xlc")
+
+[connection signal="focus_entered" from="Panel/Buttons/StartButton" to="." method="_on_start_button_focus_entered"]
 [connection signal="pressed" from="Panel/Buttons/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="focus_entered" from="Panel/Buttons/OptionsButton" to="." method="_on_options_button_focus_entered"]
 [connection signal="pressed" from="Panel/Buttons/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="focus_entered" from="Panel/Buttons/QuitButton" to="." method="_on_quit_button_focus_entered"]
 [connection signal="pressed" from="Panel/Buttons/QuitButton" to="." method="_on_quit_button_pressed"]
