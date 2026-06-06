@@ -17,7 +17,6 @@ speed = 100.0
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1970645673]
 texture = ExtResource("2_1iada")
-offset = Vector2(-0.5, 0)
 
 [node name="HitBox" type="CollisionShape2D" parent="." unique_id=1714244896]
 position = Vector2(0, 0.5)

@@ -28,7 +28,8 @@ folder_colors={
 "res://Entities/": "red",
 "res://Relics/": "purple",
 "res://Scenes/": "blue",
-"res://Scripts/": "pink"
+"res://Scripts/": "pink",
+"res://Scripts/Components/": "gray"
 }
 
 [input]

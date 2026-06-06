@@ -1,18 +1,53 @@
 [gd_scene format=3 uid="uid://p8kp02s5o2hh"]
 
+[ext_resource type="Script" uid="uid://bp60vdvwyxe7f" path="res://Scripts/Components/health_component.gd" id="1_3vbb2"]
 [ext_resource type="Texture2D" uid="uid://bwtu4q2ycoyo8" path="res://Assets/werewolf.png" id="1_mnpil"]
+[ext_resource type="Script" uid="uid://b33upjirfs7dt" path="res://Scripts/Components/hurtbox_component.gd" id="3_2omb5"]
+[ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="4_2omb5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_upsjp"]
-size = Vector2(17, 32)
+size = Vector2(16, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k3rs4"]
+size = Vector2(28, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2omb5"]
+size = Vector2(24, 32)
 
 [node name="WerewolfBoss" type="CharacterBody2D" unique_id=918016002]
 collision_layer = 24
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1718629205]
-position = Vector2(-0.5, 0)
-shape = SubResource("RectangleShape2D_upsjp")
-debug_color = Color(0.9924596, 0, 0.25810924, 0.41960785)
+[node name="HealthComponent" type="Node" parent="." unique_id=2090019854]
+script = ExtResource("1_3vbb2")
+metadata/_custom_type_script = "uid://bp60vdvwyxe7f"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1256249856]
+position = Vector2(2, 0)
 texture = ExtResource("1_mnpil")
+
+[node name="WorldCollisionShape" type="CollisionShape2D" parent="." unique_id=1718629205]
+visible = false
+shape = SubResource("RectangleShape2D_upsjp")
+
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=1355050189 node_paths=PackedStringArray("health_component")]
+visible = false
+collision_layer = 0
+script = ExtResource("3_2omb5")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://b33upjirfs7dt"
+
+[node name="HurtboxCollisionShape" type="CollisionShape2D" parent="HurtboxComponent" unique_id=1502675546]
+position = Vector2(2, 0)
+shape = SubResource("RectangleShape2D_k3rs4")
+debug_color = Color(0, 1, 0, 0.1764706)
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=2024261873]
+visible = false
+script = ExtResource("4_2omb5")
+metadata/_custom_type_script = "uid://b1c4qcf1gisb4"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1406590244]
+position = Vector2(2, 0)
+shape = SubResource("RectangleShape2D_2omb5")
+debug_color = Color(1, 0, 0, 0.24705882)
