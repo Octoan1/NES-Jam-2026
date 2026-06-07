@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://b3klv6pypfa8n"]
+
+[ext_resource type="Script" uid="uid://b1cu4g30fjavh" path="res://Scripts/relic_reward.gd" id="1_2la4c"]
+[ext_resource type="PackedScene" uid="uid://rkniv57bd3xr" path="res://Scenes/relic_display.tscn" id="2_gy0p8"]
+[ext_resource type="FontFile" uid="uid://3vewde7t6leg" path="res://font.png" id="7_103om"]
+
+[node name="RelicReward" type="Control" unique_id=1570574333]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2la4c")
+
+[node name="Panel" type="Panel" parent="." unique_id=1593991532]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -128.0
+offset_top = -168.0
+offset_right = 128.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Relic1" parent="Panel" unique_id=1514287011 instance=ExtResource("2_gy0p8")]
+layout_mode = 1
+offset_left = 16.0
+offset_right = 80.0
+focus_neighbor_right = NodePath("../Relic2")
+
+[node name="Relic2" parent="Panel" unique_id=1801022960 instance=ExtResource("2_gy0p8")]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -32.0
+offset_right = 32.0
+grow_horizontal = 2
+focus_neighbor_left = NodePath("../Relic1")
+focus_neighbor_right = NodePath("../Relic3")
+
+[node name="Relic3" parent="Panel" unique_id=1913926800 instance=ExtResource("2_gy0p8")]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_right = -16.0
+grow_horizontal = 0
+focus_neighbor_left = NodePath("../Relic2")
+
+[node name="Label" type="Label" parent="." unique_id=636006480]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -79.0
+offset_top = 20.0
+offset_right = 79.0
+offset_bottom = 43.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("7_103om")
+theme_override_font_sizes/font_size = 10
+text = "Select a cursed relic!"
+
+[connection signal="relic_selected" from="Panel/Relic1" to="." method="_on_relic_1_relic_selected"]
+[connection signal="relic_selected" from="Panel/Relic2" to="." method="_on_relic_2_relic_selected"]
+[connection signal="relic_selected" from="Panel/Relic3" to="." method="_on_relic_3_relic_selected"]
