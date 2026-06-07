@@ -2,6 +2,7 @@ extends Node
 class_name StateMachine
 
 @export var debug_mode: bool = false
+@export var debug_state_label: Label
 
 @export var initial_state: State
 
@@ -29,15 +30,22 @@ func _process(delta: float) -> void:
 	if current_state:
 		current_state.update(delta)
 		
+		if debug_mode:
+			debug_state_label.text = current_state.name
+		
 func _physics_process(delta: float) -> void:
 	if current_state:
 		current_state.physics_update(delta)
+		
+		if debug_mode:
+			debug_state_label.text = current_state.name
+
 
 
 func on_child_transition(state: State, new_state_name: String) -> void:
 	# called state not current state
 	if state != current_state:
-		pass
+		return
 		
 	var new_state = states.get(new_state_name.to_lower())
 	if !new_state: # exists check
@@ -47,5 +55,10 @@ func on_child_transition(state: State, new_state_name: String) -> void:
 		current_state.exit()
 	
 	new_state.enter()
+	
+	current_state = new_state
+	
+	if debug_mode:
+		print(owner.name + ": " + state.name + " -> " + new_state.name)
 		
 	

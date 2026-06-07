@@ -26,6 +26,7 @@ var can_dash: bool = true
 @export var speed: float = 200.0
 @export var dodge_chance: float = 0.0
 @export var jump_velocity: float = -200
+var can_move: bool = true
 
 @onready var hitbox_component: HitboxComponent = $AttackPivot/HitboxComponent
 
@@ -47,12 +48,12 @@ func _physics_process(delta: float) -> void:
 		return
 
 	# Handle jump.
-	if Input.is_action_just_pressed("A_Button") and is_on_floor():
+	if Input.is_action_just_pressed("A_Button") and is_on_floor() and can_move:
 		velocity.y = jump_velocity
 
 	# Get the input direction and handle the movement/deceleration.
 	var direction := Input.get_axis("D_Pad_Left", "D_Pad_Right")
-	if direction:
+	if direction and can_move:
 		velocity.x = direction * speed
 		if direction > 0:
 			sprite.flip_h = false
@@ -64,7 +65,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, speed)
 	
 	#Handle Dash
-	if Input.is_action_just_pressed("D_Pad_Down"):
+	if Input.is_action_just_pressed("D_Pad_Down") and can_move:
 		_start_dash()
 	
 	#Handle Attack
@@ -78,6 +79,7 @@ func _trigger_attack() -> void:
 	attack_pivot.visible = true
 	sword_hitbox.disabled = false
 	
+	can_move = false
 	hitbox_component.monitoring = true #test
 	
 	await get_tree().create_timer(attack_duration).timeout
@@ -85,6 +87,7 @@ func _trigger_attack() -> void:
 	attack_pivot.visible = false
 	sword_hitbox.disabled = true
 	
+	can_move = true
 	hitbox_component.monitoring = false # test
 	
 func _start_dash() -> void:

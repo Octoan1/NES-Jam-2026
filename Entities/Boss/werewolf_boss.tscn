@@ -8,6 +8,8 @@
 [ext_resource type="Script" uid="uid://cfv7usv2c3fyj" path="res://Scripts/Components/state_machine.gd" id="6_qux1t"]
 [ext_resource type="Script" uid="uid://dkwurjqsvvk8c" path="res://Entities/Boss/enemy_idle.gd" id="6_w7njc"]
 [ext_resource type="Script" uid="uid://cswhynt3b5js5" path="res://Entities/Boss/enemy_follow_state.gd" id="8_v3mtm"]
+[ext_resource type="Script" uid="uid://csrkb20rs7cup" path="res://Entities/Boss/prepare_jump.gd" id="9_8t1td"]
+[ext_resource type="Script" uid="uid://cqtod7pp2ag1g" path="res://Entities/Boss/jump.gd" id="10_vry5g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_upsjp"]
 size = Vector2(16, 31)
@@ -17,6 +19,12 @@ size = Vector2(28, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2omb5"]
 size = Vector2(24, 32)
+
+[sub_resource type="LabelSettings" id="LabelSettings_v3mtm"]
+font_size = 7
+
+[sub_resource type="LabelSettings" id="LabelSettings_8t1td"]
+font_size = 7
 
 [node name="WerewolfBoss" type="CharacterBody2D" unique_id=918016002]
 collision_layer = 0
@@ -60,9 +68,28 @@ position = Vector2(2, 0)
 shape = SubResource("RectangleShape2D_2omb5")
 debug_color = Color(1, 0, 0, 0.24705882)
 
-[node name="StateMachine" type="Node" parent="." unique_id=603166184 node_paths=PackedStringArray("initial_state")]
+[node name="DebugStateLabel" type="Label" parent="." unique_id=1733445277]
+offset_left = -29.0
+offset_top = -36.0
+offset_right = 30.0
+offset_bottom = -25.0
+text = "missing state"
+label_settings = SubResource("LabelSettings_v3mtm")
+horizontal_alignment = 1
+
+[node name="ExtraStateInfo" type="Label" parent="DebugStateLabel" unique_id=492316240]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 9.0
+offset_right = 49.0
+offset_bottom = 20.0
+label_settings = SubResource("LabelSettings_8t1td")
+horizontal_alignment = 1
+
+[node name="StateMachine" type="Node" parent="." unique_id=603166184 node_paths=PackedStringArray("debug_state_label", "initial_state")]
 script = ExtResource("6_qux1t")
 debug_mode = true
+debug_state_label = NodePath("../DebugStateLabel")
 initial_state = NodePath("Follow")
 metadata/_custom_type_script = "uid://cfv7usv2c3fyj"
 
@@ -74,5 +101,18 @@ wait_time = 3.0
 
 [node name="Follow" type="Node" parent="StateMachine" unique_id=1920541134]
 script = ExtResource("8_v3mtm")
+move_speed = 20.0
+
+[node name="JumpTimer" type="Timer" parent="StateMachine/Follow" unique_id=517344435]
+
+[node name="PrepareJump" type="Node" parent="StateMachine" unique_id=360948637]
+script = ExtResource("9_8t1td")
+
+[node name="Jump" type="Node" parent="StateMachine" unique_id=80607897]
+script = ExtResource("10_vry5g")
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=70646402]
+target_position = Vector2(38, 0)
 
 [connection signal="timeout" from="StateMachine/Idle/Test" to="StateMachine/Idle" method="_on_test_timeout"]
+[connection signal="timeout" from="StateMachine/Follow/JumpTimer" to="StateMachine/Follow" method="_on_jump_timer_timeout"]
