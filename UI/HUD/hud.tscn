@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://cqas1sibe4giw"]
+
+[ext_resource type="Script" uid="uid://c6kqofn2kv1jn" path="res://UI/HUD/hud.gd" id="1_6fbih"]
+[ext_resource type="Texture2D" uid="uid://bhmsnu615vvex" path="res://Assets/UI_Visuals/hud_bg.png" id="1_e0onf"]
+[ext_resource type="LabelSettings" uid="uid://cu7u53edjj0te" path="res://Assets/UI_Settings/hud.tres" id="2_fccik"]
+[ext_resource type="PackedScene" uid="uid://cve7gh6agt7lu" path="res://UI/HUD/health_point.tscn" id="2_qdh7y"]
+
+[node name="HUD" type="Control" unique_id=1189236771]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6fbih")
+heart_scene = ExtResource("2_qdh7y")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=239900549]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 32.0
+grow_horizontal = 2
+texture = ExtResource("1_e0onf")
+stretch_mode = 4
+
+[node name="Control" type="Control" parent="TextureRect" unique_id=127459758]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Score" type="Label" parent="TextureRect/Control" unique_id=917355465]
+layout_mode = 0
+offset_top = 1.0
+offset_right = 96.0
+offset_bottom = 9.0
+text = "score-000000"
+label_settings = ExtResource("2_fccik")
+
+[node name="Time" type="Label" parent="TextureRect/Control" unique_id=230905086]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 1.0
+offset_right = 176.0
+offset_bottom = 9.0
+text = "Time 0000"
+label_settings = ExtResource("2_fccik")
+
+[node name="Stage" type="Label" parent="TextureRect/Control" unique_id=1822240640]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 1.0
+offset_right = 256.0
+offset_bottom = 9.0
+text = "Stage 00"
+label_settings = ExtResource("2_fccik")
+
+[node name="Player" type="Label" parent="TextureRect/Control" unique_id=1516301870]
+layout_mode = 0
+offset_top = 16.0
+offset_right = 56.0
+offset_bottom = 24.0
+text = "Player"
+label_settings = ExtResource("2_fccik")
+
+[node name="HealthContainer" type="HBoxContainer" parent="TextureRect/Control" unique_id=1613136083]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 16.0
+offset_right = 58.0
+offset_bottom = 24.0
+theme_override_constants/separation = 1

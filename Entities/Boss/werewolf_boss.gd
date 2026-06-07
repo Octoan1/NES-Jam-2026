@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var flash_component: FlashComponent = $FlashComponent
 
 @export var gravity_modifier: float = 0.2
 
@@ -17,12 +18,4 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_health_component_damaged() -> void:
-	flash_white()
 	$HitSFX.play()
-	
-func flash_white() -> void:
-	sprite_2d.material.set_shader_parameter("flash_amount", 1.0)
-	
-	await get_tree().create_timer(.2).timeout
-	
-	sprite_2d.material.set_shader_parameter("flash_amount", 0.0)

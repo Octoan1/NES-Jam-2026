@@ -36,7 +36,8 @@ folder_colors={
 "res://Relics/": "purple",
 "res://Scenes/": "blue",
 "res://Scripts/": "pink",
-"res://Scripts/Components/": "gray"
+"res://Scripts/Components/": "gray",
+"res://UI/": "teal"
 }
 
 [global_group]

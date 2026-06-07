@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://cve7gh6agt7lu"]
+
+[ext_resource type="Texture2D" uid="uid://img8g57ehqeo" path="res://Assets/UI_Visuals/health_point.png" id="1_o34o3"]
+
+[node name="HealthPoint" type="TextureRect" unique_id=1365129990]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_o34o3")

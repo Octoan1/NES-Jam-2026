@@ -2,14 +2,18 @@
 
 [ext_resource type="Script" uid="uid://dha2h40hql2pn" path="res://Entities/Player/player.gd" id="1_1iada"]
 [ext_resource type="Texture2D" uid="uid://dmcl1vnqtexq4" path="res://Aseprite/player_16x16.png" id="2_1iada"]
+[ext_resource type="Script" uid="uid://bp60vdvwyxe7f" path="res://Scripts/Components/health_component.gd" id="2_an6q6"]
+[ext_resource type="Material" uid="uid://duji81tg8exu8" path="res://Assets/flash_white_material.tres" id="3_hj1c0"]
 [ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="3_vweq0"]
+[ext_resource type="Script" uid="uid://c00fny1ika60u" path="res://Scripts/Components/flash_color_component.gd" id="3_x44r4"]
 [ext_resource type="AudioStream" uid="uid://cjuoup7ehnmle" path="res://Audio/PLACEHOLDER_hit_sound.wav" id="4_1des2"]
+[ext_resource type="Script" uid="uid://b33upjirfs7dt" path="res://Scripts/Components/hurtbox_component.gd" id="4_t38ms"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_41wu2"]
 size = Vector2(196.6822, 327.80368)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1iada"]
-size = Vector2(287, 255.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t38ms"]
+size = Vector2(8, 13)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1des2"]
 size = Vector2(15, 10)
@@ -21,35 +25,47 @@ dash_speed = 300.0
 speed = 100.0
 jump_velocity = -300.0
 
+[node name="HealthComponent" type="Node" parent="." unique_id=1416142201]
+script = ExtResource("2_an6q6")
+max_health = 16
+metadata/_custom_type_script = "uid://bp60vdvwyxe7f"
+
+[node name="FlashComponent" type="Node" parent="." unique_id=568026781 node_paths=PackedStringArray("sprite", "health_component")]
+script = ExtResource("3_x44r4")
+sprite = NodePath("../Sprite")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://c00fny1ika60u"
+
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1970645673]
+material = ExtResource("3_hj1c0")
 texture = ExtResource("2_1iada")
 
-[node name="HitBox" type="CollisionShape2D" parent="." unique_id=1714244896]
+[node name="WorldCollisionShape" type="CollisionShape2D" parent="." unique_id=1714244896]
 position = Vector2(0, 0.5)
 scale = Vector2(0.045759097, 0.045759097)
 shape = SubResource("RectangleShape2D_41wu2")
 
+[node name="HurtboxComponent" type="Area2D" parent="." unique_id=742345215 node_paths=PackedStringArray("health_component")]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("4_t38ms")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://b33upjirfs7dt"
+
+[node name="HurtboxCollisionShape" type="CollisionShape2D" parent="HurtboxComponent" unique_id=1390844060]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_t38ms")
+debug_color = Color(0, 1, 0, 0.108)
+
 [node name="AttackPivot" type="Node2D" parent="." unique_id=1609111732]
 
-[node name="SwordHitBox" type="Area2D" parent="AttackPivot" unique_id=1658241746]
-position = Vector2(1, 0)
-collision_layer = 4
-collision_mask = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackPivot/SwordHitBox" unique_id=1584981506]
-position = Vector2(10.5, 1)
-scale = Vector2(0.04158888, 0.04158888)
-shape = SubResource("RectangleShape2D_1iada")
-disabled = true
-debug_color = Color(0.9958411, 0, 0.20626324, 0.41960785)
-
-[node name="HitboxComponent" type="Area2D" parent="AttackPivot" unique_id=1573164488]
+[node name="SwordHitbox" type="Area2D" parent="AttackPivot" unique_id=1573164488]
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("3_vweq0")
 metadata/_custom_type_script = "uid://b1c4qcf1gisb4"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackPivot/HitboxComponent" unique_id=432494613]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackPivot/SwordHitbox" unique_id=432494613]
 position = Vector2(13.5, 1)
 shape = SubResource("RectangleShape2D_1des2")
 debug_color = Color(0.99607843, 0, 0.20784314, 0.41960785)
@@ -62,5 +78,4 @@ one_shot = true
 stream = ExtResource("4_1des2")
 volume_db = -10.0
 
-[connection signal="body_entered" from="AttackPivot/SwordHitBox" to="." method="_on_sword_hit_box_body_entered"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]

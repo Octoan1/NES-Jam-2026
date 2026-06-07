@@ -1,0 +1,28 @@
+extends Node
+class_name FlashComponent
+
+@export var sprite: Sprite2D
+@export var health_component: HealthComponent
+
+
+@export var color: Color = Color.WHITE
+@export var flash_duration := 0.1
+
+func _ready() -> void:
+	if not sprite:
+		printerr("ERROR: missing sprite")
+	
+	if sprite.material is not ShaderMaterial:
+		printerr("ERROR: sprite is missing correct shader")
+	
+	sprite.material.set_shader_parameter("flash_color", color)
+	
+	if not health_component:
+		printerr("ERROR: missing HealthComponent")
+	
+	health_component.damaged.connect(flash)
+
+func flash() -> void:
+	sprite.material.set_shader_parameter("flash_amount", 1.0)
+	await get_tree().create_timer(flash_duration).timeout
+	sprite.material.set_shader_parameter("flash_amount", 0.0)

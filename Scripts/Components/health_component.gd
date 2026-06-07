@@ -13,6 +13,7 @@ var is_invulnerable: bool = false
 
 signal died
 signal damaged
+signal health_changed(current_health: float, max_health: float)
 
 func _ready() -> void:
 	health = max_health
@@ -31,6 +32,7 @@ func damage_health(attack_damage: float) -> void:
 		print(owner.name + " health is now: "+ str(health))
 		
 	damaged.emit()
+	health_changed.emit(health, max_health)
 	
 	# death 
 	if health <= 0:

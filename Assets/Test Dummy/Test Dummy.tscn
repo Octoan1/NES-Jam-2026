@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dtq5y77dqse0b"]
 
-[ext_resource type="Script" uid="uid://54h7x68bm0tq" path="res://Entities/Test Dummy/test_dummy.gd" id="1_sake5"]
+[ext_resource type="Script" uid="uid://54h7x68bm0tq" path="res://Assets/Test Dummy/test_dummy.gd" id="1_sake5"]
 [ext_resource type="Texture2D" uid="uid://ci7rh4054c1u0" path="res://Assets/Taco_Top_Hat.png" id="1_slm2x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sake5"]

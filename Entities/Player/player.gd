@@ -8,7 +8,7 @@ var player_facing = 1
 #Siblings
 @onready var sprite := $Sprite
 @onready var attack_pivot := $AttackPivot
-@onready var sword_hitbox := $AttackPivot/SwordHitBox/CollisionShape2D
+@onready var sword_hitbox := $AttackPivot/SwordHitbox
 @onready var dash_timer := $DashTimer
 
 #Attack Variables
@@ -22,20 +22,21 @@ var can_dash: bool = true
 
 #Player Stats
 @export var dmg: float = 2.0
-@export var health: int = 10
+#@export var health: int = 10
 @export var speed: float = 200.0
 @export var dodge_chance: float = 0.0
 @export var jump_velocity: float = -200
 var can_move: bool = true
 
-@onready var hitbox_component: HitboxComponent = $AttackPivot/HitboxComponent
+# Components
+@onready var health_component: HealthComponent = $HealthComponent
 
 
 func _ready() -> void:
 	attack_pivot.visible = false
-	sword_hitbox.disabled = true
-
-	hitbox_component.monitoring = false # test
+	sword_hitbox.monitoring = false 
+	
+	health_component.died.connect(die)
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -69,7 +70,7 @@ func _physics_process(delta: float) -> void:
 		_start_dash()
 	
 	#Handle Attack
-	if Input.is_action_just_pressed("B_Button") and sword_hitbox.disabled:
+	if Input.is_action_just_pressed("B_Button") and sword_hitbox.monitoring == false:
 		_trigger_attack()
 
 	move_and_slide()
@@ -77,18 +78,16 @@ func _physics_process(delta: float) -> void:
 
 func _trigger_attack() -> void:
 	attack_pivot.visible = true
-	sword_hitbox.disabled = false
+	sword_hitbox.monitoring = true
 	
 	can_move = false
-	hitbox_component.monitoring = true #test
 	
 	await get_tree().create_timer(attack_duration).timeout
 	
 	attack_pivot.visible = false
-	sword_hitbox.disabled = true
+	sword_hitbox.monitoring = false	
 	
 	can_move = true
-	hitbox_component.monitoring = false # test
 	
 func _start_dash() -> void:
 	is_dashing = true
@@ -103,20 +102,16 @@ func _on_dash_timer_timeout() -> void:
 	await get_tree().create_timer(0.5).timeout
 	can_dash = true
 
-
-func _on_sword_hit_box_body_entered(body: Node2D) -> void:
-	if body.has_method("take_damage"):
-		body.take_damage(dmg)
-
-func player_take_damage(amount: int) -> void:
-	if randf() >= dodge_chance:
-		health -= amount
-		print("Player Health Remaining: ", health)
-	else:
-		print("Attack Dodged")
-	
-	if health <= 0:
-		die()
+#
+#func player_take_damage(amount: int) -> void:
+	#if randf() >= dodge_chance:
+		#health -= amount
+		#print("Player Health Remaining: ", health)
+	#else:
+		#print("Attack Dodged")
+	#
+	#if health <= 0:
+		#die()
 
 func die() -> void:
 	pass
