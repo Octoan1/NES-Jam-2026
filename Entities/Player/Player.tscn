@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dha2h40hql2pn" path="res://Entities/Player/player.gd" id="1_1iada"]
 [ext_resource type="Texture2D" uid="uid://dmcl1vnqtexq4" path="res://Aseprite/player_16x16.png" id="2_1iada"]
 [ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="3_vweq0"]
+[ext_resource type="AudioStream" uid="uid://cjuoup7ehnmle" path="res://Audio/PLACEHOLDER_hit_sound.wav" id="4_1des2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_41wu2"]
 size = Vector2(196.6822, 327.80368)
@@ -56,6 +57,10 @@ debug_color = Color(0.99607843, 0, 0.20784314, 0.41960785)
 [node name="DashTimer" type="Timer" parent="." unique_id=1907390099]
 wait_time = 0.2
 one_shot = true
+
+[node name="HitSFX" type="AudioStreamPlayer" parent="." unique_id=77261573]
+stream = ExtResource("4_1des2")
+volume_db = -10.0
 
 [connection signal="body_entered" from="AttackPivot/SwordHitBox" to="." method="_on_sword_hit_box_body_entered"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]

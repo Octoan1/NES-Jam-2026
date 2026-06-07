@@ -3,17 +3,28 @@ class_name HealthComponent
 
 @export var debug_mode: bool = false
 
-@export var MAX_HEALTH := 10
-var health : float
+@export var max_health := 10
+@export var invulnerability_duration := 0.5
+
+
+var health: float
+var is_invulnerable: bool = false
+
 
 signal died
 signal damaged
 
 func _ready() -> void:
-	health = MAX_HEALTH
+	health = max_health
 	
 #func damage_health(attack: Attack):
 func damage_health(attack_damage: float) -> void:
+	if is_invulnerable:
+		if debug_mode:
+			print(owner.name + " is invulnerable right now")
+		
+		return
+	
 	health -= attack_damage
 	
 	if debug_mode:
@@ -25,3 +36,11 @@ func damage_health(attack_damage: float) -> void:
 	if health <= 0:
 		#damaged.emit(attack.attack_damage)
 		died.emit()
+	
+	if invulnerability_duration > 0:
+		start_invulnerability()
+	
+func start_invulnerability() -> void:
+	is_invulnerable = true
+	await get_tree().create_timer(invulnerability_duration).timeout
+	is_invulnerable = false

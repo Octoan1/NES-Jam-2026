@@ -6,7 +6,6 @@ extends State
 @onready var extra_info_label: Label = $"../../DebugStateLabel/ExtraStateInfo"
 
 @export var move_speed: float = 40
-var move_direction: float
 
 
 func enter() -> void:
@@ -16,7 +15,8 @@ func exit() -> void:
 	pass
 
 func physics_update(_delta: float) -> void:
-	move_direction = enemy.global_position.direction_to(player.global_position).x
+	#move_direction = enemy.global_position.direction_to(player.global_position).x
+	var move_direction: int = 1 if enemy.global_position < player.global_position else -1
 
 	enemy.velocity.x = move_direction * move_speed
 	if player.global_position.y < 120 and enemy.global_position.y > 120:

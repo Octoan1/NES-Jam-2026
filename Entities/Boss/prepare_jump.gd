@@ -10,7 +10,7 @@ func enter() -> void:
 	pass
 	
 func exit() -> void:
-	pass
+	enemy.velocity.x = 0
 
 func update(_delta: float) -> void:
 	pass
@@ -24,5 +24,5 @@ func physics_update(_delta: float) -> void:
 	# in middle
 	print(enemy.global_position.distance_to(Vector2i(128, 156)))
 	
-	if enemy.global_position.distance_to(Vector2i(128, 156)) < 10:
+	if enemy.global_position.distance_to(Vector2i(128, 156)) < 5:
 		Transitioned.emit(self, "jump")

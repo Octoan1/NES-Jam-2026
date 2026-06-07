@@ -1,6 +1,8 @@
 extends Area2D
 class_name HitboxComponent
 
+signal hit
+
 @export var debug_mode: bool = false
 
 func _ready() -> void:
@@ -23,3 +25,5 @@ func _on_hitbox_component_area_entered(area: Area2D) -> void:
 		var attack: float = 1.0
 		
 		hurtbox.hurt(attack)
+		
+		hit.emit()
