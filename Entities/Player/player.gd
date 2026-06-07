@@ -23,9 +23,10 @@ var can_dash: bool = true
 #Player Stats
 @export var dmg: float = 2.0
 #@export var health: int = 10
+@export var gravity_modifier: float = 0.2
 @export var speed: float = 200.0
 @export var dodge_chance: float = 0.0
-@export var jump_velocity: float = -200
+@export var jump_velocity: float = -125
 var can_move: bool = true
 
 # Components
@@ -41,7 +42,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		velocity += get_gravity() * gravity_modifier * delta
 	
 	if is_dashing:
 		velocity.x = player_facing * dash_speed

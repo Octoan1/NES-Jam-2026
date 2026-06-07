@@ -4,7 +4,7 @@ extends State
 @onready var player: CharacterBody2D
 
 @export var jump_delay: float = 0.5
-@export var jump_velocity: Vector2 = Vector2(40, -150)
+@export var jump_velocity: Vector2 = Vector2(50, -250)
 
 var has_jumped: bool = false
 
