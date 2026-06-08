@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="Relic" format=3 uid="uid://mdewx4gditu"]
 
-[ext_resource type="Script" uid="uid://b45x76ks38rs1" path="res://Scripts/relic.gd" id="1_eyx0e"]
+[ext_resource type="Script" uid="uid://b45x76ks38rs1" path="res://Scripts/relic.gd" id="1_8whit"]
 
 [resource]
-script = ExtResource("1_eyx0e")
-name = "Stone Mask"
+script = ExtResource("1_8whit")
+name = "Ancient Mask"
 description = "Better wear sunscreen"
 pro = "Each time the player attacks the boss, their attack becomes stronger"
 con = "Every 5 seconds passed without attacking the boss, the player's attack becomes weaker"
-effect_name = "StoneMask"
+effect_name = "AncientMask"
 metadata/_custom_type_script = "uid://b45x76ks38rs1"
