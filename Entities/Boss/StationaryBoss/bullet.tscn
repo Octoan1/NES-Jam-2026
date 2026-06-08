@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://cdqa3e0wafdb6"]
+
+[ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="1_v5eym"]
+[ext_resource type="Script" uid="uid://c7mivwrvli5ot" path="res://Entities/Boss/StationaryBoss/bullet.gd" id="1_vewwk"]
+[ext_resource type="Texture2D" uid="uid://bd1rv0wm7tp87" path="res://Assets/PLACEHOLDER_projectice.png" id="2_2kk5f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2kk5f"]
+radius = 3.0
+
+[node name="Bullet" type="Node2D" unique_id=1344823539]
+script = ExtResource("1_vewwk")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1465665596]
+texture = ExtResource("2_2kk5f")
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=856041957]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("1_v5eym")
+metadata/_custom_type_script = "uid://b1c4qcf1gisb4"
+
+[node name="HitboxCollisionShape" type="CollisionShape2D" parent="HitboxComponent" unique_id=1256599237]
+shape = SubResource("CircleShape2D_2kk5f")
+debug_color = Color(1, 0, 0, 0.42000002)
+
+[connection signal="hit" from="HitboxComponent" to="." method="_on_hitbox_component_hit"]
