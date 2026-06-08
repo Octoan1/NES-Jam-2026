@@ -24,6 +24,9 @@ func _ready() -> void:
 	if debug_mode:
 		print("Current State: ", current_state)
 		print("All States: \n",  states)
+		debug_state_label.show()
+	else: 
+		debug_state_label.hide()
 
 
 func _process(delta: float) -> void:

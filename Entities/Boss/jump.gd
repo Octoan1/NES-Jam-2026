@@ -8,14 +8,16 @@ extends State
 
 var has_jumped: bool = false
 
+func _ready() -> void:
+	player = get_tree().get_first_node_in_group("Player")
+
 func enter() -> void:
 	has_jumped = false
-	player = get_tree().get_first_node_in_group("Player")
 
 	await get_tree().create_timer(jump_delay).timeout
 
-	var move_direction: int = 1 if enemy.global_position < player.global_position else -1
-	enemy.velocity.x = move_direction * jump_velocity.x
+	enemy.move_direction = 1 if enemy.global_position < player.global_position else -1
+	enemy.velocity.x = enemy.move_direction * jump_velocity.x
 	enemy.velocity.y = jump_velocity.y
 	
 	has_jumped = true

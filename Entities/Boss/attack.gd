@@ -3,6 +3,8 @@ extends State
 @onready var enemy: CharacterBody2D = $"../.."
 @onready var player: CharacterBody2D
 @onready var extra_info_label: Label = $"../../DebugStateLabel/ExtraStateInfo"
+@onready var attack_pivot: Node2D = $"../../AttackPivot"
+@onready var attack_hitbox: HitboxComponent = $"../../AttackPivot/AttackHitbox"
 
 @export var attack_duration: float = 2.0
 var attack_timer: Timer
@@ -18,11 +20,14 @@ func enter() -> void:
 	extra_info_label.show()
 	if attack_timer.is_stopped():
 		attack_timer.start()
+	attack_pivot.show()
+	attack_hitbox.monitoring = true
 
 
 func exit() -> void: 
 	extra_info_label.hide()
-	pass
+	attack_pivot.hide()
+	attack_hitbox.monitoring = false
 	
 func update(_delta: float) -> void:
 	pass

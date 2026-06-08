@@ -17,9 +17,9 @@ func update(_delta: float) -> void:
 
 func physics_update(_delta: float) -> void:
 	# move to middle
-	var move_direction: float = enemy.global_position.direction_to(Vector2i(128, 156)).x
+	enemy.move_direction = enemy.global_position.direction_to(Vector2i(128, 156)).x
 	
-	enemy.velocity.x = move_direction * move_speed
+	enemy.velocity.x = enemy.move_direction * move_speed
 	
 	# in middle
 	#print(enemy.global_position.distance_to(Vector2i(128, 156)))

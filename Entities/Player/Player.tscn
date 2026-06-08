@@ -34,6 +34,7 @@ metadata/_custom_type_script = "uid://bp60vdvwyxe7f"
 
 [node name="FlashComponent" type="Node" parent="." unique_id=568026781 node_paths=PackedStringArray("sprite", "health_component")]
 script = ExtResource("3_x44r4")
+debug_mode = true
 sprite = NodePath("../Sprite")
 health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://c00fny1ika60u"

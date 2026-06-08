@@ -6,28 +6,17 @@
 [ext_resource type="Script" uid="uid://b33upjirfs7dt" path="res://Scripts/Components/hurtbox_component.gd" id="3_2omb5"]
 [ext_resource type="Script" uid="uid://c00fny1ika60u" path="res://Scripts/Components/flash_color_component.gd" id="3_j5h4c"]
 [ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="4_2omb5"]
+[ext_resource type="Shader" uid="uid://blmvfgvk3bx8a" path="res://Entities/flash_color.gdshader" id="4_kgai5"]
 [ext_resource type="Script" uid="uid://cfv7usv2c3fyj" path="res://Scripts/Components/state_machine.gd" id="6_qux1t"]
+[ext_resource type="Texture2D" uid="uid://dsw7j0e3akagt" path="res://Assets/PLACEHOLDER_attack.png" id="8_kgai5"]
 [ext_resource type="Script" uid="uid://cswhynt3b5js5" path="res://Entities/Boss/enemy_follow_state.gd" id="8_v3mtm"]
 [ext_resource type="Script" uid="uid://csrkb20rs7cup" path="res://Entities/Boss/prepare_jump.gd" id="9_8t1td"]
 [ext_resource type="Script" uid="uid://cqtod7pp2ag1g" path="res://Entities/Boss/jump.gd" id="10_vry5g"]
 [ext_resource type="Script" uid="uid://cc8m3hpmrpkw5" path="res://Entities/Boss/attack.gd" id="12_j5h4c"]
 [ext_resource type="AudioStream" uid="uid://cjuoup7ehnmle" path="res://Audio/PLACEHOLDER_hit_sound.wav" id="12_q0e2a"]
 
-[sub_resource type="Shader" id="Shader_q0e2a"]
-code = "shader_type canvas_item;
-
-uniform vec4 flash_color: source_color;
-uniform float flash_amount: hint_range(0.0, 1.0, 0.1);
-
-void fragment() {
-	vec4 texture_color = texture(TEXTURE, UV);
-	COLOR = mix(texture_color, flash_color, flash_amount);
-	COLOR.a = texture_color.a;
-}
-"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_j5h4c"]
-shader = SubResource("Shader_q0e2a")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mdtrg"]
+shader = ExtResource("4_kgai5")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_amount = 0.0
 
@@ -39,6 +28,8 @@ size = Vector2(28, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2omb5"]
 size = Vector2(24, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j5h4c"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_v3mtm"]
 font_size = 7
@@ -56,12 +47,13 @@ metadata/_custom_type_script = "uid://bp60vdvwyxe7f"
 
 [node name="FlashComponent" type="Node" parent="." unique_id=2055362749 node_paths=PackedStringArray("sprite", "health_component")]
 script = ExtResource("3_j5h4c")
+debug_mode = true
 sprite = NodePath("../Sprite2D")
 health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://c00fny1ika60u"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1256249856]
-material = SubResource("ShaderMaterial_j5h4c")
+material = SubResource("ShaderMaterial_mdtrg")
 position = Vector2(2, 0)
 texture = ExtResource("1_mnpil")
 
@@ -92,6 +84,28 @@ position = Vector2(2, 0)
 shape = SubResource("RectangleShape2D_2omb5")
 debug_color = Color(1, 0, 0, 0.24705882)
 
+[node name="AttackPivot" type="Node2D" parent="." unique_id=428994008]
+visible = false
+
+[node name="AttackHitbox" type="Area2D" parent="AttackPivot" unique_id=1097261283]
+collision_layer = 4
+collision_mask = 2
+monitoring = false
+monitorable = false
+script = ExtResource("4_2omb5")
+metadata/_custom_type_script = "uid://b1c4qcf1gisb4"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackPivot/AttackHitbox" unique_id=1400395764]
+position = Vector2(24, 1)
+shape = SubResource("RectangleShape2D_j5h4c")
+debug_color = Color(1, 0, 0, 0.42000002)
+
+[node name="Sprite2D" type="Sprite2D" parent="AttackPivot" unique_id=1285360223]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(24, 0)
+scale = Vector2(1, 2.1599998)
+texture = ExtResource("8_kgai5")
+
 [node name="DebugStateLabel" type="Label" parent="." unique_id=1733445277]
 offset_left = -29.0
 offset_top = -36.0
@@ -112,6 +126,7 @@ horizontal_alignment = 1
 
 [node name="StateMachine" type="Node" parent="." unique_id=603166184 node_paths=PackedStringArray("debug_state_label", "initial_state")]
 script = ExtResource("6_qux1t")
+debug_mode = true
 debug_state_label = NodePath("../DebugStateLabel")
 initial_state = NodePath("Follow")
 metadata/_custom_type_script = "uid://cfv7usv2c3fyj"
