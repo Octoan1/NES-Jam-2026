@@ -2,6 +2,7 @@ extends Node
 class_name StateMachine
 
 @export var debug_mode: bool = false
+@export var show_state_label: bool = false
 @export var debug_state_label: Label
 
 @export var initial_state: State
@@ -24,23 +25,21 @@ func _ready() -> void:
 	if debug_mode:
 		print("Current State: ", current_state)
 		print("All States: \n",  states)
-		debug_state_label.show()
-	else: 
-		debug_state_label.hide()
+	debug_state_label.visible = show_state_label
 
 
 func _process(delta: float) -> void:
 	if current_state:
 		current_state.update(delta)
 		
-		if debug_mode:
+		if show_state_label:
 			debug_state_label.text = current_state.name
 		
 func _physics_process(delta: float) -> void:
 	if current_state:
 		current_state.physics_update(delta)
 		
-		if debug_mode:
+		if show_state_label:
 			debug_state_label.text = current_state.name
 
 

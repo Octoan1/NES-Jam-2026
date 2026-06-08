@@ -47,7 +47,6 @@ metadata/_custom_type_script = "uid://bp60vdvwyxe7f"
 
 [node name="FlashComponent" type="Node" parent="." unique_id=2055362749 node_paths=PackedStringArray("sprite", "health_component")]
 script = ExtResource("3_j5h4c")
-debug_mode = true
 sprite = NodePath("../Sprite2D")
 health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://c00fny1ika60u"
@@ -126,7 +125,7 @@ horizontal_alignment = 1
 
 [node name="StateMachine" type="Node" parent="." unique_id=603166184 node_paths=PackedStringArray("debug_state_label", "initial_state")]
 script = ExtResource("6_qux1t")
-debug_mode = true
+show_state_label = true
 debug_state_label = NodePath("../DebugStateLabel")
 initial_state = NodePath("Follow")
 metadata/_custom_type_script = "uid://cfv7usv2c3fyj"
