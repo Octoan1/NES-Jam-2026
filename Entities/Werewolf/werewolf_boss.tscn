@@ -1,17 +1,17 @@
 [gd_scene format=3 uid="uid://p8kp02s5o2hh"]
 
 [ext_resource type="Script" uid="uid://bp60vdvwyxe7f" path="res://Scripts/Components/health_component.gd" id="1_3vbb2"]
-[ext_resource type="Script" uid="uid://rpyuu6bjv6ta" path="res://Entities/Boss/werewolf_boss.gd" id="1_k3rs4"]
+[ext_resource type="Script" uid="uid://rpyuu6bjv6ta" path="res://Entities/Werewolf/werewolf_boss.gd" id="1_k3rs4"]
 [ext_resource type="Texture2D" uid="uid://bwtu4q2ycoyo8" path="res://Assets/werewolf.png" id="1_mnpil"]
 [ext_resource type="Script" uid="uid://b33upjirfs7dt" path="res://Scripts/Components/hurtbox_component.gd" id="3_2omb5"]
 [ext_resource type="Script" uid="uid://c00fny1ika60u" path="res://Scripts/Components/flash_color_component.gd" id="3_j5h4c"]
 [ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="4_2omb5"]
 [ext_resource type="Shader" uid="uid://blmvfgvk3bx8a" path="res://Entities/flash_color.gdshader" id="4_kgai5"]
 [ext_resource type="Script" uid="uid://cfv7usv2c3fyj" path="res://Scripts/Components/state_machine.gd" id="6_qux1t"]
-[ext_resource type="Script" uid="uid://cswhynt3b5js5" path="res://Entities/Boss/enemy_follow_state.gd" id="8_v3mtm"]
-[ext_resource type="Script" uid="uid://csrkb20rs7cup" path="res://Entities/Boss/prepare_jump.gd" id="9_8t1td"]
-[ext_resource type="Script" uid="uid://cqtod7pp2ag1g" path="res://Entities/Boss/jump.gd" id="10_vry5g"]
-[ext_resource type="Script" uid="uid://cc8m3hpmrpkw5" path="res://Entities/Boss/attack.gd" id="12_j5h4c"]
+[ext_resource type="Script" uid="uid://cswhynt3b5js5" path="res://Entities/Werewolf/enemy_follow_state.gd" id="8_v3mtm"]
+[ext_resource type="Script" uid="uid://csrkb20rs7cup" path="res://Entities/Werewolf/prepare_jump.gd" id="9_8t1td"]
+[ext_resource type="Script" uid="uid://cqtod7pp2ag1g" path="res://Entities/Werewolf/jump.gd" id="10_vry5g"]
+[ext_resource type="Script" uid="uid://cc8m3hpmrpkw5" path="res://Entities/Werewolf/attack.gd" id="12_j5h4c"]
 [ext_resource type="AudioStream" uid="uid://cjuoup7ehnmle" path="res://Audio/PLACEHOLDER_hit_sound.wav" id="12_q0e2a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mdtrg"]
@@ -56,10 +56,12 @@ position = Vector2(2, 0)
 texture = ExtResource("1_mnpil")
 
 [node name="WorldCollisionShape" type="CollisionShape2D" parent="." unique_id=1718629205]
+visible = false
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_upsjp")
 
 [node name="HurtboxComponent" type="Area2D" parent="." unique_id=1355050189 node_paths=PackedStringArray("health_component")]
+visible = false
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("3_2omb5")
@@ -102,6 +104,7 @@ horizontal_alignment = 1
 
 [node name="StateMachine" type="Node" parent="." unique_id=603166184 node_paths=PackedStringArray("debug_state_label", "initial_state")]
 script = ExtResource("6_qux1t")
+debug_mode = true
 debug_state_label = NodePath("../DebugStateLabel")
 initial_state = NodePath("Follow")
 metadata/_custom_type_script = "uid://cfv7usv2c3fyj"

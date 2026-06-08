@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://buxpwecnlehmm" path="res://Entities/Player/Player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://wxffyjyjg2dj" path="res://Levels/werewolf_boss_fight.tscn" id="3_h2yge"]
-[ext_resource type="PackedScene" uid="uid://p8kp02s5o2hh" path="res://Entities/Boss/werewolf_boss.tscn" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://p8kp02s5o2hh" path="res://Entities/Werewolf/werewolf_boss.tscn" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://cqas1sibe4giw" path="res://UI/HUD/hud.tscn" id="4_lquwl"]
 
 [node name="Main" type="Node2D" unique_id=1017056218]
