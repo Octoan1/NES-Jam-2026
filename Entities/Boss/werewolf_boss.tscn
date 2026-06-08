@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://c00fny1ika60u" path="res://Scripts/Components/flash_color_component.gd" id="3_j5h4c"]
 [ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="4_2omb5"]
 [ext_resource type="Script" uid="uid://cfv7usv2c3fyj" path="res://Scripts/Components/state_machine.gd" id="6_qux1t"]
-[ext_resource type="Script" uid="uid://dkwurjqsvvk8c" path="res://Entities/Boss/enemy_idle.gd" id="6_w7njc"]
 [ext_resource type="Script" uid="uid://cswhynt3b5js5" path="res://Entities/Boss/enemy_follow_state.gd" id="8_v3mtm"]
 [ext_resource type="Script" uid="uid://csrkb20rs7cup" path="res://Entities/Boss/prepare_jump.gd" id="9_8t1td"]
 [ext_resource type="Script" uid="uid://cqtod7pp2ag1g" path="res://Entities/Boss/jump.gd" id="10_vry5g"]
@@ -115,16 +114,9 @@ horizontal_alignment = 1
 
 [node name="StateMachine" type="Node" parent="." unique_id=603166184 node_paths=PackedStringArray("debug_state_label", "initial_state")]
 script = ExtResource("6_qux1t")
-debug_mode = true
 debug_state_label = NodePath("../DebugStateLabel")
 initial_state = NodePath("Follow")
 metadata/_custom_type_script = "uid://cfv7usv2c3fyj"
-
-[node name="Idle" type="Node" parent="StateMachine" unique_id=514028111]
-script = ExtResource("6_w7njc")
-
-[node name="Test" type="Timer" parent="StateMachine/Idle" unique_id=703938609]
-wait_time = 3.0
 
 [node name="Follow" type="Node" parent="StateMachine" unique_id=1920541134]
 script = ExtResource("8_v3mtm")
@@ -146,5 +138,4 @@ stream = ExtResource("12_q0e2a")
 volume_db = -10.0
 
 [connection signal="damaged" from="HealthComponent" to="." method="_on_health_component_damaged"]
-[connection signal="timeout" from="StateMachine/Idle/Test" to="StateMachine/Idle" method="_on_test_timeout"]
 [connection signal="timeout" from="StateMachine/Follow/JumpTimer" to="StateMachine/Follow" method="_on_jump_timer_timeout"]
