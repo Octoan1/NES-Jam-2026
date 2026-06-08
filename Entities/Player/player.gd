@@ -6,7 +6,7 @@ extends CharacterBody2D
 var player_facing = 1
 
 #Siblings
-@onready var sprite := $Sprite
+@onready var sprite := $AnimatedSprite2D
 @onready var attack_pivot := $AttackPivot
 @onready var sword_hitbox := $AttackPivot/SwordHitbox
 @onready var dash_timer := $DashTimer
@@ -60,6 +60,7 @@ func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis("D_Pad_Left", "D_Pad_Right")
 	if direction and can_move:
 		velocity.x = direction * speed
+		sprite.play("walk")
 		if direction > 0:
 			sprite.flip_h = false
 		elif direction < 0:
@@ -68,6 +69,7 @@ func _physics_process(delta: float) -> void:
 		player_facing = sign(direction)
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
+		sprite.play("default")
 	
 	#Handle Dash
 	if Input.is_action_just_pressed("D_Pad_Down") and can_dash:
