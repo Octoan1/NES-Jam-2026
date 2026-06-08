@@ -32,6 +32,10 @@ var can_dash: bool = true
 @export var jump_velocity: float = -125
 var can_move: bool = true
 
+# coyote time
+@export var coyote_time := 0.1
+var coyote_timer := 0.0
+
 # Components
 @onready var health_component: HealthComponent = $HealthComponent
 
@@ -46,6 +50,9 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * gravity_modifier * delta
+		coyote_timer -= delta
+	else: 
+		coyote_timer = coyote_time
 	
 	if is_dashing:
 		velocity.x = player_facing * dash_speed
@@ -53,8 +60,9 @@ func _physics_process(delta: float) -> void:
 		return
 
 	# Handle jump.
-	if Input.is_action_just_pressed("A_Button") and is_on_floor() and can_move:
+	if Input.is_action_just_pressed("A_Button") and (is_on_floor() or coyote_time > 0.0) and can_move:
 		velocity.y = jump_velocity
+		coyote_timer = 0.0
 
 	# Get the input direction and handle the movement/deceleration.
 	var direction := Input.get_axis("D_Pad_Left", "D_Pad_Right")
