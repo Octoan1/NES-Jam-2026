@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b62homr3m681t" path="res://PLACEHOLDER_tile_map_layer.tscn" id="1_tpsv4"]
 [ext_resource type="PackedScene" uid="uid://by4tvphhwvb7i" path="res://Entities/Boss/StationaryBoss/stationary_boss.tscn" id="2_i5bj2"]
+[ext_resource type="PackedScene" uid="uid://buxpwecnlehmm" path="res://Entities/Player/Player.tscn" id="3_6c1ox"]
 
 [node name="StationaryBossFight" type="Node2D" unique_id=1526820607]
 
@@ -10,3 +11,5 @@ tile_map_data = PackedByteArray("AAAAAAsAAAAAAAAAAAAAAAwAAAADAAAAAAAAAA0AAAADAAA
 
 [node name="StationaryBoss" parent="." unique_id=860853027 instance=ExtResource("2_i5bj2")]
 position = Vector2(122, 159)
+
+[node name="Player" parent="." unique_id=316049185 instance=ExtResource("3_6c1ox")]
