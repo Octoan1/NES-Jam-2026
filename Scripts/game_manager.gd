@@ -187,7 +187,6 @@ func DeathBook():
 	# negative effect:
 	# handled in the 'begin_boss()' method
 	
-	print("Deadly")
 
 # When standing still you are invulnerable
 # You cannot attack while invulnerable, nor survive for more than 5 seconds in this state.
