@@ -93,12 +93,14 @@ func _trigger_attack() -> void:
 func _start_dash() -> void:
 	is_dashing = true
 	can_dash = false
+	health_component.is_invulnerable = true
 	
 	dash_timer.wait_time = dash_duration
 	dash_timer.start()
 
 func _on_dash_timer_timeout() -> void:
 	is_dashing = false
+	health_component.is_invulnerable = false
 	
 	await get_tree().create_timer(0.5).timeout
 	can_dash = true
