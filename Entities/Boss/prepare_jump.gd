@@ -22,7 +22,7 @@ func physics_update(_delta: float) -> void:
 	enemy.velocity.x = move_direction * move_speed
 	
 	# in middle
-	print(enemy.global_position.distance_to(Vector2i(128, 156)))
+	#print(enemy.global_position.distance_to(Vector2i(128, 156)))
 	
 	if enemy.global_position.distance_to(Vector2i(128, 156)) < 5:
 		Transitioned.emit(self, "jump")

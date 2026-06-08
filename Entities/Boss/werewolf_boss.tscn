@@ -52,12 +52,10 @@ script = ExtResource("1_k3rs4")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=2090019854]
 script = ExtResource("1_3vbb2")
-debug_mode = true
 metadata/_custom_type_script = "uid://bp60vdvwyxe7f"
 
 [node name="FlashComponent" type="Node" parent="." unique_id=2055362749 node_paths=PackedStringArray("sprite", "health_component")]
 script = ExtResource("3_j5h4c")
-debug_mode = true
 sprite = NodePath("../Sprite2D")
 health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://c00fny1ika60u"
