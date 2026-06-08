@@ -6,6 +6,7 @@ class_name HealthComponent
 @export var max_health := 10
 @export var invulnerability_duration := 0.5
 
+@export var defense_component: DefenseComponent
 
 var health: float
 var is_invulnerable: bool = false
@@ -23,8 +24,12 @@ func damage_health(attack_damage: float) -> void:
 	if is_invulnerable:
 		if debug_mode:
 			print(owner.name + " is invulnerable right now")
-		
 		return
+	
+	if defense_component:
+		attack_damage = defense_component.modify_damage(attack_damage)
+		if attack_damage <= 0:
+			return
 	
 	health -= attack_damage
 	

@@ -7,9 +7,10 @@ extends State
 
 @export var move_speed: float = 40
 
+func _ready() -> void:
+	player = get_tree().get_first_node_in_group("Player")
 
 func enter() -> void:
-	player = get_tree().get_first_node_in_group("Player")
 	extra_info_label.show()
 	
 func exit() -> void:
@@ -17,8 +18,8 @@ func exit() -> void:
 
 func physics_update(_delta: float) -> void:
 	#move_direction = enemy.global_position.direction_to(player.global_position).x
-	var move_direction: int = 1 if enemy.global_position < player.global_position else -1
-	enemy.velocity.x = move_direction * move_speed
+	enemy.move_direction = 1 if enemy.global_position < player.global_position else -1
+	enemy.velocity.x = enemy.move_direction * move_speed
 	
 	var distance = player.global_position - enemy.global_position
 	if abs(distance.x) < 25 and abs(distance.y) < 10:

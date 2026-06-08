@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://cjuoup7ehnmle" path="res://Audio/PLACEHOLDER_hit_sound.wav" id="4_1des2"]
 [ext_resource type="Script" uid="uid://b33upjirfs7dt" path="res://Scripts/Components/hurtbox_component.gd" id="4_t38ms"]
 [ext_resource type="Texture2D" uid="uid://dsw7j0e3akagt" path="res://Assets/PLACEHOLDER_attack.png" id="8_761t5"]
+[ext_resource type="Script" uid="uid://bv4g7seykfa7j" path="res://Scripts/Components/defense_component.gd" id="10_hacra"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_41wu2"]
 size = Vector2(196.6822, 327.80368)
@@ -28,18 +29,22 @@ gravity_modifier = 0.6
 speed = 100.0
 jump_velocity = -250.0
 
-[node name="HealthComponent" type="Node" parent="." unique_id=1416142201]
+[node name="HealthComponent" type="Node" parent="." unique_id=1416142201 node_paths=PackedStringArray("defense_component")]
 script = ExtResource("2_an6q6")
-debug_mode = true
 max_health = 16
+defense_component = NodePath("../DefenseComponent")
 metadata/_custom_type_script = "uid://bp60vdvwyxe7f"
 
 [node name="FlashComponent" type="Node" parent="." unique_id=568026781 node_paths=PackedStringArray("sprite", "health_component")]
 script = ExtResource("3_x44r4")
-debug_mode = true
 sprite = NodePath("../Sprite")
 health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://c00fny1ika60u"
+
+[node name="DefenseComponent" type="Node" parent="." unique_id=608194184]
+script = ExtResource("10_hacra")
+dodge_chance = 0.5
+metadata/_custom_type_script = "uid://bv4g7seykfa7j"
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1970645673]
 material = ExtResource("3_hj1c0")

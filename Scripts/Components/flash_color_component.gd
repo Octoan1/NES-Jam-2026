@@ -11,6 +11,9 @@ class_name FlashComponent
 @export var flash_duration := 0.1
 
 func _ready() -> void:
+	# bandaid solution for spawning white
+	flash()
+	
 	if not sprite:
 		printerr("ERROR: missing sprite")
 	
@@ -28,6 +31,9 @@ func _ready() -> void:
 		print(owner.name, " flash listening to ", health_component.owner.name)
 
 func flash() -> void:
+	if debug_mode:
+		print(owner.name + " flash ", color)
+		
 	sprite.material.set_shader_parameter("flash_amount", 1.0)
 	await get_tree().create_timer(flash_duration).timeout
 	sprite.material.set_shader_parameter("flash_amount", 0.0)
