@@ -24,6 +24,9 @@ const MAIN = preload("uid://cqfkwrq6ehxx5")
 var relic_reward_scene = Control
 const RELIC_REWARD = preload("uid://b3klv6pypfa8n")
 
+var title_screen_scene = Control
+const MAIN_MENU = preload("uid://xsjlb0si8fwb")
+
 var canvas_layer: CanvasLayer
 
 
@@ -63,12 +66,17 @@ func begin_boss():
 	get_tree().current_scene.add_child(main_scene)
 	
 	for child in main_scene.get_children():
+		# connect player death signal
+		if child.name == "Player":
+			child.get_child(0).connect("died", player_killed)
+		
+		# if fighting werewolf: Connect death signal
 		if child.name == "WerewolfBossFight":
 			for grandchild in child.get_children():
 				if grandchild.name == "WerewolfBoss":
 					print(grandchild.get_child(0).name)
 					grandchild.get_child(0).connect("died", boss_killed)
-					break
+					continue
 
 func boss_killed():
 	canvas_layer = get_tree().current_scene.find_child("CanvasLayer", true, false)
@@ -76,6 +84,18 @@ func boss_killed():
 	main_scene.queue_free()
 	relic_reward_scene = RELIC_REWARD.instantiate()
 	canvas_layer.add_child(relic_reward_scene)
+
+func player_killed():
+	# take player back to main menu
+	canvas_layer = get_tree().current_scene.find_child("CanvasLayer", true, false)
+	
+	main_scene.queue_free()
+	title_screen_scene = MAIN_MENU.instantiate()
+	canvas_layer.add_child(title_screen_scene)
+	title_screen_scene.connect("start_game", begin_boss)
+	
+	# reset player inventory and relic pool
+	reset_relics()
 
 func relic_selected(relic: Relic):
 	# add relic to inventory, and remove from overall pool of relics
