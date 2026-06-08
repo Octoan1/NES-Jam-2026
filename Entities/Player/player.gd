@@ -12,7 +12,9 @@ var player_facing = 1
 @onready var dash_timer := $DashTimer
 
 #Attack Variables
-@export var  attack_duration: float = 0.15
+@export var attack_duration: float = 0.15
+@export var attack_delay: float = 0.2
+var can_attack: bool = true
 
 #Dash Variables
 @export var dash_speed: float = 800.0
@@ -71,7 +73,7 @@ func _physics_process(delta: float) -> void:
 		_start_dash()
 	
 	#Handle Attack
-	if Input.is_action_just_pressed("B_Button") and sword_hitbox.monitoring == false:
+	if Input.is_action_just_pressed("B_Button") and sword_hitbox.monitoring == false and can_attack:
 		_trigger_attack()
 
 	move_and_slide()
@@ -89,6 +91,14 @@ func _trigger_attack() -> void:
 	sword_hitbox.monitoring = false	
 	
 	can_move = true
+	
+	#Delay after attack but before next attack
+	can_attack = false
+	print("print delay start")
+	await get_tree().create_timer(attack_delay).timeout
+	print("print delay end")
+	can_attack = true
+	
 	
 func _start_dash() -> void:
 	is_dashing = true
