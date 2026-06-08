@@ -70,7 +70,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, speed)
 	
 	#Handle Dash
-	if Input.is_action_just_pressed("D_Pad_Down") and can_move and can_dash:
+	if Input.is_action_just_pressed("D_Pad_Down") and can_dash:
 		_start_dash()
 	
 	#Handle Attack
