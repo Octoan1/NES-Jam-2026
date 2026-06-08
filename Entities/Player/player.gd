@@ -19,6 +19,7 @@ var can_attack: bool = true
 #Dash Variables
 @export var dash_speed: float = 800.0
 @export var dash_duration: float = 0.1
+@export var dash_delay: float = 0.5
 var is_dashing: bool = false
 var can_dash: bool = true
 
@@ -69,7 +70,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, speed)
 	
 	#Handle Dash
-	if Input.is_action_just_pressed("D_Pad_Down") and can_move:
+	if Input.is_action_just_pressed("D_Pad_Down") and can_move and can_dash:
 		_start_dash()
 	
 	#Handle Attack
@@ -94,9 +95,9 @@ func _trigger_attack() -> void:
 	
 	#Delay after attack but before next attack
 	can_attack = false
-	print("print delay start")
+	
 	await get_tree().create_timer(attack_delay).timeout
-	print("print delay end")
+	
 	can_attack = true
 	
 	
@@ -112,7 +113,7 @@ func _on_dash_timer_timeout() -> void:
 	is_dashing = false
 	health_component.is_invulnerable = false
 	
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(dash_delay).timeout
 	can_dash = true
 
 #

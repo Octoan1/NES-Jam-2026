@@ -36,11 +36,13 @@ func add_relic(item: Relic):
 	print("Relic added to inventory successfully.")
 	print("Current inventory: ", inventory)
 	print("Current relic pool: ", relics)
+	self.call(item.effect_name)
 
 func update_properties():
-	print(inventory.size())
-	for item in inventory:
-		self.call(item.effect_name)
+	pass
+	#print(inventory.size())
+	#for item in inventory:
+		#self.call(item.effect_name)
 
 func reset_relics():
 	inventory = []
