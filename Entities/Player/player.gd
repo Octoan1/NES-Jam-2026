@@ -58,11 +58,15 @@ func _physics_process(delta: float) -> void:
 		velocity.x = player_facing * dash_speed
 		move_and_slide()
 		return
+		
 
 	# Handle jump.
-	if Input.is_action_just_pressed("A_Button") and (is_on_floor() or coyote_time > 0.0) and can_move and not Input.is_action_pressed("D_Pad_Down"):
+	if Input.is_action_just_pressed("A_Button") and (is_on_floor() or coyote_timer > 0.0) and can_move and not Input.is_action_pressed("D_Pad_Down"):
 		velocity.y = jump_velocity
 		coyote_timer = 0.0
+		if Input.is_action_pressed("D_Pad_Up"):
+			_start_dash()
+			return
 
 	# Get the input direction and handle the movement/deceleration.
 	var direction := Input.get_axis("D_Pad_Left", "D_Pad_Right")
@@ -73,21 +77,20 @@ func _physics_process(delta: float) -> void:
 			sprite.flip_h = false
 		elif direction < 0:
 			sprite.flip_h = true
-		attack_pivot.scale.x = direction
 		player_facing = sign(direction)
+		attack_pivot.scale.x = player_facing
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
-		sprite.play("default")
+		if Input.is_action_pressed("D_Pad_Down"):
+			sprite.play("duck")
+		else:
+			sprite.play("default")
 	
 	#Handle Dash
 	#if Input.is_action_just_pressed("D_Pad_Down") and can_dash and is_on_floor():
 	if Input.is_action_pressed("D_Pad_Down") and Input.is_action_just_pressed("A_Button") and can_dash and is_on_floor():
 		_start_dash()
-	
-	if Input.is_action_pressed("D_Pad_Up") and Input.is_action_just_pressed("A_Button") and can_dash and is_on_floor():
-		velocity.y = jump_velocity
-		coyote_timer = 0.0
-		_start_dash()
+
 	
 	#Handle Attack
 	if Input.is_action_just_pressed("B_Button") and sword_hitbox.monitoring == false and can_attack:

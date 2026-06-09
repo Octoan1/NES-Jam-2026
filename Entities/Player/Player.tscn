@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://c00fny1ika60u" path="res://Scripts/Components/flash_color_component.gd" id="3_x44r4"]
 [ext_resource type="AudioStream" uid="uid://cjuoup7ehnmle" path="res://Audio/PLACEHOLDER_hit_sound.wav" id="4_1des2"]
 [ext_resource type="Script" uid="uid://b33upjirfs7dt" path="res://Scripts/Components/hurtbox_component.gd" id="4_t38ms"]
+[ext_resource type="Texture2D" uid="uid://n5yokddfos8a" path="res://Aseprite/duck.png" id="6_061yh"]
 [ext_resource type="Texture2D" uid="uid://dlpss007jrsa" path="res://Aseprite/player.png" id="6_hacra"]
 [ext_resource type="Texture2D" uid="uid://ck2gc3np1d450" path="res://Aseprite/player-Sheet.png" id="6_jynvv"]
 [ext_resource type="Texture2D" uid="uid://bpbbi8jtuyqmj" path="res://Aseprite/roll.png" id="6_lmeus"]
@@ -15,6 +16,10 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lmeus"]
 atlas = ExtResource("6_hacra")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gallu"]
+atlas = ExtResource("6_061yh")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hl213"]
@@ -49,6 +54,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gallu")
+}],
+"loop": true,
+"name": &"duck",
 "speed": 5.0
 }, {
 "frames": [{
@@ -118,6 +131,7 @@ metadata/_custom_type_script = "uid://bv4g7seykfa7j"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1158637556]
 sprite_frames = SubResource("SpriteFrames_gallu")
+animation = &"duck"
 autoplay = "default"
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1970645673]
