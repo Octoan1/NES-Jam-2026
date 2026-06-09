@@ -118,10 +118,7 @@ metadata/_custom_type_script = "uid://bv4g7seykfa7j"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1158637556]
 sprite_frames = SubResource("SpriteFrames_gallu")
-animation = &"roll"
 autoplay = "default"
-frame = 3
-frame_progress = 1.0
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1970645673]
 visible = false
