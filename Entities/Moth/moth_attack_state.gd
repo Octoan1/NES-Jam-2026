@@ -3,30 +3,40 @@ extends State
 @onready var enemy: CharacterBody2D = $"../.."
 @onready var extra_info_label: Label = $"../../DebugStateLabel/ExtraStateInfo"
 
-var positions: Array[Vector2] = [Vector2(28, 168), Vector2(28, 120), Vector2(28, 72), Vector2(223, 168), Vector2(223, 120), Vector2(223, 72)]
-var next_position: Vector2
-@export var fly_speed: float = 200.0
+@export var attack_delay: float = 2.0
+@export var max_num_shots: int = 3
+var num_shots: int
 
-func randomize_position():
-	next_position = positions[randi_range(0, 5)]
-	print(next_position)
+var delay_timer: Timer
+
+func _ready() -> void:
+	delay_timer = Timer.new()
+	delay_timer.wait_time = attack_delay
+	self.add_child(delay_timer)
+	delay_timer.timeout.connect(_on_delay_timer_timeout)
 
 func enter() -> void:
-	randomize_position()
+	print("-------------------------------------------------------------------------------")
 	extra_info_label.show()
+	num_shots = 0
+	if delay_timer.is_stopped():
+		delay_timer.start()
 
 func exit() -> void: 
 	extra_info_label.hide()
 	
 func update(_delta: float) -> void:
 	pass
+	
 
-func physics_update(_delta: float) -> void:
-	if enemy:
-		print(enemy.global_position)
-		enemy.velocity = Vector2(move_toward(enemy.global_position.x, next_position.x, fly_speed) - enemy.global_position.x, move_toward(enemy.global_position.y, next_position.y, fly_speed) - enemy.global_position.y)
-		
-		var distance = next_position - enemy.global_position
-		if abs(distance.x) < 2 and abs(distance.y) < 2:
-			print("CHEESECHEESECHEESE")
-			Transitioned.emit(self, "moth attack")
+func physics_update(delta: float) -> void:
+	pass
+
+func _on_delay_timer_timeout() -> void:
+	if num_shots == max_num_shots:
+		delay_timer.stop()
+		Transitioned.emit(self, "moth move")
+	else:
+		print("Moth Attacks")
+		num_shots += 1
+		delay_timer.start()
