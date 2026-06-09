@@ -9,12 +9,29 @@
 [ext_resource type="Script" uid="uid://b33upjirfs7dt" path="res://Scripts/Components/hurtbox_component.gd" id="4_t38ms"]
 [ext_resource type="Texture2D" uid="uid://dlpss007jrsa" path="res://Aseprite/player.png" id="6_hacra"]
 [ext_resource type="Texture2D" uid="uid://ck2gc3np1d450" path="res://Aseprite/player-Sheet.png" id="6_jynvv"]
+[ext_resource type="Texture2D" uid="uid://bpbbi8jtuyqmj" path="res://Aseprite/roll.png" id="6_lmeus"]
 [ext_resource type="Texture2D" uid="uid://dsw7j0e3akagt" path="res://Assets/PLACEHOLDER_attack.png" id="8_761t5"]
 [ext_resource type="Script" uid="uid://bv4g7seykfa7j" path="res://Scripts/Components/defense_component.gd" id="10_hacra"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lmeus"]
 atlas = ExtResource("6_hacra")
 region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hl213"]
+atlas = ExtResource("6_lmeus")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5m37j"]
+atlas = ExtResource("6_lmeus")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcmon"]
+atlas = ExtResource("6_lmeus")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l80rc"]
+atlas = ExtResource("6_lmeus")
+region = Rect2(112, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_061yh"]
 atlas = ExtResource("6_jynvv")
@@ -33,6 +50,23 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hl213")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5m37j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcmon")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l80rc")
+}],
+"loop": false,
+"name": &"roll",
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -59,9 +93,10 @@ size = Vector2(23, 10)
 collision_layer = 2
 script = ExtResource("1_1iada")
 attack_delay = 0.5
-dash_speed = 300.0
+dash_speed = 125.0
+dash_duration = 0.5
 gravity_modifier = 0.6
-speed = 100.0
+speed = 50.0
 jump_velocity = -150.0
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1416142201 node_paths=PackedStringArray("defense_component")]
@@ -83,6 +118,10 @@ metadata/_custom_type_script = "uid://bv4g7seykfa7j"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1158637556]
 sprite_frames = SubResource("SpriteFrames_gallu")
+animation = &"roll"
+autoplay = "default"
+frame = 3
+frame_progress = 1.0
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1970645673]
 visible = false

@@ -21,9 +21,6 @@ position = Vector2(111, 158)
 
 [node name="Player" parent="." unique_id=316049185 instance=ExtResource("1_ig7tw")]
 position = Vector2(166, 163)
-dash_speed = 200.0
-dash_duration = 0.25
-speed = 50.0
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=748962196]
 

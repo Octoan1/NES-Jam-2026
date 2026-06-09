@@ -60,7 +60,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	# Handle jump.
-	if Input.is_action_just_pressed("A_Button") and (is_on_floor() or coyote_time > 0.0) and can_move:
+	if Input.is_action_just_pressed("A_Button") and (is_on_floor() or coyote_time > 0.0) and can_move and not Input.is_action_pressed("D_Pad_Down"):
 		velocity.y = jump_velocity
 		coyote_timer = 0.0
 
@@ -80,7 +80,13 @@ func _physics_process(delta: float) -> void:
 		sprite.play("default")
 	
 	#Handle Dash
-	if Input.is_action_just_pressed("D_Pad_Down") and can_dash:
+	#if Input.is_action_just_pressed("D_Pad_Down") and can_dash and is_on_floor():
+	if Input.is_action_pressed("D_Pad_Down") and Input.is_action_just_pressed("A_Button") and can_dash and is_on_floor():
+		_start_dash()
+	
+	if Input.is_action_pressed("D_Pad_Up") and Input.is_action_just_pressed("A_Button") and can_dash and is_on_floor():
+		velocity.y = jump_velocity
+		coyote_timer = 0.0
 		_start_dash()
 	
 	#Handle Attack
@@ -115,13 +121,16 @@ func _start_dash() -> void:
 	is_dashing = true
 	can_dash = false
 	health_component.is_invulnerable = true
+	sprite.play("roll")
 	
 	dash_timer.wait_time = dash_duration
+	print(dash_timer.wait_time)
 	dash_timer.start()
 
 func _on_dash_timer_timeout() -> void:
 	is_dashing = false
 	health_component.is_invulnerable = false
+	sprite.play("default")
 	
 	await get_tree().create_timer(dash_delay).timeout
 	can_dash = true
