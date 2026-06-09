@@ -31,8 +31,9 @@ const MAIN_MENU = preload("uid://xsjlb0si8fwb")
 
 var canvas_layer: CanvasLayer
 
-# death book vars
+# relic relevant vars:
 var death_book_timer: Timer
+var lucky_dice_active = false
 
 func _ready():
 	reset_relics()
@@ -81,6 +82,11 @@ func begin_boss():
 		player.health_component.max_health = 1
 		player.health_component.health = 1
 		death_book_timer.start()
+	if lucky_dice_active:
+		player.defense_component.dodge_chance = 0.1
+		# TODO: Make player have a 0.1 (10%) chance to take double damage
+		pass
+		
 	
 	for child in main_scene.get_children():
 		# if fighting werewolf: Connect death signal
@@ -151,6 +157,9 @@ func AncientMask():
 # 10% chance to ignore an instance of damage.
 # 10% chance to take double damage
 func LuckyDice():
+	# pro and con modify player, so this will be handled
+	# in the 'begin_boss()'
+	lucky_dice_active = true
 	print("How lucky!")
 
 # Doubles the positive effect of the next relic.
