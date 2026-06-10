@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://muyjhvxwf44g" path="res://Aseprite/dracula-boss.png" id="4_k4ubn"]
 [ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="4_yaibl"]
 [ext_resource type="Script" uid="uid://cfv7usv2c3fyj" path="res://Scripts/Components/state_machine.gd" id="6_jhid3"]
-[ext_resource type="Texture2D" uid="uid://1iltet1xnhom" path="res://placeholder_tilemap.png" id="7_c6y7k"]
+[ext_resource type="Texture2D" uid="uid://cxolf1uhyd8sb" path="res://Aseprite/placeholder_tilemap.png" id="7_k4ubn"]
 [ext_resource type="Script" uid="uid://cl2bneq34l7gv" path="res://Entities/Boss/StationaryBoss/bat_attack.gd" id="7_yaibl"]
 [ext_resource type="PackedScene" uid="uid://cdqa3e0wafdb6" path="res://Entities/Boss/StationaryBoss/bullet.tscn" id="8_woq1o"]
 [ext_resource type="Script" uid="uid://w2uowg72iris" path="res://Entities/Boss/StationaryBoss/rest.gd" id="10_mvkti"]
@@ -97,9 +97,9 @@ debug_color = Color(1, 0, 0, 0.19800001)
 [node name="RevengeSprite" type="Sprite2D" parent="RevengeHitbox" unique_id=400118979]
 visible = false
 scale = Vector2(3.415, 3.415)
-texture = ExtResource("7_c6y7k")
+texture = ExtResource("7_k4ubn")
 region_enabled = true
-region_rect = Rect2(3.9351406, 51.938484, 41.164, 41.109184)
+region_rect = Rect2(12.696884, 95.89627, 29.756424, 31.07309)
 
 [node name="DebugStateLabel" type="Label" parent="." unique_id=12194789]
 offset_left = -29.0
