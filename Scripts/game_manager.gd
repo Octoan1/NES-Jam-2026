@@ -10,8 +10,10 @@ const LUCKY_DICE = preload("uid://u5oprj86qys3")
 const METEORS = preload("uid://bi65ciq16gnck")
 const MISTER_SWORD = preload("uid://lsk0psi5tvrf")
 const MONKEY_PAW = preload("uid://dx0s20sx3k6up")
-const STONE_MASK = preload("uid://mdewx4gditu")
 const TOY_TRUCK = preload("uid://bcjhgc20lxg20")
+const ANCIENT_MASK = preload("uid://mdewx4gditu")
+const BOOK_OF_DEATH = preload("uid://dw7jce60m4p50")
+
 
 # relic vars
 var inventory: Array[Relic]
@@ -29,10 +31,12 @@ const MAIN_MENU = preload("uid://xsjlb0si8fwb")
 
 var canvas_layer: CanvasLayer
 
+# relic relevant vars:
+var death_book_timer: Timer
+var lucky_dice_active = false
 
 func _ready():
 	reset_relics()
-	update_properties()
 
 func add_relic(item: Relic):
 	inventory.append(item)
@@ -59,19 +63,32 @@ func reset_relics():
 	METEORS,
 	MISTER_SWORD,
 	MONKEY_PAW,
-	STONE_MASK,
-	TOY_TRUCK
+	ANCIENT_MASK,
+	TOY_TRUCK,
+	BOOK_OF_DEATH
 	]
 
 func begin_boss():
+	# instantiate the main scene (containing the boss)
 	main_scene = MAIN.instantiate()
 	get_tree().current_scene.add_child(main_scene)
 	
-	for child in main_scene.get_children():
-		# connect player death signal
-		if child.name == "Player":
-			child.get_child(0).connect("died", player_killed)
+	# connect player to the scene
+	var player = get_tree().get_first_node_in_group("Player")
+	player.health_component.connect("died", player_killed)
+	
+	# modify the player per its relics
+	if death_book_timer:
+		player.health_component.max_health = 1
+		player.health_component.health = 1
+		death_book_timer.start()
+	if lucky_dice_active:
+		player.defense_component.dodge_chance = 0.1
+		# TODO: Make player have a 0.1 (10%) chance to take double damage
+		pass
 		
+	
+	for child in main_scene.get_children():
 		# if fighting werewolf: Connect death signal
 		if child.name == "WerewolfBossFight":
 			for grandchild in child.get_children():
@@ -79,15 +96,29 @@ func begin_boss():
 					print(grandchild.get_child(0).name)
 					grandchild.get_child(0).connect("died", boss_killed)
 					continue
+		
+		# update the hud
+		if child.name == "UI":
+			child.get_child(0).update_health(player.health_component.health, player.health_component.max_health)
+		
+	
 
 func boss_killed():
 	canvas_layer = get_tree().current_scene.find_child("CanvasLayer", true, false)
+	
+	# check for death book relic
+	if death_book_timer:
+		death_book_timer.stop()
 	
 	main_scene.queue_free()
 	relic_reward_scene = RELIC_REWARD.instantiate()
 	canvas_layer.add_child(relic_reward_scene)
 
 func player_killed():
+	# check for death book relic
+	if death_book_timer:
+		death_book_timer.stop()
+	
 	# take player back to main menu
 	canvas_layer = get_tree().current_scene.find_child("CanvasLayer", true, false)
 	
@@ -120,12 +151,15 @@ func LuckyCoin():
 
 # Each time the player attacks the boss, their attack becomes stronger
 # Every 5 seconds passed without attacking the boss, the player's attack becomes weaker
-func StoneMask():
+func AncientMask():
 	print("Stony!")
 
 # 10% chance to ignore an instance of damage.
 # 10% chance to take double damage
 func LuckyDice():
+	# pro and con modify player, so this will be handled
+	# in the 'begin_boss()'
+	lucky_dice_active = true
 	print("How lucky!")
 
 # Doubles the positive effect of the next relic.
@@ -150,7 +184,18 @@ func CursedFinger():
 # The boss automatically dies after 60 seconds
 # Player has 1 health
 func DeathBook():
-	print("Deadly")
+	# positive effect:
+	death_book_timer = Timer.new()
+	add_child(death_book_timer)
+	
+	death_book_timer.wait_time = 60.0
+	death_book_timer.one_shot = true
+	
+	death_book_timer.timeout.connect(boss_killed)
+	
+	# negative effect:
+	# handled in the 'begin_boss()' method
+	
 
 # When standing still you are invulnerable
 # You cannot attack while invulnerable, nor survive for more than 5 seconds in this state.
