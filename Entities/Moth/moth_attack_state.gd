@@ -16,7 +16,6 @@ func _ready() -> void:
 	delay_timer.timeout.connect(_on_delay_timer_timeout)
 
 func enter() -> void:
-	print("-------------------------------------------------------------------------------")
 	extra_info_label.show()
 	num_shots = 0
 	if delay_timer.is_stopped():
@@ -29,7 +28,7 @@ func update(_delta: float) -> void:
 	pass
 	
 
-func physics_update(delta: float) -> void:
+func physics_update(_delta: float) -> void:
 	pass
 
 func _on_delay_timer_timeout() -> void:
@@ -38,5 +37,6 @@ func _on_delay_timer_timeout() -> void:
 		Transitioned.emit(self, "moth move")
 	else:
 		print("Moth Attacks")
+		enemy.attack()
 		num_shots += 1
 		delay_timer.start()
