@@ -1,8 +1,6 @@
 extends CharacterBody2D
 
 
-
-
 var player_facing = 1
 
 #Siblings
@@ -10,6 +8,7 @@ var player_facing = 1
 @onready var attack_pivot := $AttackPivot
 @onready var sword_hitbox := $AttackPivot/SwordHitbox
 @onready var dash_timer := $DashTimer
+@onready var dash_delay_timer := $DashDelayTimer
 
 #Attack Variables
 @export var attack_duration: float = 0.15
@@ -22,6 +21,7 @@ var can_attack: bool = true
 @export var dash_delay: float = 0.5
 var is_dashing: bool = false
 var can_dash: bool = true
+var waiting_to_land: bool = false
 
 #Player Stats
 @export var dmg: float = 2.0
@@ -65,6 +65,13 @@ func _physics_process(delta: float) -> void:
 	else: 
 		coyote_timer = coyote_time
 	
+	if waiting_to_land and is_on_floor() and dash_timer.is_stopped():
+		is_dashing = false
+		health_component.is_invulnerable = false
+		sprite.play("default")
+		dash_delay_timer.wait_time = dash_delay
+		dash_delay_timer.start()
+	
 	if is_dashing:
 		velocity.x = player_facing * dash_speed
 		move_and_slide()
@@ -79,10 +86,10 @@ func _physics_process(delta: float) -> void:
 		
 
 	# Handle jump.
-	if Input.is_action_just_pressed("A_Button") and (is_on_floor() or coyote_timer > 0.0) and can_move and not Input.is_action_pressed("D_Pad_Down"):
+	if Input.is_action_just_pressed("A_Button") and (is_on_floor() or coyote_timer > 0.0) and not is_dashing and not is_climbing and can_move and not Input.is_action_pressed("D_Pad_Down"):
 		velocity.y = jump_velocity
 		coyote_timer = 0.0
-		if Input.is_action_pressed("D_Pad_Up"):
+		if Input.is_action_pressed("D_Pad_Up") and not is_climbing and can_dash:
 			_start_dash()
 			return
 
@@ -146,16 +153,18 @@ func _start_dash() -> void:
 	sprite.play("roll")
 	
 	dash_timer.wait_time = dash_duration
-	print(dash_timer.wait_time)
 	dash_timer.start()
 
 func _on_dash_timer_timeout() -> void:
-	is_dashing = false
-	health_component.is_invulnerable = false
-	sprite.play("default")
-	
-	await get_tree().create_timer(dash_delay).timeout
-	can_dash = true
+	dash_timer.stop()
+	if is_on_floor():
+		is_dashing = false
+		health_component.is_invulnerable = false
+		sprite.play("default")
+		dash_delay_timer.wait_time = dash_delay
+		dash_delay_timer.start()
+	else:
+		waiting_to_land = true
 
 #
 #func player_take_damage(amount: int) -> void:
@@ -178,3 +187,9 @@ func _on_interactbox_component_body_entered(_body: Node2D) -> void:
 
 func _on_interactbox_component_body_exited(_body: Node2D) -> void:
 	can_interact = false
+
+
+func _on_dash_delay_timer_timeout() -> void:
+	dash_delay_timer.stop()
+	can_dash = true
+	waiting_to_land = false
