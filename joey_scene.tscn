@@ -39,7 +39,7 @@ position = Vector2(223, 120)
 position = Vector2(223, 72)
 
 [node name="Player" parent="." unique_id=316049185 instance=ExtResource("4_n2tsl")]
-position = Vector2(172, 162)
+position = Vector2(204, 108)
 dash_speed = 200.0
 dash_duration = 0.25
 
