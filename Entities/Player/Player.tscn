@@ -102,6 +102,9 @@ size = Vector2(8, 13)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1des2"]
 size = Vector2(23, 10)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gallu"]
+size = Vector2(9, 15)
+
 [node name="Player" type="CharacterBody2D" unique_id=316049185 groups=["Player"]]
 collision_layer = 2
 script = ExtResource("1_1iada")
@@ -182,4 +185,14 @@ one_shot = true
 stream = ExtResource("4_1des2")
 volume_db = -10.0
 
+[node name="InteractboxComponent" type="Area2D" parent="." unique_id=1965909229]
+collision_layer = 64
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractboxComponent" unique_id=263315518]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_gallu")
+
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="body_entered" from="InteractboxComponent" to="." method="_on_interactbox_component_body_entered"]
+[connection signal="body_exited" from="InteractboxComponent" to="." method="_on_interactbox_component_body_exited"]

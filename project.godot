@@ -122,6 +122,8 @@ B_Button={
 2d_physics/layer_3="Player Hit Box"
 2d_physics/layer_4="Enemy Hurt Box"
 2d_physics/layer_5="Enemy Hit Box"
+2d_physics/layer_6="Latter"
+2d_physics/layer_7="Despawn Layer"
 
 [physics]
 
