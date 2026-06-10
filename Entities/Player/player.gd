@@ -78,7 +78,7 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	#Handles Climbing
-	if can_interact and Input.is_action_pressed("D_Pad_Up") and not is_on_floor():
+	if can_interact and Input.is_action_pressed("D_Pad_Up"):
 		velocity.y = -1 * climb_speed
 		is_climbing = true
 	elif not can_interact:
