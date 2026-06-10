@@ -22,6 +22,10 @@ var relics: Array[Relic]
 # scene loading vars
 var main_scene = Node2D
 const MAIN = preload("uid://cqfkwrq6ehxx5")
+const STATIONARY_BOSS_FIGHT = preload("uid://dcn8lbmn0g8f5")
+#const MOTH_BOSS_FIGHT = preload("uid://foypvvwdikos")
+const MOTH_BOSS_FIGHT = preload("uid://dibbyk4wp1w6l")
+
 
 var relic_reward_scene = Control
 const RELIC_REWARD = preload("uid://b3klv6pypfa8n")
@@ -31,11 +35,16 @@ const MAIN_MENU = preload("uid://xsjlb0si8fwb")
 
 var canvas_layer: CanvasLayer
 
+# level management vars
+var bosses = [STATIONARY_BOSS_FIGHT, MOTH_BOSS_FIGHT]
+var round: int = 0
+
 # relic relevant vars:
 var death_book_timer: Timer
 var lucky_dice_active = false
 
 func _ready():
+	round = 0
 	reset_relics()
 
 func add_relic(item: Relic):
@@ -69,8 +78,12 @@ func reset_relics():
 	]
 
 func begin_boss():
+	if round % 2 == 0:
+		main_scene = bosses[0].instantiate()
+	else:
+		main_scene = bosses[1].instantiate()
+	
 	# instantiate the main scene (containing the boss)
-	main_scene = MAIN.instantiate()
 	get_tree().current_scene.add_child(main_scene)
 	
 	# connect player to the scene
@@ -89,13 +102,11 @@ func begin_boss():
 		
 	
 	for child in main_scene.get_children():
-		# if fighting werewolf: Connect death signal
-		if child.name == "WerewolfBossFight":
-			for grandchild in child.get_children():
-				if grandchild.name == "WerewolfBoss":
-					print(grandchild.get_child(0).name)
-					grandchild.get_child(0).connect("died", boss_killed)
-					continue
+		# if StationaryBoss: Connect death signal
+		if child.name == "StationaryBoss":
+			child.get_child(0).connect("died", boss_killed)
+		elif child.name == "MothBoss":
+			child.get_child(0).connect("died", boss_killed)
 		
 		# update the hud
 		if child.name == "UI":
@@ -113,6 +124,7 @@ func boss_killed():
 	main_scene.queue_free()
 	relic_reward_scene = RELIC_REWARD.instantiate()
 	canvas_layer.add_child(relic_reward_scene)
+	round += 1
 
 func player_killed():
 	# check for death book relic
@@ -129,6 +141,7 @@ func player_killed():
 	
 	# reset player inventory and relic pool
 	reset_relics()
+	round = 0
 
 func relic_selected(relic: Relic):
 	# add relic to inventory, and remove from overall pool of relics
