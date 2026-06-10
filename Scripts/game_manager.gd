@@ -20,7 +20,7 @@ var inventory: Array[Relic]
 var relics: Array[Relic]
 
 # scene loading vars
-var main_scene = Node2D
+var main_scene: Node2D
 const MAIN = preload("uid://cqfkwrq6ehxx5")
 const STATIONARY_BOSS_FIGHT = preload("uid://dcn8lbmn0g8f5")
 #const MOTH_BOSS_FIGHT = preload("uid://foypvvwdikos")
@@ -37,14 +37,14 @@ var canvas_layer: CanvasLayer
 
 # level management vars
 var bosses = [STATIONARY_BOSS_FIGHT, MOTH_BOSS_FIGHT]
-var round: int = 0
+var current_round: int = 0
 
 # relic relevant vars:
 var death_book_timer: Timer
 var lucky_dice_active = false
 
 func _ready():
-	round = 0
+	current_round = 0
 	reset_relics()
 
 func add_relic(item: Relic):
@@ -78,7 +78,7 @@ func reset_relics():
 	]
 
 func begin_boss():
-	if round % 2 == 0:
+	if current_round % 2 == 0:
 		main_scene = bosses[0].instantiate()
 	else:
 		main_scene = bosses[1].instantiate()
@@ -88,7 +88,8 @@ func begin_boss():
 	
 	# connect player to the scene
 	var player = get_tree().get_first_node_in_group("Player")
-	player.health_component.connect("died", player_killed)
+	if player.health_component.is_connected("died", player_killed) == false:
+		player.health_component.connect("died", player_killed)
 	
 	# modify the player per its relics
 	if death_book_timer:
@@ -124,7 +125,7 @@ func boss_killed():
 	main_scene.queue_free()
 	relic_reward_scene = RELIC_REWARD.instantiate()
 	canvas_layer.add_child(relic_reward_scene)
-	round += 1
+	current_round += 1
 
 func player_killed():
 	# check for death book relic
@@ -141,7 +142,7 @@ func player_killed():
 	
 	# reset player inventory and relic pool
 	reset_relics()
-	round = 0
+	current_round = 0
 
 func relic_selected(relic: Relic):
 	# add relic to inventory, and remove from overall pool of relics
@@ -154,6 +155,35 @@ func relic_selected(relic: Relic):
 	
 	# instantiate the boss scene
 	call_deferred("begin_boss")
+
+# DEBUG COMMANDS
+func _process(_delta):
+	if Input.is_action_just_pressed("boss_1"):
+		debug_boss_kill()
+		current_round = 0
+		await get_tree().create_timer(0.01).timeout
+		begin_boss()
+	
+	if Input.is_action_just_pressed("boss_2"):
+		debug_boss_kill()
+		current_round = 1
+		await get_tree().create_timer(0.01).timeout
+		begin_boss()
+
+func debug_boss_kill():
+	# check for death book relic
+	if death_book_timer:
+		death_book_timer.stop()
+	
+	if main_scene:
+		main_scene.queue_free()
+	
+	canvas_layer = get_tree().current_scene.find_child("CanvasLayer", true, false)
+	
+	if canvas_layer.get_child(0):
+		print(canvas_layer.get_child(0))
+		canvas_layer.get_child(0).queue_free()
+	
 
 #======= item effects ========
 
