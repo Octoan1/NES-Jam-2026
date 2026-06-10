@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="6_bv62r"]
 [ext_resource type="Script" uid="uid://cfv7usv2c3fyj" path="res://Scripts/Components/state_machine.gd" id="7_eucj0"]
 [ext_resource type="Script" uid="uid://pn868vudnt0" path="res://Entities/Moth/moth_attack_state.gd" id="10_1soyj"]
+[ext_resource type="Script" uid="uid://bipyax8686giy" path="res://Entities/Moth/moth_big_attack_state.gd" id="11_j7pap"]
 [ext_resource type="AudioStream" uid="uid://cjuoup7ehnmle" path="res://Audio/PLACEHOLDER_hit_sound.wav" id="12_d3m2i"]
 [ext_resource type="Script" uid="uid://bog5cr7xnp3ed" path="res://Entities/Moth/moth_move_state.gd" id="13_vuhki"]
 
@@ -116,6 +117,9 @@ script = ExtResource("13_vuhki")
 
 [node name="Moth Attack" type="Node" parent="StateMachine" unique_id=1971295684]
 script = ExtResource("10_1soyj")
+
+[node name="Moth Big Attack" type="Node" parent="StateMachine" unique_id=843281875]
+script = ExtResource("11_j7pap")
 
 [node name="HitSFX" type="AudioStreamPlayer" parent="." unique_id=1056092121]
 stream = ExtResource("12_d3m2i")

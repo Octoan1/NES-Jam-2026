@@ -16,7 +16,7 @@ color = Color(0, 0, 0, 1)
 [node name="MothBossFight" parent="." unique_id=598889542 instance=ExtResource("5_ek2lp")]
 
 [node name="MothBoss" parent="MothBossFight" unique_id=262048186 instance=ExtResource("3_k0870")]
-position = Vector2(121, 117)
+position = Vector2(126, 120)
 
 [node name="Positions" type="Node2D" parent="MothBossFight" unique_id=1260087699]
 

@@ -8,12 +8,12 @@
 [ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="4_yaibl"]
 [ext_resource type="Script" uid="uid://cfv7usv2c3fyj" path="res://Scripts/Components/state_machine.gd" id="6_jhid3"]
 [ext_resource type="Texture2D" uid="uid://1iltet1xnhom" path="res://placeholder_tilemap.png" id="7_c6y7k"]
-[ext_resource type="Script" uid="uid://cl2bneq34l7gv" path="res://Entities/Boss/StationaryBoss/bat_attack.gd" id="7_yaibl"]
+[ext_resource type="Script" path="res://Entities/Boss/StationaryBoss/bat_attack.gd" id="7_yaibl"]
 [ext_resource type="PackedScene" uid="uid://cdqa3e0wafdb6" path="res://Entities/Boss/StationaryBoss/bullet.tscn" id="8_woq1o"]
-[ext_resource type="Script" uid="uid://w2uowg72iris" path="res://Entities/Boss/StationaryBoss/rest.gd" id="10_mvkti"]
-[ext_resource type="Script" uid="uid://i1j56wrtl6ii" path="res://Entities/Boss/StationaryBoss/revenge_attack.gd" id="11_xrruc"]
-[ext_resource type="Script" uid="uid://btcip4yfmh80r" path="res://Entities/Boss/StationaryBoss/blood_attack.gd" id="13_0xfau"]
-[ext_resource type="Script" uid="uid://dcproeks5n0ga" path="res://Entities/Boss/StationaryBoss/blood_rain_attack.gd" id="14_k4ubn"]
+[ext_resource type="Script" path="res://Entities/Boss/StationaryBoss/rest.gd" id="10_mvkti"]
+[ext_resource type="Script" path="res://Entities/Boss/StationaryBoss/revenge_attack.gd" id="11_xrruc"]
+[ext_resource type="Script" path="res://Entities/Boss/StationaryBoss/blood_attack.gd" id="13_0xfau"]
+[ext_resource type="Script" path="res://Entities/Boss/StationaryBoss/blood_rain_attack.gd" id="14_k4ubn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mvkti"]
 shader = ExtResource("3_u51qa")

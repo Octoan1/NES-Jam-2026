@@ -11,7 +11,6 @@ extends CharacterBody2D
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("Player")
-	attack()
 	
 func _physics_process(_delta: float) -> void:
 	
@@ -22,10 +21,22 @@ func _physics_process(_delta: float) -> void:
 
 func attack() -> void:
 	var instance = projectile.instantiate()
-	instance.direction = global_position - player.global_position
+	var future_position = player.global_position + (player.global_position - player.previous_location)
+	instance.direction = global_position - future_position
 	instance.spawn_pos = global_position
 	instance.spawn_rot = rotation
+	instance.fire_delay = 0.01
 	room.add_child.call_deferred(instance)
+
+func big_attack() -> void:
+	var directions = [Vector2.RIGHT, Vector2(0.5, -0.5), Vector2.UP, Vector2(-0.5, -0.5), Vector2.LEFT, Vector2(-0.5, 0.5), Vector2.DOWN, Vector2(0.5, 0.5)]
+	for dir in directions:
+		var instance = projectile.instantiate()
+		instance.direction = dir
+		instance.spawn_pos = global_position - 10 * dir
+		instance.spawn_rot = rotation
+		instance.fire_delay = 1.0
+		room.add_child.call_deferred(instance)
 
 func _on_health_component_damaged() -> void:
 	$HitSFX.play()

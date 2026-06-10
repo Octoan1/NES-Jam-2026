@@ -31,6 +31,7 @@ var can_dash: bool = true
 @export var dodge_chance: float = 0.0
 @export var jump_velocity: float = -125
 var can_move: bool = true
+var previous_location: Vector2
 
 # coyote time
 @export var coyote_time := 0.1
@@ -45,6 +46,7 @@ func _ready() -> void:
 	sword_hitbox.monitoring = false 
 	
 	health_component.died.connect(die)
+	previous_location = global_position
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -95,7 +97,8 @@ func _physics_process(delta: float) -> void:
 	#Handle Attack
 	if Input.is_action_just_pressed("B_Button") and sword_hitbox.monitoring == false and can_attack:
 		_trigger_attack()
-
+	
+	previous_location = global_position
 	move_and_slide()
 	
 
