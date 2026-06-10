@@ -15,9 +15,9 @@ func _ready() -> void:
 
 
 #func hurt(attack: Attack):
-func hurt(attack: float) -> void:
+func hurt(attack: Attack) -> void:
 	if debug_mode:
 		print(owner.name + " Hurtbox Hit")
 	
 	if health_component:
-		health_component.damage_health(attack)
+		health_component.damage_health(attack.attack_damage)

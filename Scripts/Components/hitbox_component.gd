@@ -4,6 +4,8 @@ class_name HitboxComponent
 signal hit
 
 @export var debug_mode: bool = false
+@export var attack: Attack
+
 
 func _ready() -> void:
 	self.monitoring = true
@@ -22,8 +24,6 @@ func _physics_process(_delta: float) -> void:
 			
 			if debug_mode:
 				print(hurtbox.name + " - owned by: " + hurtbox.owner.name)
-			
-			var attack: float = 1.0
 		
 			hurtbox.hurt(attack)
 		
