@@ -4,6 +4,7 @@ class_name HurtboxComponent
 @export var debug_mode: bool = false
 
 @export var health_component : HealthComponent
+@onready var entity := $".."
 
 
 func _ready() -> void:
@@ -21,3 +22,8 @@ func hurt(attack: Attack) -> void:
 	
 	if health_component:
 		health_component.damage_health(attack.attack_damage)
+	
+	if entity:
+		print(attack.knockback_force)
+		entity.velocity += Vector2(0.8, -0.2) * attack.knockback_force
+	
