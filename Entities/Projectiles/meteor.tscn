@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://cl4v4vyxveypp"]
+
+[ext_resource type="Script" uid="uid://bn0yb70uyqn1d" path="res://Entities/Projectiles/meteor.gd" id="1_s4m0m"]
+[ext_resource type="Texture2D" uid="uid://bghjv36vlmqhf" path="res://icon.svg" id="2_qgn4b"]
+[ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="3_yl6do"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_agh27"]
+
+[node name="Meteor" type="Node2D" unique_id=1653583887]
+scale = Vector2(3, 3)
+script = ExtResource("1_s4m0m")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1682073089]
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_qgn4b")
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=632877869]
+collision_mask = 10
+monitorable = false
+script = ExtResource("3_yl6do")
+metadata/_custom_type_script = "uid://b1c4qcf1gisb4"
+
+[node name="HitboxCollisionShape" type="CollisionShape2D" parent="HitboxComponent" unique_id=1724518888]
+shape = SubResource("CircleShape2D_agh27")
