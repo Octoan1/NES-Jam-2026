@@ -17,6 +17,7 @@ texture = ExtResource("2_2kk5f")
 collision_layer = 16
 collision_mask = 2
 script = ExtResource("1_v5eym")
+debug_mode = true
 metadata/_custom_type_script = "uid://b1c4qcf1gisb4"
 
 [node name="HitboxCollisionShape" type="CollisionShape2D" parent="HitboxComponent" unique_id=1256599237]

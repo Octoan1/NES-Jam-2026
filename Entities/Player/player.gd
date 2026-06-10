@@ -6,7 +6,7 @@ extends CharacterBody2D
 var player_facing = 1
 
 #Siblings
-@onready var sprite := $Sprite
+@onready var sprite := $AnimatedSprite2D
 @onready var attack_pivot := $AttackPivot
 @onready var sword_hitbox := $AttackPivot/SwordHitbox
 @onready var dash_timer := $DashTimer
@@ -58,28 +58,39 @@ func _physics_process(delta: float) -> void:
 		velocity.x = player_facing * dash_speed
 		move_and_slide()
 		return
+		
 
 	# Handle jump.
-	if Input.is_action_just_pressed("A_Button") and (is_on_floor() or coyote_time > 0.0) and can_move:
+	if Input.is_action_just_pressed("A_Button") and (is_on_floor() or coyote_timer > 0.0) and can_move and not Input.is_action_pressed("D_Pad_Down"):
 		velocity.y = jump_velocity
 		coyote_timer = 0.0
+		if Input.is_action_pressed("D_Pad_Up"):
+			_start_dash()
+			return
 
 	# Get the input direction and handle the movement/deceleration.
 	var direction := Input.get_axis("D_Pad_Left", "D_Pad_Right")
 	if direction and can_move:
 		velocity.x = direction * speed
+		sprite.play("walk")
 		if direction > 0:
 			sprite.flip_h = false
 		elif direction < 0:
 			sprite.flip_h = true
-		attack_pivot.scale.x = direction
 		player_facing = sign(direction)
+		attack_pivot.scale.x = player_facing
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
+		if Input.is_action_pressed("D_Pad_Down"):
+			sprite.play("duck")
+		else:
+			sprite.play("default")
 	
 	#Handle Dash
-	if Input.is_action_just_pressed("D_Pad_Down") and can_dash:
+	#if Input.is_action_just_pressed("D_Pad_Down") and can_dash and is_on_floor():
+	if Input.is_action_pressed("D_Pad_Down") and Input.is_action_just_pressed("A_Button") and can_dash and is_on_floor():
 		_start_dash()
+
 	
 	#Handle Attack
 	if Input.is_action_just_pressed("B_Button") and sword_hitbox.monitoring == false and can_attack:
@@ -113,13 +124,16 @@ func _start_dash() -> void:
 	is_dashing = true
 	can_dash = false
 	health_component.is_invulnerable = true
+	sprite.play("roll")
 	
 	dash_timer.wait_time = dash_duration
+	print(dash_timer.wait_time)
 	dash_timer.start()
 
 func _on_dash_timer_timeout() -> void:
 	is_dashing = false
 	health_component.is_invulnerable = false
+	sprite.play("default")
 	
 	await get_tree().create_timer(dash_delay).timeout
 	can_dash = true
