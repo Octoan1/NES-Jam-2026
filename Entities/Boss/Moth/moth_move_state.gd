@@ -13,7 +13,11 @@ var big_attack: bool = true
 func randomize_position():
 	var ran = randf()
 	if big_attack or ran < 0.8:
-		next_position = positions[randi_range(0, 5)]
+		var possible_positions = positions.duplicate()
+		if next_position:
+			possible_positions.remove_at(possible_positions.find(next_position))
+		print(possible_positions)
+		next_position = possible_positions[randi_range(0, possible_positions.size() - 1)]
 		big_attack = false
 	else:
 		next_position = big_position

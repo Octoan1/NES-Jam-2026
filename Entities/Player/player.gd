@@ -40,6 +40,13 @@ var coyote_timer := 0.0
 # Components
 @onready var health_component: HealthComponent = $HealthComponent
 
+#Interaction
+var can_interact: bool = false
+
+#Climbing
+@export var climb_speed: float = 50.0
+var is_climbing: bool = false
+
 
 func _ready() -> void:
 	attack_pivot.visible = false
@@ -50,7 +57,9 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
-	if not is_on_floor():
+	if not is_on_floor() and is_climbing:
+		velocity.y = climb_speed
+	elif not is_on_floor():
 		velocity += get_gravity() * gravity_modifier * delta
 		coyote_timer -= delta
 	else: 
@@ -60,6 +69,13 @@ func _physics_process(delta: float) -> void:
 		velocity.x = player_facing * dash_speed
 		move_and_slide()
 		return
+	
+	#Handles Climbing
+	if can_interact and Input.is_action_pressed("D_Pad_Up"):
+		velocity.y = -1 * climb_speed
+		is_climbing = true
+	elif not can_interact:
+		is_climbing = false
 		
 
 	# Handle jump.
@@ -83,7 +99,7 @@ func _physics_process(delta: float) -> void:
 		attack_pivot.scale.x = player_facing
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
-		if Input.is_action_pressed("D_Pad_Down"):
+		if Input.is_action_pressed("D_Pad_Down") and not is_climbing:
 			sprite.play("duck")
 		else:
 			sprite.play("default")
@@ -95,7 +111,7 @@ func _physics_process(delta: float) -> void:
 
 	
 	#Handle Attack
-	if Input.is_action_just_pressed("B_Button") and sword_hitbox.monitoring == false and can_attack:
+	if Input.is_action_just_pressed("B_Button") and sword_hitbox.monitoring == false and can_attack and not is_climbing:
 		_trigger_attack()
 	
 	previous_location = global_position
@@ -154,3 +170,11 @@ func _on_dash_timer_timeout() -> void:
 
 func die() -> void:
 	pass
+
+
+func _on_interactbox_component_body_entered(_body: Node2D) -> void:
+	can_interact = true
+
+
+func _on_interactbox_component_body_exited(_body: Node2D) -> void:
+	can_interact = false

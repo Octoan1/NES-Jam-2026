@@ -3,7 +3,7 @@ extends State
 @onready var enemy: CharacterBody2D = $"../.."
 @onready var extra_info_label: Label = $"../../DebugStateLabel/ExtraStateInfo"
 
-@export var attack_delay: float = 2.0
+@export var attack_delay: float = 1.0
 @export var max_num_shots: int = 1
 var num_shots: int
 

@@ -29,7 +29,6 @@ func _ready() -> void:
 	velocity = Vector2(0, -SPEED).rotated(direction.angle() - (PI / 2))
 
 func _physics_process(delta: float) -> void:
-	print(delay_timer.time_left)
 	if can_fire:
 		move_and_slide()
 		if is_curve and abs(turned) < max_turn:
@@ -39,3 +38,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_delay_timer_timeout() -> void:
 	can_fire = true
+
+
+func _on_despawn_component_body_entered(_body: Node2D) -> void:
+	queue_free()
