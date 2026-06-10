@@ -12,7 +12,7 @@ var big_attack: bool = true
 
 func randomize_position():
 	var ran = randf()
-	if big_attack or ran < 0.0:
+	if big_attack or ran < 0.8:
 		next_position = positions[randi_range(0, 5)]
 		big_attack = false
 	else:
