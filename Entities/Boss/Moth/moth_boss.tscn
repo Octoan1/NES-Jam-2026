@@ -1,17 +1,17 @@
 [gd_scene format=3 uid="uid://cn7xm3ynsao6i"]
 
 [ext_resource type="Script" uid="uid://bp60vdvwyxe7f" path="res://Scripts/Components/health_component.gd" id="1_j7pap"]
-[ext_resource type="Script" uid="uid://cwk8ipnps8137" path="res://Entities/Moth/moth_boss.gd" id="1_r8104"]
+[ext_resource type="Script" uid="uid://cwk8ipnps8137" path="res://Entities/Boss/Moth/moth_boss.gd" id="1_r8104"]
 [ext_resource type="Script" uid="uid://c00fny1ika60u" path="res://Scripts/Components/flash_color_component.gd" id="2_r8104"]
 [ext_resource type="Shader" uid="uid://blmvfgvk3bx8a" path="res://Entities/flash_color.gdshader" id="3_vuhki"]
 [ext_resource type="Script" uid="uid://b33upjirfs7dt" path="res://Scripts/Components/hurtbox_component.gd" id="5_dxnel"]
 [ext_resource type="Texture2D" uid="uid://dn1c516jmnale" path="res://Assets/PLACEHOLDER_moth.png" id="5_vuhki"]
 [ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="6_bv62r"]
 [ext_resource type="Script" uid="uid://cfv7usv2c3fyj" path="res://Scripts/Components/state_machine.gd" id="7_eucj0"]
-[ext_resource type="Script" uid="uid://pn868vudnt0" path="res://Entities/Moth/moth_attack_state.gd" id="10_1soyj"]
-[ext_resource type="Script" uid="uid://bipyax8686giy" path="res://Entities/Moth/moth_big_attack_state.gd" id="11_j7pap"]
+[ext_resource type="Script" uid="uid://pn868vudnt0" path="res://Entities/Boss/Moth/moth_attack_state.gd" id="10_1soyj"]
+[ext_resource type="Script" uid="uid://bipyax8686giy" path="res://Entities/Boss/Moth/moth_big_attack_state.gd" id="11_j7pap"]
 [ext_resource type="AudioStream" uid="uid://cjuoup7ehnmle" path="res://Audio/PLACEHOLDER_hit_sound.wav" id="12_d3m2i"]
-[ext_resource type="Script" uid="uid://bog5cr7xnp3ed" path="res://Entities/Moth/moth_move_state.gd" id="13_vuhki"]
+[ext_resource type="Script" uid="uid://bog5cr7xnp3ed" path="res://Entities/Boss/Moth/moth_move_state.gd" id="13_vuhki"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mxq31"]
 shader = ExtResource("3_vuhki")
