@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dibbyk4wp1w6l"]
 
-[ext_resource type="PackedScene" uid="uid://cn7xm3ynsao6i" path="res://Entities/Moth/moth_boss.tscn" id="3_k0870"]
+[ext_resource type="PackedScene" uid="uid://cn7xm3ynsao6i" path="res://Entities/Boss/Moth/moth_boss.tscn" id="3_k0870"]
 [ext_resource type="PackedScene" uid="uid://buxpwecnlehmm" path="res://Entities/Player/Player.tscn" id="4_n2tsl"]
 [ext_resource type="PackedScene" uid="uid://cqas1sibe4giw" path="res://UI/HUD/hud.tscn" id="5_bxcjx"]
 [ext_resource type="PackedScene" uid="uid://foypvvwdikos" path="res://Levels/moth_boss_fight.tscn" id="5_ek2lp"]
