@@ -11,6 +11,8 @@ func _ready() -> void:
 	self.monitoring = true
 	self.monitorable = false
 	
+	if not attack:
+		attack = Attack.new()
 	#area_entered.connect(_on_hitbox_component_area_entered)
 
 
