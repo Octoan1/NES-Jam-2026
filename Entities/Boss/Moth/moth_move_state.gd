@@ -17,7 +17,7 @@ func randomize_position():
 		if next_position:
 			possible_positions.remove_at(possible_positions.find(next_position))
 		print(possible_positions)
-		next_position = possible_positions[randi_range(0, 5)]
+		next_position = possible_positions[randi_range(0, possible_positions.size() - 1)]
 		big_attack = false
 	else:
 		next_position = big_position
