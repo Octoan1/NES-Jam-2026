@@ -1,8 +1,6 @@
 extends CharacterBody2D
 
 
-
-
 var player_facing = 1
 
 #Siblings
@@ -193,6 +191,5 @@ func _on_interactbox_component_body_exited(_body: Node2D) -> void:
 
 func _on_dash_delay_timer_timeout() -> void:
 	dash_delay_timer.stop()
-	print("ALERT!")
 	can_dash = true
 	waiting_to_land = false
