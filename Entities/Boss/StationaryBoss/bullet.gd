@@ -13,7 +13,8 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_hitbox_component_hit() -> void:
-	$HitboxComponent.monitoring = false
 	$HitboxComponent.visible = false
+	await get_tree().create_timer(.05).timeout
+	$HitboxComponent.monitoring = false
 	await get_tree().create_timer(.1).timeout
 	queue_free()

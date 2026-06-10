@@ -120,10 +120,10 @@ label_settings = SubResource("LabelSettings_mvkti")
 horizontal_alignment = 1
 
 [node name="BatRight" type="Marker2D" parent="." unique_id=1983369877]
-position = Vector2(160, 44)
+position = Vector2(160, 32)
 
 [node name="BatLeft" type="Marker2D" parent="." unique_id=274926536]
-position = Vector2(-160, 44)
+position = Vector2(-160, 32)
 
 [node name="BloodProjectileSpawns" type="Node2D" parent="." unique_id=1719833919]
 

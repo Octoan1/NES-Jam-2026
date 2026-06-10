@@ -7,7 +7,7 @@ extends State
 @export var bullet_speed: float = 50
 @export var revenge_threshold: int = 3
 @export var projectile_count: int = 30
-@export var attack_finish_delay: float = 1
+@export var attack_finish_delay: float = 3
 # scenes
 @export var bullet_scene: PackedScene
 
