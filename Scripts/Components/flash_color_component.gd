@@ -3,7 +3,7 @@ class_name FlashComponent
 
 @export var debug_mode: bool 
 
-@export var sprite: Sprite2D
+@export_custom(PROPERTY_HINT_NODE_TYPE, "Sprite2D,AnimatedSprite2D") var sprite: Node2D
 @export var health_component: HealthComponent
 
 
