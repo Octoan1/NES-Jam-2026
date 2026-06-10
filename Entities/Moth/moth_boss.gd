@@ -32,6 +32,7 @@ func big_attack() -> void:
 	var directions = [Vector2.RIGHT, Vector2(0.5, -0.5), Vector2.UP, Vector2(-0.5, -0.5), Vector2.LEFT, Vector2(-0.5, 0.5), Vector2.DOWN, Vector2(0.5, 0.5)]
 	for dir in directions:
 		var instance = projectile.instantiate()
+		instance.is_curve = true
 		instance.direction = dir
 		instance.spawn_pos = global_position - 10 * dir
 		instance.spawn_rot = rotation

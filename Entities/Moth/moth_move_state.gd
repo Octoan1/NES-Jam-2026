@@ -8,11 +8,11 @@ var big_position: Vector2 = Vector2(126, 120)
 var next_position: Vector2
 @export var fly_speed: float = 100.0
 
-var big_attack: bool = false
+var big_attack: bool = true
 
 func randomize_position():
 	var ran = randf()
-	if big_attack or ran < 0.8:
+	if big_attack or ran < 0.0:
 		next_position = positions[randi_range(0, 5)]
 		big_attack = false
 	else:

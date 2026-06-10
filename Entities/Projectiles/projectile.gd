@@ -1,15 +1,22 @@
 extends CharacterBody2D
 
-@export var SPEED: float = 100.0
-
+#Stats
+var SPEED: float = 100.0
 var direction: Vector2
 var spawn_pos: Vector2
 var spawn_rot: float
 
+#Fire Delay
 var fire_delay: float
 var delay_timer: Timer
+var can_fire: bool = false
 
-var fire: bool = false
+#Curve
+var is_curve: bool
+var turn_rate: float = 2.0
+var max_turn: float = PI / 2
+var turned: float = 0.0
+
 
 func _ready() -> void:
 	global_position = spawn_pos
@@ -19,12 +26,16 @@ func _ready() -> void:
 	self.add_child(delay_timer)
 	delay_timer.start()
 	delay_timer.timeout.connect(_on_delay_timer_timeout)
+	velocity = Vector2(0, -SPEED).rotated(direction.angle() - (PI / 2))
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	print(delay_timer.time_left)
-	if fire:
-		velocity = Vector2(0, -SPEED).rotated(direction.angle() - (PI / 2))
+	if can_fire:
 		move_and_slide()
+		if is_curve and abs(turned) < max_turn:
+			var rotation_amount = turn_rate * delta
+			velocity = velocity.rotated(rotation_amount)
+			turned += rotation_amount
 
 func _on_delay_timer_timeout() -> void:
-	fire = true
+	can_fire = true
