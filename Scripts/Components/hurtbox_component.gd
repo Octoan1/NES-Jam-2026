@@ -15,9 +15,18 @@ func _ready() -> void:
 
 
 #func hurt(attack: Attack):
-func hurt(attack: Attack) -> void:
+func hurt(attack: Attack, stats: StatComponent) -> void:
 	if debug_mode:
 		print(owner.name + " Hurtbox Hit")
 	
+	var damage_output = attack.attack_damage * stats.attack_mult
+	
+	var critical_roll = randf_range(0, 1)
+	if critical_roll <= stats.crit_chance:
+		damage_output *= stats.crit_mult
+	elif stats.critical_fail == true:
+		damage_output = 0
+	
+	
 	if health_component:
-		health_component.damage_health(attack.attack_damage)
+		health_component.damage_health(damage_output)

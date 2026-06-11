@@ -14,6 +14,7 @@ extends State
 @onready var player: CharacterBody2D
 @onready var bat_right: Marker2D = $"../../BatRight"
 @onready var bat_left: Marker2D = $"../../BatLeft"
+@onready var stat_component: StatComponent = $"../../StatComponent"
 
 # state nodes
 @onready var attack_timer: Timer
@@ -52,6 +53,7 @@ func _on_attack_timer_timeout() -> void:
 	# create bullet
 	var bullet: Node2D = bullet_scene.instantiate()
 	bullet.type = Bullet.BulletType.BAT
+	bullet.get_child(1).stat_component = stat_component
 	#bullet.scale = Vector2(2, 2)
 	#bullet.get_child(0).texture = bat_sprite
 	
