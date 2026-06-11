@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://c7mivwrvli5ot" path="res://Entities/Boss/StationaryBoss/bullet.gd" id="1_vewwk"]
 [ext_resource type="Texture2D" uid="uid://bd1rv0wm7tp87" path="res://Assets/PLACEHOLDER_projectice.png" id="2_2kk5f"]
 [ext_resource type="Texture2D" uid="uid://87p2souyu1h2" path="res://Aseprite/bat-Sheet.png" id="2_dk0ok"]
+[ext_resource type="Texture2D" uid="uid://c2usjvffryk77" path="res://Aseprite/blood_rain.png" id="3_7qncf"]
 [ext_resource type="Texture2D" uid="uid://cortmr1sgyqqi" path="res://Aseprite/fireball.png" id="4_b7do4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b7do4"]
@@ -13,6 +14,10 @@ region = Rect2(0, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_7qncf"]
 atlas = ExtResource("2_dk0ok")
 region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oprpu"]
+atlas = ExtResource("3_7qncf")
+region = Rect2(0, 0, 8, 8)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fnsbg"]
 atlas = ExtResource("2_2kk5f")
@@ -35,7 +40,10 @@ animations = [{
 "name": &"bat",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oprpu")
+}],
 "loop": true,
 "name": &"blood_rain",
 "speed": 5.0
@@ -65,7 +73,7 @@ script = ExtResource("1_vewwk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=151776216]
 sprite_frames = SubResource("SpriteFrames_rf2on")
-animation = &"fireball"
+animation = &"blood_rain"
 autoplay = "default"
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=856041957]

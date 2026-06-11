@@ -27,7 +27,7 @@ size = Vector2(20, 29)
 size = Vector2(29, 51)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o1jj8"]
-size = Vector2(22, 48)
+size = Vector2(22, 27)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrruc"]
 
@@ -77,7 +77,7 @@ script = ExtResource("4_yaibl")
 metadata/_custom_type_script = "uid://b1c4qcf1gisb4"
 
 [node name="HitboxCollisionShape" type="CollisionShape2D" parent="HitboxComponent" unique_id=1582484898]
-position = Vector2(5, 7)
+position = Vector2(5, -3.5)
 shape = SubResource("RectangleShape2D_o1jj8")
 debug_color = Color(1, 0, 0, 0.42000002)
 
