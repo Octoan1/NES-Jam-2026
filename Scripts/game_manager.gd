@@ -42,17 +42,21 @@ var current_round: int = 0
 # relic relevant vars:
 var death_book_timer: Timer
 var lucky_dice_active = false
+var meteor_timer: Timer
+const METEOR = preload("uid://cl4v4vyxveypp")
+
 
 func _ready():
+	randomize()
 	current_round = 0
 	reset_relics()
 
 func add_relic(item: Relic):
 	inventory.append(item)
-	print("Relic added to inventory successfully.")
-	print("Current inventory: ", inventory)
-	print("Current relic pool: ", relics)
-	self.call(item.effect_name)
+	#print("Relic added to inventory successfully.")
+	#print("Current inventory: ", inventory)
+	#print("Current relic pool: ", relics)
+	#self.call(item.effect_name)
 
 func update_properties():
 	pass
@@ -91,16 +95,7 @@ func begin_boss():
 	if player.health_component.is_connected("died", player_killed) == false:
 		player.health_component.connect("died", player_killed)
 	
-	# modify the player per its relics
-	if death_book_timer:
-		player.health_component.max_health = 1
-		player.health_component.health = 1
-		death_book_timer.start()
-	if lucky_dice_active:
-		player.defense_component.dodge_chance = 0.1
-		# TODO: Make player have a 0.1 (10%) chance to take double damage
-		pass
-		
+	apply_relics(player)
 	
 	for child in main_scene.get_children():
 		# if StationaryBoss: Connect death signal
@@ -115,12 +110,20 @@ func begin_boss():
 		
 	
 
+func apply_relics(player: CharacterBody2D):
+	for relic in inventory:
+		self.call(relic.effect_name, player)
+
+func disable_relics():
+	if death_book_timer:
+		death_book_timer.stop()
+	if meteor_timer:
+		meteor_timer.stop()
+
 func boss_killed():
 	canvas_layer = get_tree().current_scene.find_child("CanvasLayer", true, false)
 	
-	# check for death book relic
-	if death_book_timer:
-		death_book_timer.stop()
+	disable_relics()
 	
 	main_scene.queue_free()
 	relic_reward_scene = RELIC_REWARD.instantiate()
@@ -128,9 +131,8 @@ func boss_killed():
 	current_round += 1
 
 func player_killed():
-	# check for death book relic
-	if death_book_timer:
-		death_book_timer.stop()
+	
+	disable_relics()
 	
 	# take player back to main menu
 	canvas_layer = get_tree().current_scene.find_child("CanvasLayer", true, false)
@@ -189,44 +191,73 @@ func debug_boss_kill():
 
 # player has a 50% chance to deal double damage
 # player has a 50% chance to deal 0 damage
-func LuckyCoin():
+func LuckyCoin(player: CharacterBody2D):
 	print("So lucky!")
 
 # Each time the player attacks the boss, their attack becomes stronger
 # Every 5 seconds passed without attacking the boss, the player's attack becomes weaker
-func AncientMask():
+func AncientMask(player: CharacterBody2D):
 	print("Stony!")
 
 # 10% chance to ignore an instance of damage.
 # 10% chance to take double damage
-func LuckyDice():
+func LuckyDice(player: CharacterBody2D):
 	# pro and con modify player, so this will be handled
 	# in the 'begin_boss()'
-	lucky_dice_active = true
-	print("How lucky!")
+	player.get_node("DefenseComponent").dodge_chance = 0.1
 
 # Doubles the positive effect of the next relic.
 # Doubles the negative effect of the next relic.
-func MonkeyPaw():
+func MonkeyPaw(player: CharacterBody2D):
 	print("How dubious.")
 
 # Meteors occasionally fall from the sky
-func Meteors():
-	print("Run!")
+func Meteors(_player: CharacterBody2D):
+	meteor_timer = Timer.new()
+	add_child(meteor_timer)
+	
+	
+	meteor_timer.wait_time = 5.0
+	meteor_timer.one_shot = true
+	
+	meteor_timer.timeout.connect(spawn_meteor)
+	meteor_timer.start()
+	
+
+func spawn_meteor():
+	print("METEOR CHANCE")
+	var meteor_chance = randi_range(0, 3)
+	print("ROLLED: ", meteor_chance)
+	if meteor_chance == 0:
+		print("METEOR SPAWNED")
+		var meteor = METEOR.instantiate()
+		var screen_left = 0
+		var screen_right = get_viewport().get_visible_rect().size.x
+		var screen_top = 0
+		
+		var meteor_x = randi_range(screen_left, screen_right)
+		var meteor_y = screen_top
+		meteor.global_position = Vector2(meteor_x, meteor_y)
+		
+		meteor.target = Vector2(meteor_x, meteor_y + 10)
+		
+		meteor.move_speed = 30
+		main_scene.add_child(meteor)
+	meteor_timer.start()
 
 # A ghost summon helps you in battle.
 # Must beat the boss in 60 seconds or you die
-func GhostTape():
+func GhostTape(player: CharacterBody2D):
 	print("Spooky!")
 
 # In battle, 20 fingers will spawn over time. Collect them all to automatically win the fight.
 # The boss deals triple damage to the player.
-func CursedFinger():
+func CursedFinger(player: CharacterBody2D):
 	print("Yummy")
 
 # The boss automatically dies after 60 seconds
 # Player has 1 health
-func DeathBook():
+func DeathBook(player: CharacterBody2D):
 	# positive effect:
 	death_book_timer = Timer.new()
 	add_child(death_book_timer)
@@ -236,18 +267,22 @@ func DeathBook():
 	
 	death_book_timer.timeout.connect(boss_killed)
 	
+	player.health_component.max_health = 1
+	player.health_component.health = 1
+	death_book_timer.start()
+	
 	# negative effect:
 	# handled in the 'begin_boss()' method
 	
 
 # When standing still you are invulnerable
 # You cannot attack while invulnerable, nor survive for more than 5 seconds in this state.
-func GoldRing():
+func GoldRing(player: CharacterBody2D):
 	print("Maddening")
 
 # Move faster
 # Floor is slippery
-func ToyTruck():
+func ToyTruck(_player: CharacterBody2D):
 	# positive effect:
 	#player.speed = 400.0
 	# negative effect:
@@ -256,7 +291,7 @@ func ToyTruck():
 
 # Adds 6 powerful relics into the loot pool. (Can be selected as future rewards.)
 # Lose 50% of all stats
-func GemGauntlet():
+func GemGauntlet(player: CharacterBody2D):
 	print("Blockbustery")
 	# positive effect:
 	
@@ -269,5 +304,5 @@ func GemGauntlet():
 
 # Your sword now shoots a projectile
 # Your attacks are slower
-func MisterSword():
+func MisterSword(player: CharacterBody2D):
 	print("Legendary")

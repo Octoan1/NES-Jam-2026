@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://cswhynt3b5js5" path="res://Entities/Boss/Werewolf/enemy_follow_state.gd" id="8_v3mtm"]
 [ext_resource type="Script" uid="uid://csrkb20rs7cup" path="res://Entities/Boss/Werewolf/prepare_jump.gd" id="9_8t1td"]
 [ext_resource type="Script" uid="uid://cqtod7pp2ag1g" path="res://Entities/Boss/Werewolf/jump.gd" id="10_vry5g"]
-[ext_resource type="Script" uid="uid://cc8m3hpmrpkw5" path="res://Entities/Boss/Werewolf/attack.gd" id="12_j5h4c"]
+[ext_resource type="Script" uid="uid://cc8m3hpmrpkw5" path="res://Entities/Boss/Werewolf/werewolf_attack.gd" id="12_j5h4c"]
 [ext_resource type="AudioStream" uid="uid://cjuoup7ehnmle" path="res://Audio/PLACEHOLDER_hit_sound.wav" id="12_q0e2a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mdtrg"]

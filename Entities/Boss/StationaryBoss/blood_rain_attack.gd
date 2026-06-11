@@ -7,6 +7,7 @@ extends State
 @export var bullet_speed: float = 50
 @export var revenge_threshold: int = 3
 @export var projectile_count: int = 30
+@export var attack_finish_delay: float = 3
 # scenes
 @export var bullet_scene: PackedScene
 
@@ -20,6 +21,7 @@ extends State
 # state nodes
 @onready var attack_timer: Timer
 @onready var spawn_timer: Timer
+@onready var finish_timer: Timer
 
 # local vars
 var attacked_count: int
@@ -31,7 +33,13 @@ func _ready() -> void:
 	attack_timer = Timer.new()
 	attack_timer.wait_time = attack_delay
 	attack_timer.timeout.connect(_on_attack_timer_timeout)
+	
+	finish_timer = Timer.new()
+	finish_timer.wait_time = attack_finish_delay
+	finish_timer.timeout.connect(_on_finish_timer_timeout)
+	
 	add_child(attack_timer)
+	add_child(finish_timer)
 
 func enter() -> void:
 	current_count = 0
@@ -41,13 +49,12 @@ func enter() -> void:
 	
 func exit() -> void:
 	attack_timer.stop()
+	finish_timer.stop()
 
 
 func update(_delta: float) -> void:
-	# Transitioned.emit(self, "new_state")
-	if current_count >= projectile_count:
-		attack_selection()
 	if attacked_count >= revenge_threshold:
+		attack_timer.stop()
 		Transitioned.emit(self, "RevengeAttack")
 
 func _on_attack_timer_timeout() -> void:
@@ -64,6 +71,14 @@ func _on_attack_timer_timeout() -> void:
 	add_child(bullet)
 	
 	current_count += 1
+	
+	if current_count >= projectile_count:
+		attack_timer.stop()
+		finish_timer.start()
+	
+
+func _on_finish_timer_timeout() -> void:
+	attack_selection()
 
 func attack_selection():
 	var attacks = ["BatAttack", "BloodAttack", "BloodRainAttack", "Rest"]

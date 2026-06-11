@@ -43,7 +43,7 @@ func enter() -> void:
 		#bullet.target = player.global_position
 		bullet.move_speed = 0
 		bullets.append(bullet)
-		
+		bullet.type = Bullet.BulletType.FIREBALL
 		await get_tree().create_timer(bullet_spawn_delay).timeout
 		add_child(bullet)
 	

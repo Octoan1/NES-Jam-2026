@@ -4,8 +4,8 @@
 [ext_resource type="Script" uid="uid://cwk8ipnps8137" path="res://Entities/Boss/Moth/moth_boss.gd" id="1_r8104"]
 [ext_resource type="Script" uid="uid://c00fny1ika60u" path="res://Scripts/Components/flash_color_component.gd" id="2_r8104"]
 [ext_resource type="Shader" uid="uid://blmvfgvk3bx8a" path="res://Entities/flash_color.gdshader" id="3_vuhki"]
+[ext_resource type="Texture2D" uid="uid://bwkaesoa2q8ro" path="res://Aseprite/moth_fly.png" id="4_ldkik"]
 [ext_resource type="Script" uid="uid://b33upjirfs7dt" path="res://Scripts/Components/hurtbox_component.gd" id="5_dxnel"]
-[ext_resource type="Texture2D" uid="uid://dn1c516jmnale" path="res://Assets/PLACEHOLDER_moth.png" id="5_vuhki"]
 [ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="6_bv62r"]
 [ext_resource type="Script" uid="uid://cfv7usv2c3fyj" path="res://Scripts/Components/state_machine.gd" id="7_eucj0"]
 [ext_resource type="Resource" uid="uid://buo6xxhom5u37" path="res://Entities/Boss/Moth/Moth_Attack.tres" id="8_qcoie"]
@@ -14,10 +14,40 @@
 [ext_resource type="AudioStream" uid="uid://cjuoup7ehnmle" path="res://Audio/PLACEHOLDER_hit_sound.wav" id="12_d3m2i"]
 [ext_resource type="Script" uid="uid://bog5cr7xnp3ed" path="res://Entities/Boss/Moth/moth_move_state.gd" id="13_vuhki"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mxq31"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1abaq"]
 shader = ExtResource("3_vuhki")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_amount = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1abaq"]
+atlas = ExtResource("4_ldkik")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qcoie"]
+atlas = ExtResource("4_ldkik")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hruly"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1abaq")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1abaq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qcoie")
+}],
+"loop": false,
+"name": &"fly",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ackee"]
 size = Vector2(24.5, 26.863644)
@@ -47,14 +77,15 @@ metadata/_custom_type_script = "uid://bp60vdvwyxe7f"
 [node name="FlashComponent" type="Node" parent="." unique_id=23116292 node_paths=PackedStringArray("sprite", "health_component")]
 script = ExtResource("2_r8104")
 debug_mode = true
-sprite = NodePath("../Sprite2D")
+sprite = NodePath("../AnimatedSprite2D")
 health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://c00fny1ika60u"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=99778242]
-material = SubResource("ShaderMaterial_mxq31")
-position = Vector2(2, 0)
-texture = ExtResource("5_vuhki")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1534595438]
+material = SubResource("ShaderMaterial_1abaq")
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_hruly")
+autoplay = "default"
 
 [node name="WorldCollisionShape" type="CollisionShape2D" parent="." unique_id=512823649]
 position = Vector2(0.75, -1.0900024)
