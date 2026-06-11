@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="4_yaibl"]
 [ext_resource type="Script" uid="uid://cfv7usv2c3fyj" path="res://Scripts/Components/state_machine.gd" id="6_jhid3"]
 [ext_resource type="Texture2D" uid="uid://cxolf1uhyd8sb" path="res://Aseprite/placeholder_tilemap.png" id="7_k4ubn"]
+[ext_resource type="Script" uid="uid://dq0qm6ova0it6" path="res://Scripts/Components/attack.gd" id="7_kb8pd"]
 [ext_resource type="Script" uid="uid://cl2bneq34l7gv" path="res://Entities/Boss/StationaryBoss/bat_attack.gd" id="7_yaibl"]
 [ext_resource type="PackedScene" uid="uid://cdqa3e0wafdb6" path="res://Entities/Boss/StationaryBoss/bullet.tscn" id="8_woq1o"]
 [ext_resource type="Script" uid="uid://w2uowg72iris" path="res://Entities/Boss/StationaryBoss/rest.gd" id="10_mvkti"]
@@ -26,8 +27,18 @@ size = Vector2(20, 29)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_woq1o"]
 size = Vector2(29, 51)
 
+[sub_resource type="Resource" id="Resource_yxowt"]
+script = ExtResource("7_kb8pd")
+attack_damage = 1.0
+metadata/_custom_type_script = "uid://dq0qm6ova0it6"
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o1jj8"]
 size = Vector2(22, 48)
+
+[sub_resource type="Resource" id="Resource_qymvn"]
+script = ExtResource("7_kb8pd")
+attack_damage = 3.0
+metadata/_custom_type_script = "uid://dq0qm6ova0it6"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xrruc"]
 
@@ -74,6 +85,7 @@ debug_color = Color(0, 0.99735785, 0, 0.42000002)
 collision_layer = 16
 collision_mask = 2
 script = ExtResource("4_yaibl")
+attack = SubResource("Resource_yxowt")
 metadata/_custom_type_script = "uid://b1c4qcf1gisb4"
 
 [node name="HitboxCollisionShape" type="CollisionShape2D" parent="HitboxComponent" unique_id=1582484898]
@@ -86,6 +98,7 @@ position = Vector2(0, 2)
 collision_mask = 2
 monitoring = false
 script = ExtResource("4_yaibl")
+attack = SubResource("Resource_qymvn")
 metadata/_custom_type_script = "uid://b1c4qcf1gisb4"
 metadata/_edit_lock_ = true
 

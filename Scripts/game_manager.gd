@@ -44,6 +44,7 @@ var death_book_timer: Timer
 var lucky_dice_active = false
 var meteor_timer: Timer
 const METEOR = preload("uid://cl4v4vyxveypp")
+var enemy: CharacterBody2D
 
 
 func _ready():
@@ -101,8 +102,10 @@ func begin_boss():
 		# if StationaryBoss: Connect death signal
 		if child.name == "StationaryBoss":
 			child.get_child(0).connect("died", boss_killed)
+			enemy = child
 		elif child.name == "MothBoss":
 			child.get_child(0).connect("died", boss_killed)
+			enemy = child
 		
 		# update the hud
 		if child.name == "UI":
