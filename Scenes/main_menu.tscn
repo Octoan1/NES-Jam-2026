@@ -1,7 +1,15 @@
 [gd_scene format=3 uid="uid://xsjlb0si8fwb"]
 
 [ext_resource type="Script" uid="uid://btsec807n3fno" path="res://Scenes/main_menu.gd" id="1_28flt"]
-[ext_resource type="Texture2D" uid="uid://ci7rh4054c1u0" path="res://Assets/Taco_Top_Hat.png" id="2_48xlc"]
+[ext_resource type="FontFile" uid="uid://3vewde7t6leg" path="res://font.png" id="3_1ehe0"]
+[ext_resource type="Texture2D" uid="uid://dlpss007jrsa" path="res://Aseprite/player.png" id="3_ce3w2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1ehe0"]
+font = ExtResource("3_1ehe0")
+
+[sub_resource type="LabelSettings" id="LabelSettings_ce3w2"]
+font = ExtResource("3_1ehe0")
+font_size = 7
 
 [node name="MainMenu" type="Control" unique_id=348174747]
 layout_mode = 3
@@ -10,17 +18,30 @@ offset_right = 256.0
 offset_bottom = 224.0
 script = ExtResource("1_28flt")
 
+[node name="BlackBG" type="ColorRect" parent="." unique_id=1764434377]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
 [node name="GameTitle" type="Label" parent="." unique_id=484105001]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -121.0
-offset_right = 121.0
-offset_bottom = 23.0
+offset_left = -112.0
+offset_top = 51.0
+offset_right = 108.0
+offset_bottom = 92.0
 grow_horizontal = 2
-text = "The Curse Of Joey"
+text = "Joes curse
+"
+label_settings = SubResource("LabelSettings_1ehe0")
 horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="Panel" type="Panel" parent="." unique_id=988997516]
 layout_mode = 1
@@ -29,10 +50,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -50.0
-offset_top = -30.0
-offset_right = 50.0
-offset_bottom = 30.0
+offset_left = -48.0
+offset_top = -10.0
+offset_right = 59.0
+offset_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -44,26 +65,46 @@ offset_bottom = 60.0
 [node name="StartButton" type="Button" parent="Panel/Buttons" unique_id=1880408293]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../OptionsButton")
-theme_override_font_sizes/font_size = 6
+theme_override_fonts/font = ExtResource("3_1ehe0")
+theme_override_font_sizes/font_size = 8
 text = "Start Game"
 
 [node name="OptionsButton" type="Button" parent="Panel/Buttons" unique_id=326419473]
 layout_mode = 2
 focus_neighbor_top = NodePath("../StartButton")
 focus_neighbor_bottom = NodePath("../QuitButton")
-theme_override_font_sizes/font_size = 6
+theme_override_fonts/font = ExtResource("3_1ehe0")
+theme_override_font_sizes/font_size = 8
 text = "Options"
 
 [node name="QuitButton" type="Button" parent="Panel/Buttons" unique_id=458775700]
 layout_mode = 2
 focus_neighbor_top = NodePath("../OptionsButton")
-theme_override_font_sizes/font_size = 6
+theme_override_fonts/font = ExtResource("3_1ehe0")
+theme_override_font_sizes/font_size = 8
 text = "Quit"
 
 [node name="Selector" type="Sprite2D" parent="Panel" unique_id=1651033583]
-position = Vector2(89.99999, 9.999999)
-scale = Vector2(0.02, 0.02)
-texture = ExtResource("2_48xlc")
+position = Vector2(100, 8)
+scale = Vector2(-1, 1)
+texture = ExtResource("3_ce3w2")
+
+[node name="Label" type="Label" parent="." unique_id=972699968]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -115.5
+offset_top = -23.0
+offset_right = 115.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Copyright 2026
+Octoan, Conrad, jprei, calobright"
+label_settings = SubResource("LabelSettings_ce3w2")
+horizontal_alignment = 1
 
 [connection signal="focus_entered" from="Panel/Buttons/StartButton" to="." method="_on_start_button_focus_entered"]
 [connection signal="pressed" from="Panel/Buttons/StartButton" to="." method="_on_start_button_pressed"]

@@ -25,13 +25,13 @@ func _on_quit_button_pressed() -> void:
 
 # Focus selector logic
 func _on_start_button_focus_entered() -> void:
-	selector.global_position.x = start_button.global_position.x + 90
-	selector.global_position.y = start_button.global_position.y + 8.5
+	selector.global_position.x = start_button.global_position.x + 100
+	selector.global_position.y = start_button.global_position.y + 8
 
 func _on_options_button_focus_entered() -> void:
-	selector.global_position.x = options_button.global_position.x + 90
-	selector.global_position.y = options_button.global_position.y + 8.5
+	selector.global_position.x = options_button.global_position.x + 100
+	selector.global_position.y = options_button.global_position.y + 8
 
 func _on_quit_button_focus_entered() -> void:
-	selector.global_position.x = quit_button.global_position.x + 90
-	selector.global_position.y = quit_button.global_position.y + 8.5
+	selector.global_position.x = quit_button.global_position.x + 100
+	selector.global_position.y = quit_button.global_position.y + 8
