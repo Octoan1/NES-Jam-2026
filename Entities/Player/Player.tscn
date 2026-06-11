@@ -131,7 +131,7 @@ jump_velocity = -150.0
 script = ExtResource("2_an6q6")
 debug_mode = true
 max_health = 16
-invulnerability_duration = 5.0
+invulnerability_duration = 2.0
 defense_component = NodePath("../DefenseComponent")
 metadata/_custom_type_script = "uid://bp60vdvwyxe7f"
 

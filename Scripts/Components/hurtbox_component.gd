@@ -20,9 +20,14 @@ func hurt(attack: Attack, attacker_pos: Vector2) -> void:
 	if debug_mode:
 		print(owner.name + " Hurtbox Hit")
 	
-	if health_component:
-		health_component.damage_health(attack.attack_damage)
+	if not health_component:
+		return
+		
+	var did_damage = health_component.damage_health(attack.attack_damage)
 	
-	if entity and attack.knockback_force > 0.0 and not health_component.is_invulnerable:
+	if not did_damage:
+		return  # <-- CRITICAL
+		
+	if entity and attack.knockback_force > 0.0:
 		entity.apply_attack(attack, attacker_pos)
 	

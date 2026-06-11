@@ -243,5 +243,5 @@ func _flash_loop() -> void:
 		sprite.modulate.a = 0.0
 		await get_tree().create_timer(0.1).timeout
 
-		sprite.modulate = Color(1, 1, 1, 1)
+		sprite.modulate.a = 1.0
 		await get_tree().create_timer(0.1).timeout
