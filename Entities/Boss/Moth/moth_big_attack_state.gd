@@ -36,7 +36,6 @@ func _on_delay_timer_timeout() -> void:
 		delay_timer.stop()
 		Transitioned.emit(self, "moth move")
 	else:
-		print("Moth Attacks")
 		enemy.big_attack()
 		num_shots += 1
 		delay_timer.start()

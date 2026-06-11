@@ -16,14 +16,13 @@ func _ready() -> void:
 
 
 #func hurt(attack: Attack):
-func hurt(attack: Attack) -> void:
+func hurt(attack: Attack, attacker_pos: Vector2) -> void:
 	if debug_mode:
 		print(owner.name + " Hurtbox Hit")
 	
 	if health_component:
 		health_component.damage_health(attack.attack_damage)
 	
-	if entity:
-		print(attack.knockback_force)
-		entity.velocity += Vector2(0.8, -0.2) * attack.knockback_force
+	if entity and attack.knockback_force > 0.0 and not health_component.is_invulnerable:
+		entity.apply_attack(attack, attacker_pos)
 	

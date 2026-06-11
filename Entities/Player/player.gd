@@ -32,6 +32,7 @@ var waiting_to_land: bool = false
 @export var jump_velocity: float = -125
 var can_move: bool = true
 var previous_location: Vector2
+var flashing := false
 
 # coyote time
 @export var coyote_time := 0.1
@@ -47,6 +48,15 @@ var can_interact: bool = false
 @export var climb_speed: float = 50.0
 var is_climbing: bool = false
 
+#Knockback
+enum State {
+	NORMAL,
+	HITSTUN
+}
+var state = State.NORMAL
+var knockback_velocity: Vector2 = Vector2.ZERO
+var knockback_decay := 100.0
+
 
 func _ready() -> void:
 	attack_pivot.visible = false
@@ -54,8 +64,25 @@ func _ready() -> void:
 	
 	health_component.died.connect(die)
 	previous_location = global_position
+	
+	health_component.invulnerability_started.connect(_on_invuln_start)
+	health_component.invulnerability_ended.connect(_on_invuln_end)
 
 func _physics_process(delta: float) -> void:
+	if state == State.HITSTUN:
+		velocity.x = knockback_velocity.x
+		velocity.y += get_gravity().y * delta * gravity_modifier
+		
+		#knockback_velocity = knockback_velocity.move_toward(Vector2.ZERO, knockback_decay * delta)
+		
+		move_and_slide()
+		
+		if is_on_floor():
+			state = State.NORMAL
+			knockback_velocity = Vector2.ZERO
+		return
+	
+	
 	# Add the gravity.
 	if not is_on_floor() and is_climbing:
 		velocity.y = climb_speed
@@ -193,3 +220,28 @@ func _on_dash_delay_timer_timeout() -> void:
 	dash_delay_timer.stop()
 	can_dash = true
 	waiting_to_land = false
+	
+func apply_attack(attack: Attack, attacker_pos: Vector2):
+	state = State.HITSTUN
+	var dir = (global_position - attacker_pos).normalized()
+	knockback_velocity = Vector2(
+		sign(dir.x) * attack.knockback_force,
+		attack.knockback_force * -0.5  # upward launch feel
+	)
+	velocity.y = knockback_velocity.y
+
+func _on_invuln_start():
+	flashing = true
+	_flash_loop()
+
+func _on_invuln_end():
+	flashing = false
+	sprite.modulate.a = 1.0
+
+func _flash_loop() -> void:
+	while flashing:
+		sprite.modulate.a = 0.0
+		await get_tree().create_timer(0.1).timeout
+
+		sprite.modulate = Color(1, 1, 1, 1)
+		await get_tree().create_timer(0.1).timeout

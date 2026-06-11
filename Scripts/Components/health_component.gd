@@ -15,6 +15,8 @@ var is_invulnerable: bool = false
 signal died
 signal damaged
 signal health_changed(current_health: float, max_health: float)
+signal invulnerability_started
+signal invulnerability_ended
 
 func _ready() -> void:
 	health = max_health
@@ -49,5 +51,7 @@ func damage_health(attack_damage: float) -> void:
 	
 func start_invulnerability() -> void:
 	is_invulnerable = true
+	invulnerability_started.emit()
 	await get_tree().create_timer(invulnerability_duration).timeout
 	is_invulnerable = false
+	invulnerability_ended.emit()
