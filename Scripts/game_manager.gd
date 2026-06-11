@@ -242,7 +242,7 @@ func spawn_meteor():
 		meteor.target = Vector2(meteor_x, meteor_y + 10)
 		
 		meteor.move_speed = 30
-		add_child(meteor)
+		main_scene.add_child(meteor)
 	meteor_timer.start()
 
 # A ghost summon helps you in battle.
