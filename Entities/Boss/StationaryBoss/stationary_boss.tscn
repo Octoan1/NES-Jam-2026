@@ -128,19 +128,19 @@ position = Vector2(-160, 32)
 [node name="BloodProjectileSpawns" type="Node2D" parent="." unique_id=1719833919]
 
 [node name="Spawn1" type="Marker2D" parent="BloodProjectileSpawns" unique_id=24114749]
-position = Vector2(-15, -40)
+position = Vector2(-25, -36)
 
 [node name="Spawn2" type="Marker2D" parent="BloodProjectileSpawns" unique_id=1219276179]
-position = Vector2(-10, -45)
+position = Vector2(-13, -43)
 
 [node name="Spawn3" type="Marker2D" parent="BloodProjectileSpawns" unique_id=1882472317]
-position = Vector2(0, -50)
+position = Vector2(0, -47)
 
 [node name="Spawn4" type="Marker2D" parent="BloodProjectileSpawns" unique_id=1708254905]
-position = Vector2(10, -45)
+position = Vector2(13, -43)
 
 [node name="Spawn5" type="Marker2D" parent="BloodProjectileSpawns" unique_id=1775393999]
-position = Vector2(15, -40)
+position = Vector2(25, -36)
 
 [node name="RainLeft" type="Marker2D" parent="." unique_id=1668647656]
 position = Vector2(-124, -106)
@@ -157,6 +157,7 @@ metadata/_custom_type_script = "uid://cfv7usv2c3fyj"
 
 [node name="BatAttack" type="Node" parent="StateMachine" unique_id=115041271]
 script = ExtResource("7_yaibl")
+bullet_speed = 150.0
 revenge_threshold = 3
 bullet_scene = ExtResource("8_woq1o")
 
