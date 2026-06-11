@@ -3,6 +3,59 @@
 [ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="1_v5eym"]
 [ext_resource type="Script" uid="uid://c7mivwrvli5ot" path="res://Entities/Boss/StationaryBoss/bullet.gd" id="1_vewwk"]
 [ext_resource type="Texture2D" uid="uid://bd1rv0wm7tp87" path="res://Assets/PLACEHOLDER_projectice.png" id="2_2kk5f"]
+[ext_resource type="Texture2D" uid="uid://87p2souyu1h2" path="res://Aseprite/bat-Sheet.png" id="2_dk0ok"]
+[ext_resource type="Texture2D" uid="uid://cortmr1sgyqqi" path="res://Aseprite/fireball.png" id="4_b7do4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b7do4"]
+atlas = ExtResource("2_dk0ok")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7qncf"]
+atlas = ExtResource("2_dk0ok")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fnsbg"]
+atlas = ExtResource("2_2kk5f")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rf2on"]
+atlas = ExtResource("4_b7do4")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rf2on"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b7do4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7qncf")
+}],
+"loop": true,
+"name": &"bat",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"blood_rain",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fnsbg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rf2on")
+}],
+"loop": true,
+"name": &"fireball",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2kk5f"]
 radius = 3.0
@@ -10,8 +63,10 @@ radius = 3.0
 [node name="Bullet" type="Node2D" unique_id=1344823539]
 script = ExtResource("1_vewwk")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1465665596]
-texture = ExtResource("2_2kk5f")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=151776216]
+sprite_frames = SubResource("SpriteFrames_rf2on")
+animation = &"fireball"
+autoplay = "default"
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=856041957]
 collision_layer = 16

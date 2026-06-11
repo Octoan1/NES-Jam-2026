@@ -51,12 +51,14 @@ func update(_delta: float) -> void:
 func _on_attack_timer_timeout() -> void:
 	# create bullet
 	var bullet: Node2D = bullet_scene.instantiate()
-	bullet.scale = Vector2(2, 2)
+	bullet.type = Bullet.BulletType.BAT
+	#bullet.scale = Vector2(2, 2)
 	#bullet.get_child(0).texture = bat_sprite
 	
 	if randi_range(0,1) == 0:
 		bullet.global_position = bat_right.global_position
 		bullet.target = bat_left.global_position
+		#bullet.animated_sprite_2d
 	else:
 		bullet.global_position = bat_left.global_position
 		bullet.target = bat_right.global_position
