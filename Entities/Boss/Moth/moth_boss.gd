@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var flash_component: FlashComponent = $FlashComponent
 @onready var player: CharacterBody2D
 
