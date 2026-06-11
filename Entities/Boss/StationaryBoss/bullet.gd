@@ -22,7 +22,8 @@ func _ready() -> void:
 		BulletType.FIREBALL:
 			animated_sprite_2d.play("fireball")
 		BulletType.BLOOD_RAIN:
-			$HitboxComponent.scale = Vector2(1, 0.5)
+			animated_sprite_2d.play("blood_rain")
+			$HitboxComponent.scale = Vector2(.5, 1)
 
 func _physics_process(delta: float) -> void:
 	self.global_position += direction * move_speed * delta

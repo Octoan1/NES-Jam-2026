@@ -55,15 +55,17 @@ func _on_attack_timer_timeout() -> void:
 	#bullet.scale = Vector2(2, 2)
 	#bullet.get_child(0).texture = bat_sprite
 	
+	var flip: bool = false
 	if randi_range(0,1) == 0:
+		flip = true
 		bullet.global_position = bat_right.global_position
 		bullet.target = bat_left.global_position
-		#bullet.animated_sprite_2d
 	else:
 		bullet.global_position = bat_left.global_position
 		bullet.target = bat_right.global_position
 	bullet.move_speed = bullet_speed
 	add_child(bullet)
+	bullet.animated_sprite_2d.flip_h = flip # do this after add_child() so _ready() func is aleady called
 	
 	current_count += 1
 

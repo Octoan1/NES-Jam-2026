@@ -60,7 +60,7 @@ func update(_delta: float) -> void:
 func _on_attack_timer_timeout() -> void:
 	# create bullet
 	var bullet: Node2D = bullet_scene.instantiate()
-	
+	bullet.type = Bullet.BulletType.BLOOD_RAIN
 	var bullet_x = randi_range(rain_left.global_position.x, rain_right.global_position.x)
 	var bullet_y = rain_left.global_position.y
 	bullet.global_position = Vector2(bullet_x, bullet_y)
