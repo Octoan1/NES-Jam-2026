@@ -55,6 +55,17 @@ func damage_health(attack_damage: float) -> bool:
 		start_invulnerability()
 	return true
 	
+
+func modify_health(heal_amount: float):
+	health += heal_amount
+	
+	if health >= max_health:
+		health = max_health
+	if health <= 0:
+		died.emit()
+	
+	health_changed.emit(health, max_health)
+
 func start_invulnerability() -> void:
 	is_invulnerable = true
 	invulnerability_started.emit()

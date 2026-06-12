@@ -45,7 +45,7 @@ var lucky_dice_active = false
 var meteor_timer: Timer
 const METEOR = preload("uid://cl4v4vyxveypp")
 var enemy: CharacterBody2D
-var mask_timer: Timer
+var mister_sword_timer: Timer
 
 
 func _ready():
@@ -121,6 +121,8 @@ func disable_relics():
 		death_book_timer.stop()
 	if meteor_timer:
 		meteor_timer.stop()
+	if mister_sword_timer:
+		mister_sword_timer.stop()
 
 func boss_killed():
 	canvas_layer = get_tree().current_scene.find_child("CanvasLayer", true, false)
@@ -335,7 +337,22 @@ func GemGauntlet(player: CharacterBody2D):
 	#player.dodge_chance = player.dodge_chance / 2
 	
 
-# Your sword now shoots a projectile
-# Your attacks are slower
+# Damaging the boss heals you
+# You lose health over time
 func MisterSword(player: CharacterBody2D):
-	print("Legendary")
+	# timer setup
+	mister_sword_timer = Timer.new()
+	add_child(mister_sword_timer)
+	mister_sword_timer.wait_time = 1.5
+	mister_sword_timer.timeout.connect(damage_player.bind(player))
+	mister_sword_timer.start()
+	
+	enemy.find_child("HealthComponent").damaged.connect(heal_player.bind(player))
+	
+
+func damage_player(player: CharacterBody2D):
+	player.find_child("HealthComponent").modify_health(-1.0)
+	mister_sword_timer.start()
+
+func heal_player(player: CharacterBody2D):
+	player.find_child("HealthComponent").modify_health(1.0)
