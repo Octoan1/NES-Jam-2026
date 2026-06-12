@@ -140,10 +140,13 @@ func _check_movement() -> void:
 		player_facing = sign(dir)
 		attack_pivot.scale.x = player_facing
 		
+		if state == State.CLIMB: return # stop cimbing visuals override
 		sprite.play("walk")
 		sprite.flip_h = dir < 0
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
+		
+		if state == State.CLIMB: return # stop cimbing visuals override
 		sprite.play("default")
 #endregion
 
@@ -224,6 +227,9 @@ func _update_attack(delta: float) -> void:
 #region CLIMB
 func _start_climb() -> void:
 	state = State.CLIMB
+	sprite.flip_h = false
+	sprite.play("climbing")
+
 	
 
 func _update_climb(_delta: float) -> void:
@@ -231,10 +237,15 @@ func _update_climb(_delta: float) -> void:
 		state = State.NORMAL
 		return
 	
+	sprite.play()
+	
 	if Input.is_action_pressed("D_Pad_Up"):
 		velocity.y = -climb_speed
-	else:
+	elif Input.is_action_pressed("D_Pad_Down"):
 		velocity.y = climb_speed
+	else:
+		velocity.y = 0
+		sprite.pause()
 	
 	_check_movement()
 #endregion

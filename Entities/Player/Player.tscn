@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://cgg6fc10yy41e" path="res://Aseprite/player_roll-Sheet.png" id="7_lmeus"]
 [ext_resource type="Texture2D" uid="uid://crjb7kc537dum" path="res://Aseprite/player_walk-Sheet.png" id="8_061yh"]
 [ext_resource type="Texture2D" uid="uid://dsw7j0e3akagt" path="res://Assets/PLACEHOLDER_attack.png" id="8_761t5"]
+[ext_resource type="Texture2D" uid="uid://c8l4w2q3cwoc2" path="res://Aseprite/player/player_climbing-Sheet.png" id="8_samso"]
 [ext_resource type="Script" uid="uid://bv4g7seykfa7j" path="res://Scripts/Components/defense_component.gd" id="10_hacra"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uw7o4"]
@@ -28,6 +29,14 @@ region = Rect2(48, 0, 48, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_mgqku"]
 atlas = ExtResource("7_gallu")
 region = Rect2(96, 0, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5m37j"]
+atlas = ExtResource("8_samso")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80tt4"]
+atlas = ExtResource("8_samso")
+region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lmeus"]
 atlas = ExtResource("6_hacra")
@@ -77,6 +86,17 @@ animations = [{
 "loop": false,
 "name": &"attack",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5m37j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_80tt4")
+}],
+"loop": true,
+"name": &"climbing",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -165,7 +185,7 @@ script = ExtResource("5_uw7o4")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1158637556]
 material = SubResource("ShaderMaterial_uw7o4")
 sprite_frames = SubResource("SpriteFrames_gallu")
-animation = &"attack"
+animation = &"climbing"
 autoplay = "default"
 
 [node name="WorldCollisionShape" type="CollisionShape2D" parent="." unique_id=1714244896]
