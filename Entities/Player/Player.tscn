@@ -7,112 +7,13 @@
 [ext_resource type="AudioStream" uid="uid://cjuoup7ehnmle" path="res://Audio/PLACEHOLDER_hit_sound.wav" id="4_1des2"]
 [ext_resource type="Script" uid="uid://b33upjirfs7dt" path="res://Scripts/Components/hurtbox_component.gd" id="4_t38ms"]
 [ext_resource type="Shader" uid="uid://blmvfgvk3bx8a" path="res://Entities/flash_color.gdshader" id="5_061yh"]
-[ext_resource type="Script" path="res://Scripts/Components/stat_component.gd" id="5_uw7o4"]
+[ext_resource type="Script" uid="uid://bagscl1ugnifq" path="res://Scripts/Components/stat_component.gd" id="5_uw7o4"]
 [ext_resource type="Texture2D" uid="uid://cnm02utrgxnb5" path="res://Aseprite/player_duck.png" id="6_061yh"]
 [ext_resource type="Texture2D" uid="uid://dlpss007jrsa" path="res://Aseprite/player.png" id="6_hacra"]
 [ext_resource type="Texture2D" uid="uid://cgg6fc10yy41e" path="res://Aseprite/player_roll-Sheet.png" id="7_lmeus"]
 [ext_resource type="Texture2D" uid="uid://crjb7kc537dum" path="res://Aseprite/player_walk-Sheet.png" id="8_061yh"]
 [ext_resource type="Texture2D" uid="uid://dsw7j0e3akagt" path="res://Assets/PLACEHOLDER_attack.png" id="8_761t5"]
-[ext_resource type="Texture2D" uid="uid://bghjv36vlmqhf" path="res://icon.svg" id="8_gallu"]
-[ext_resource type="Script" path="res://Scripts/Components/defense_component.gd" id="10_hacra"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_uw7o4"]
-shader = ExtResource("5_061yh")
-shader_parameter/flash_color = Color(1, 1, 1, 1)
-shader_parameter/flash_amount = 0.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lmeus"]
-atlas = ExtResource("6_hacra")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gallu"]
-atlas = ExtResource("6_061yh")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uw7o4"]
-atlas = ExtResource("7_lmeus")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_samso"]
-atlas = ExtResource("7_lmeus")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hl213"]
-atlas = ExtResource("7_lmeus")
-region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e34i1"]
-atlas = ExtResource("7_lmeus")
-region = Rect2(80, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_h6pxy"]
-atlas = ExtResource("7_lmeus")
-region = Rect2(112, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l80rc"]
-atlas = ExtResource("8_061yh")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l2mqv"]
-atlas = ExtResource("8_061yh")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5m37j"]
-atlas = ExtResource("8_gallu")
-region = Rect2(32, 32, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_gallu"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lmeus")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gallu")
-}],
-"loop": true,
-"name": &"duck",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uw7o4")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_samso")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hl213")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_e34i1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h6pxy")
-}],
-"loop": true,
-"name": &"roll",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l80rc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l2mqv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5m37j")
-}],
-"loop": true,
-"name": &"walk",
-"speed": 5.0
-}]
+[ext_resource type="Script" uid="uid://bv4g7seykfa7j" path="res://Scripts/Components/defense_component.gd" id="10_hacra"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uw7o4"]
 shader = ExtResource("5_061yh")
@@ -251,6 +152,7 @@ script = ExtResource("5_uw7o4")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1158637556]
 material = SubResource("ShaderMaterial_uw7o4")
 sprite_frames = SubResource("SpriteFrames_gallu")
+animation = &"walk"
 autoplay = "default"
 
 [node name="WorldCollisionShape" type="CollisionShape2D" parent="." unique_id=1714244896]
