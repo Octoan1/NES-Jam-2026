@@ -56,19 +56,27 @@ func _ready() -> void:
 	previous_location = global_position
 
 func _physics_process(delta: float) -> void:
+	print("is_dashing =", is_dashing)
+	print("waiting_to_land =", waiting_to_land)
+	print("dash_timer stopped =", dash_timer.is_stopped())
+	print("can_dash =", can_dash)
+	
 	# Add the gravity.
 	if not is_on_floor() and is_climbing:
 		velocity.y = climb_speed
 	elif not is_on_floor():
 		velocity += get_gravity() * gravity_modifier * delta
 		coyote_timer -= delta
+		waiting_to_land = true
 	else: 
 		coyote_timer = coyote_time
 	
 	if waiting_to_land and is_on_floor() and dash_timer.is_stopped():
 		is_dashing = false
+		waiting_to_land = false
 		health_component.is_invulnerable = false
-		sprite.play("default")
+		if sprite.animation != "default":
+			sprite.play("default")
 		dash_delay_timer.wait_time = dash_delay
 		dash_delay_timer.start()
 	
@@ -87,11 +95,20 @@ func _physics_process(delta: float) -> void:
 
 	# Handle jump.
 	if Input.is_action_just_pressed("A_Button") and (is_on_floor() or coyote_timer > 0.0) and not is_dashing and not is_climbing and can_move and not Input.is_action_pressed("D_Pad_Down"):
+		# trying to dash + jump
+		if Input.is_action_pressed("D_Pad_Up"):
+			if not is_climbing and can_dash:
+				_start_dash()
+				velocity.y = jump_velocity
+				coyote_timer = 0.0
+				return
+			else:
+				return
+		
+		# if not trying to dash, then jump normally
 		velocity.y = jump_velocity
 		coyote_timer = 0.0
-		if Input.is_action_pressed("D_Pad_Up") and not is_climbing and can_dash:
-			_start_dash()
-			return
+		
 
 	# Get the input direction and handle the movement/deceleration.
 	var direction := Input.get_axis("D_Pad_Left", "D_Pad_Right")
