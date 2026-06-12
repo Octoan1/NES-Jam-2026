@@ -55,7 +55,7 @@ collision_layer = 0
 [node name="HealthComponent" type="Node" parent="." unique_id=156778617]
 script = ExtResource("1_o1jj8")
 debug_mode = true
-max_health = 15
+max_health = 30
 metadata/_custom_type_script = "uid://bp60vdvwyxe7f"
 
 [node name="FlashComponent" type="Node" parent="." unique_id=808951294 node_paths=PackedStringArray("sprite", "health_component")]

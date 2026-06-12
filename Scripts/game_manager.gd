@@ -52,7 +52,6 @@ func _ready():
 	randomize()
 	current_round = 0
 	reset_relics()
-	add_relic(ANCIENT_MASK)
 
 func add_relic(item: Relic):
 	inventory.append(item)
@@ -211,6 +210,13 @@ func LuckyCoin(player: CharacterBody2D):
 # Every 5 seconds passed without attacking the boss, the player's attack becomes weaker
 func AncientMask(player: CharacterBody2D):
 	player.find_child("HealthComponent").damaged.connect(strengthen_player.bind(player))
+	
+	# if enemy attack mult is default, just set it to 2
+	# otherwise, (say, there is another attack mult in play) add them together
+	if enemy.get_node("StatComponent").attack_mult == 1:
+		enemy.get_node("StatComponent").attack_mult = 2
+	else:
+		enemy.get_node("StatComponent").attack_mult += 2
 
 func strengthen_player(player: CharacterBody2D):
 	var player_health = player.find_child("HealthComponent").health
@@ -222,13 +228,15 @@ func strengthen_player(player: CharacterBody2D):
 	elif player_health <= 4 and player_health > 0:
 		player.get_node("StatComponent").attack_mult = 4
 
+
+
 # 10% chance to ignore an instance of damage.
 # 10% chance to take double damage
 func LuckyDice(player: CharacterBody2D):
 	# pro and con modify player, so this will be handled
 	# in the 'begin_boss()'
 	player.get_node("DefenseComponent").dodge_chance = 0.1
-	enemy.get_node("StatComponent").crit_mult = 2
+	enemy.get_node("StatComponent").crit_mult += 2
 	enemy.get_node("StatComponent").crit_chance = 0.1
 
 # Doubles the positive effect of the next relic.
