@@ -123,13 +123,13 @@ script = ExtResource("1_1iada")
 attack_delay = 0.5
 dash_speed = 125.0
 dash_duration = 0.5
+dash_delay = 0.01
 gravity_modifier = 0.6
 speed = 50.0
 jump_velocity = -150.0
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1416142201 node_paths=PackedStringArray("defense_component")]
 script = ExtResource("2_an6q6")
-debug_mode = true
 max_health = 16
 invulnerability_duration = 2.0
 defense_component = NodePath("../DefenseComponent")

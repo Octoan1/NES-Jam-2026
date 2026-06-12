@@ -8,7 +8,7 @@ var player_facing = 1
 @onready var attack_pivot := $AttackPivot
 @onready var sword_hitbox := $AttackPivot/SwordHitbox
 @onready var dash_timer := $DashTimer
-@onready var dash_delay_timer := $DashDelayTimer
+@onready var dash_delay_timer: Timer = $DashDelayTimer
 
 #Attack Variables
 @export var attack_duration: float = 0.15
@@ -20,8 +20,7 @@ var can_attack: bool = true
 @export var dash_duration: float = 0.1
 @export var dash_delay: float = 0.5
 var is_dashing: bool = false
-var can_dash: bool = true
-var waiting_to_land: bool = false
+var dash_locked: bool = false
 
 #Player Stats
 @export var dmg: float = 2.0
@@ -67,6 +66,7 @@ func _ready() -> void:
 	
 	health_component.invulnerability_started.connect(_on_invuln_start)
 	health_component.invulnerability_ended.connect(_on_invuln_end)
+	dash_delay_timer.stop()
 
 func _physics_process(delta: float) -> void:
 	if state == State.HITSTUN:
@@ -92,12 +92,8 @@ func _physics_process(delta: float) -> void:
 	else: 
 		coyote_timer = coyote_time
 	
-	if waiting_to_land and is_on_floor() and dash_timer.is_stopped():
-		is_dashing = false
-		health_component.is_invulnerable = false
-		sprite.play("default")
-		dash_delay_timer.wait_time = dash_delay
-		dash_delay_timer.start()
+	if dash_locked and is_on_floor() and not is_dashing and dash_delay_timer.is_stopped():
+		_unlock_dash()
 	
 	if is_dashing:
 		velocity.x = player_facing * dash_speed
@@ -105,7 +101,7 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	#Handles Climbing
-	if can_interact and Input.is_action_pressed("D_Pad_Up"):
+	if can_interact and Input.is_action_pressed("D_Pad_Up") and not is_dashing:
 		velocity.y = -1 * climb_speed
 		is_climbing = true
 	elif not can_interact:
@@ -116,7 +112,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("A_Button") and (is_on_floor() or coyote_timer > 0.0) and not is_dashing and not is_climbing and can_move and not Input.is_action_pressed("D_Pad_Down"):
 		velocity.y = jump_velocity
 		coyote_timer = 0.0
-		if Input.is_action_pressed("D_Pad_Up") and not is_climbing and can_dash:
+		if Input.is_action_pressed("D_Pad_Up") and not is_climbing and not dash_locked:
 			_start_dash()
 			return
 
@@ -140,7 +136,7 @@ func _physics_process(delta: float) -> void:
 	
 	#Handle Dash
 	#if Input.is_action_just_pressed("D_Pad_Down") and can_dash and is_on_floor():
-	if Input.is_action_pressed("D_Pad_Down") and Input.is_action_just_pressed("A_Button") and can_dash and is_on_floor():
+	if Input.is_action_pressed("D_Pad_Down") and Input.is_action_just_pressed("A_Button") and not dash_locked and is_on_floor():
 		_start_dash()
 
 	
@@ -174,24 +170,37 @@ func _trigger_attack() -> void:
 	
 	
 func _start_dash() -> void:
+	print("Dash Started")
 	is_dashing = true
-	can_dash = false
+	dash_locked = true
 	health_component.is_invulnerable = true
 	sprite.play("roll")
 	
-	dash_timer.wait_time = dash_duration
-	dash_timer.start()
+	dash_timer.start(dash_duration)
 
 func _on_dash_timer_timeout() -> void:
+	print("Dash Finished")
 	dash_timer.stop()
+	is_dashing = false
 	if is_on_floor():
-		is_dashing = false
-		health_component.is_invulnerable = false
-		sprite.play("default")
-		dash_delay_timer.wait_time = dash_delay
-		dash_delay_timer.start()
+		_unlock_dash()
 	else:
-		waiting_to_land = true
+		pass
+	
+func _unlock_dash():
+	if not dash_locked:
+		return
+	
+	print("Unlocking")
+	is_dashing = false
+	health_component.is_invulnerable = false
+	sprite.play("default")
+	dash_delay_timer.start(dash_delay)
+
+func _on_dash_delay_timer_timeout() -> void:
+	print("Delay over")
+	dash_delay_timer.stop()
+	dash_locked = false
 
 #
 #func player_take_damage(amount: int) -> void:
@@ -214,12 +223,6 @@ func _on_interactbox_component_body_entered(_body: Node2D) -> void:
 
 func _on_interactbox_component_body_exited(_body: Node2D) -> void:
 	can_interact = false
-
-
-func _on_dash_delay_timer_timeout() -> void:
-	dash_delay_timer.stop()
-	can_dash = true
-	waiting_to_land = false
 	
 func apply_attack(attack: Attack, attacker_pos: Vector2):
 	state = State.HITSTUN

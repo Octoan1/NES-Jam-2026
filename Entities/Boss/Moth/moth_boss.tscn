@@ -71,12 +71,10 @@ script = ExtResource("1_r8104")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=717674945]
 script = ExtResource("1_j7pap")
-debug_mode = true
 metadata/_custom_type_script = "uid://bp60vdvwyxe7f"
 
 [node name="FlashComponent" type="Node" parent="." unique_id=23116292 node_paths=PackedStringArray("sprite", "health_component")]
 script = ExtResource("2_r8104")
-debug_mode = true
 sprite = NodePath("../AnimatedSprite2D")
 health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://c00fny1ika60u"
@@ -140,7 +138,6 @@ horizontal_alignment = 1
 
 [node name="StateMachine" type="Node" parent="." unique_id=1611596430 node_paths=PackedStringArray("debug_state_label", "initial_state")]
 script = ExtResource("7_eucj0")
-debug_mode = true
 debug_state_label = NodePath("../DebugStateLabel")
 initial_state = NodePath("Moth Move")
 metadata/_custom_type_script = "uid://cfv7usv2c3fyj"

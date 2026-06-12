@@ -3,7 +3,8 @@ extends State
 @onready var enemy: CharacterBody2D = $"../.."
 @onready var extra_info_label: Label = $"../../DebugStateLabel/ExtraStateInfo"
 
-var positions: Array[Vector2] = [Vector2(28, 168), Vector2(223, 168)]
+#Vector2(28, 168), Vector2(28, 120), Vector2(28, 72), Vector2(223, 168), Vector2(223, 120), Vector2(223, 72)
+var positions: Array[Vector2] = [Vector2(28, 72), Vector2(223, 72)]
 var big_position: Vector2 = Vector2(126, 120)
 var next_position: Vector2
 @export var fly_speed: float = 100.0
