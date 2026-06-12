@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://buxpwecnlehmm"]
 
-[ext_resource type="Script" uid="uid://dha2h40hql2pn" path="res://Entities/Player/player.gd" id="1_1iada"]
+[ext_resource type="Script" uid="uid://cxnq2tk5mmtsk" path="res://Updated_Player.gd" id="1_gallu"]
 [ext_resource type="Script" uid="uid://bp60vdvwyxe7f" path="res://Scripts/Components/health_component.gd" id="2_an6q6"]
 [ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="3_vweq0"]
 [ext_resource type="Script" uid="uid://c00fny1ika60u" path="res://Scripts/Components/flash_color_component.gd" id="3_x44r4"]
 [ext_resource type="AudioStream" uid="uid://cjuoup7ehnmle" path="res://Audio/PLACEHOLDER_hit_sound.wav" id="4_1des2"]
 [ext_resource type="Script" uid="uid://b33upjirfs7dt" path="res://Scripts/Components/hurtbox_component.gd" id="4_t38ms"]
 [ext_resource type="Shader" uid="uid://blmvfgvk3bx8a" path="res://Entities/flash_color.gdshader" id="5_061yh"]
-[ext_resource type="Script" path="res://Scripts/Components/stat_component.gd" id="5_uw7o4"]
+[ext_resource type="Script" uid="uid://bagscl1ugnifq" path="res://Scripts/Components/stat_component.gd" id="5_uw7o4"]
 [ext_resource type="Texture2D" uid="uid://cnm02utrgxnb5" path="res://Aseprite/player_duck.png" id="6_061yh"]
 [ext_resource type="Texture2D" uid="uid://dlpss007jrsa" path="res://Aseprite/player.png" id="6_hacra"]
 [ext_resource type="Texture2D" uid="uid://cgg6fc10yy41e" path="res://Aseprite/player_roll-Sheet.png" id="7_lmeus"]
@@ -128,7 +128,7 @@ size = Vector2(9, 15)
 
 [node name="Player" type="CharacterBody2D" unique_id=316049185 groups=["Player"]]
 collision_layer = 2
-script = ExtResource("1_1iada")
+script = ExtResource("1_gallu")
 attack_delay = 0.5
 dash_speed = 125.0
 dash_duration = 0.5

@@ -4,7 +4,7 @@ extends State
 @onready var extra_info_label: Label = $"../../DebugStateLabel/ExtraStateInfo"
 
 #Vector2(28, 168), Vector2(28, 120), Vector2(28, 72), Vector2(223, 168), Vector2(223, 120), Vector2(223, 72)
-var positions: Array[Vector2] = [Vector2(28, 72), Vector2(223, 72)]
+var positions: Array[Vector2] = [Vector2(28, 168), Vector2(28, 120), Vector2(28, 72), Vector2(223, 168), Vector2(223, 120), Vector2(223, 72)]
 var big_position: Vector2 = Vector2(126, 120)
 var next_position: Vector2
 @export var fly_speed: float = 100.0
@@ -13,7 +13,7 @@ var big_attack: bool = true
 
 func randomize_position():
 	var ran = randf()
-	if big_attack or ran < 1.1:
+	if big_attack or ran < 0.8:
 		var possible_positions = positions.duplicate()
 		if next_position:
 			possible_positions.remove_at(possible_positions.find(next_position))
