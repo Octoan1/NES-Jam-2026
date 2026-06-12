@@ -14,7 +14,8 @@ func _ready() -> void:
 	player = get_tree().get_first_node_in_group("Player")
 	
 func _physics_process(_delta: float) -> void:
-	
+	if not player:
+		player =  get_tree().get_first_node_in_group("Player")
 	var direction: int = sign(self.global_position.x - player.global_position.x)
 	sprite_2d.flip_h = direction > 0
 	
@@ -22,7 +23,7 @@ func _physics_process(_delta: float) -> void:
 
 func attack() -> void:
 	var instance = projectile.instantiate()
-	var future_position = player.global_position + (player.global_position - player.previous_location)
+	var future_position = player.global_position + (player.global_position - player.previous_location) * 5
 	instance.direction = global_position - future_position
 	instance.spawn_pos = global_position
 	instance.spawn_rot = rotation

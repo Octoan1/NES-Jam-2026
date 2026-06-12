@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://cl2bneq34l7gv" path="res://Entities/Boss/StationaryBoss/bat_attack.gd" id="7_yaibl"]
 [ext_resource type="PackedScene" uid="uid://cdqa3e0wafdb6" path="res://Entities/Boss/StationaryBoss/bullet.tscn" id="8_woq1o"]
 [ext_resource type="Script" uid="uid://w2uowg72iris" path="res://Entities/Boss/StationaryBoss/rest.gd" id="10_mvkti"]
+[ext_resource type="Texture2D" uid="uid://co6qhba4or38c" path="res://Aseprite/dracula/revenge_attack-Sheet.png" id="10_qymvn"]
 [ext_resource type="Script" uid="uid://i1j56wrtl6ii" path="res://Entities/Boss/StationaryBoss/revenge_attack.gd" id="11_xrruc"]
 [ext_resource type="Script" uid="uid://btcip4yfmh80r" path="res://Entities/Boss/StationaryBoss/blood_attack.gd" id="13_0xfau"]
 [ext_resource type="Script" uid="uid://dcproeks5n0ga" path="res://Entities/Boss/StationaryBoss/blood_rain_attack.gd" id="14_k4ubn"]
@@ -35,6 +36,96 @@ metadata/_custom_type_script = "uid://dq0qm6ova0it6"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o1jj8"]
 size = Vector2(22, 27)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_em0ae"]
+atlas = ExtResource("10_qymvn")
+region = Rect2(0, 0, 144, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kiq22"]
+atlas = ExtResource("10_qymvn")
+region = Rect2(144, 0, 144, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_af1le"]
+atlas = ExtResource("10_qymvn")
+region = Rect2(288, 0, 144, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yj22q"]
+atlas = ExtResource("10_qymvn")
+region = Rect2(432, 0, 144, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53pcm"]
+atlas = ExtResource("10_qymvn")
+region = Rect2(576, 0, 144, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18sil"]
+atlas = ExtResource("10_qymvn")
+region = Rect2(720, 0, 144, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xmjqr"]
+atlas = ExtResource("10_qymvn")
+region = Rect2(864, 0, 144, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2og76"]
+atlas = ExtResource("10_qymvn")
+region = Rect2(1008, 0, 144, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wa7xa"]
+atlas = ExtResource("10_qymvn")
+region = Rect2(1152, 0, 144, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wnuka"]
+atlas = ExtResource("10_qymvn")
+region = Rect2(1296, 0, 144, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qymvn"]
+atlas = ExtResource("10_qymvn")
+region = Rect2(1296, 0, 144, 144)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wa7xa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_em0ae")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kiq22")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_af1le")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yj22q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_53pcm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18sil")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xmjqr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2og76")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wa7xa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wnuka")
+}],
+"loop": false,
+"name": &"attack",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qymvn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="Resource" id="Resource_qymvn"]
 script = ExtResource("7_kb8pd")
@@ -99,6 +190,11 @@ metadata/_custom_type_script = "uid://b1c4qcf1gisb4"
 position = Vector2(5, -3.5)
 shape = SubResource("RectangleShape2D_o1jj8")
 debug_color = Color(1, 0, 0, 0.42000002)
+
+[node name="RevengeSprite" type="AnimatedSprite2D" parent="." unique_id=1167258052]
+position = Vector2(0, 2)
+sprite_frames = SubResource("SpriteFrames_wa7xa")
+autoplay = "default"
 
 [node name="RevengeHitbox" type="Area2D" parent="." unique_id=1033769106 node_paths=PackedStringArray("stat_component")]
 position = Vector2(0, 2)
@@ -188,6 +284,7 @@ metadata/_custom_type_script = "uid://h0kbpsyv03kx"
 
 [node name="RevengeAttack" type="Node" parent="StateMachine" unique_id=2143178581]
 script = ExtResource("11_xrruc")
+attack_duration = 0.9
 metadata/_custom_type_script = "uid://h0kbpsyv03kx"
 
 [node name="BloodAttack" type="Node" parent="StateMachine" unique_id=544768404]

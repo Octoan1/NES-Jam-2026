@@ -10,8 +10,7 @@ extends State
 @onready var enemy: CharacterBody2D = $"../.."
 @onready var player: CharacterBody2D
 @onready var revenge_hitbox: HitboxComponent = $"../../RevengeHitbox"
-@onready var revenge_sprite: Sprite2D = $"../../RevengeHitbox/RevengeSprite"
-
+@onready var revenge_sprite: AnimatedSprite2D = $"../../RevengeSprite"
 
 # state nodes
 @onready var charge_timer: Timer
@@ -55,11 +54,13 @@ func _on_charge_timer_timeout() -> void:
 	revenge_hitbox.scale = Vector2.ZERO
 	
 	revenge_sprite.show()
+	revenge_sprite.play("attack")
 	revenge_hitbox.monitoring = true
 	
 	var tween = create_tween()
 	
-	tween.tween_property(revenge_hitbox, "scale", Vector2.ONE, attack_duration).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(revenge_hitbox, "scale", Vector2.ONE, attack_duration)
+	#\.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	
 	attack_timer.start()
 
