@@ -45,12 +45,14 @@ var lucky_dice_active = false
 var meteor_timer: Timer
 const METEOR = preload("uid://cl4v4vyxveypp")
 var enemy: CharacterBody2D
+var mask_timer: Timer
 
 
 func _ready():
 	randomize()
 	current_round = 0
 	reset_relics()
+	add_relic(ANCIENT_MASK)
 
 func add_relic(item: Relic):
 	inventory.append(item)
@@ -83,6 +85,7 @@ func reset_relics():
 	]
 
 func begin_boss():
+	enemy = CharacterBody2D.new()
 	if current_round % 2 == 0:
 		main_scene = bosses[0].instantiate()
 	else:
@@ -96,21 +99,16 @@ func begin_boss():
 	if player.health_component.is_connected("died", player_killed) == false:
 		player.health_component.connect("died", player_killed)
 	
-	for child in main_scene.get_children():
-		# if StationaryBoss: Connect death signal
-		if child.name == "StationaryBoss":
-			child.get_child(0).connect("died", boss_killed)
-			enemy = child
-		elif child.name == "MothBoss":
-			child.get_child(0).connect("died", boss_killed)
-			enemy = child
-		
-		
-		
-		# update the hud
-		if child.name == "UI":
-			child.get_child(0).update_health(player.health_component.health, player.health_component.max_health)
-		
+	# connect enemy death signal
+	if current_round % 2 == 0:
+		enemy = main_scene.find_child("StationaryBoss")
+		enemy.get_child(0).connect("died", boss_killed)
+	else:
+		enemy = main_scene.find_child("MothBoss")
+		enemy.get_child(0).connect("died", boss_killed)
+	
+	# update UI
+	main_scene.find_child("UI").get_child(0).update_health(player.health_component.health, player.health_component.max_health)
 	
 	apply_relics(player)
 	
@@ -212,7 +210,17 @@ func LuckyCoin(player: CharacterBody2D):
 # Each time the player attacks the boss, their attack becomes stronger
 # Every 5 seconds passed without attacking the boss, the player's attack becomes weaker
 func AncientMask(player: CharacterBody2D):
-	print("Stony!")
+	player.find_child("HealthComponent").damaged.connect(strengthen_player.bind(player))
+
+func strengthen_player(player: CharacterBody2D):
+	var player_health = player.find_child("HealthComponent").health
+	
+	if player_health <= 12 and player_health > 8:
+		player.get_node("StatComponent").attack_mult = 2
+	elif player_health <= 8 and player_health > 4:
+		player.get_node("StatComponent").attack_mult = 3
+	elif player_health <= 4 and player_health > 0:
+		player.get_node("StatComponent").attack_mult = 4
 
 # 10% chance to ignore an instance of damage.
 # 10% chance to take double damage

@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://c00fny1ika60u" path="res://Scripts/Components/flash_color_component.gd" id="2_r8104"]
 [ext_resource type="Shader" uid="uid://blmvfgvk3bx8a" path="res://Entities/flash_color.gdshader" id="3_vuhki"]
 [ext_resource type="Texture2D" uid="uid://bwkaesoa2q8ro" path="res://Aseprite/moth_fly.png" id="4_ldkik"]
-[ext_resource type="Script" path="res://Scripts/Components/stat_component.gd" id="4_qcoie"]
+[ext_resource type="Script" uid="uid://bagscl1ugnifq" path="res://Scripts/Components/stat_component.gd" id="4_qcoie"]
 [ext_resource type="Script" uid="uid://b33upjirfs7dt" path="res://Scripts/Components/hurtbox_component.gd" id="5_dxnel"]
 [ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="6_bv62r"]
 [ext_resource type="Script" uid="uid://cfv7usv2c3fyj" path="res://Scripts/Components/state_machine.gd" id="7_eucj0"]
