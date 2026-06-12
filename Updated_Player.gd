@@ -15,12 +15,13 @@ var state = State.NORMAL
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_pivot := $AttackPivot
 @onready var sword_hitbox := $AttackPivot/SwordHitbox
+@onready var attack_slash_visual: Sprite2D = $AttackPivot/AttackSlashVisual
 @onready var dash_timer := $DashTimer
 @onready var dash_delay_timer: Timer = $DashDelayTimer
 @onready var health_component: HealthComponent = $HealthComponent
 
 #Attack Variables
-@export var attack_duration: float = 0.15
+@export var attack_duration: float = 0.5
 @export var attack_delay: float = 0.5
 var attack_delay_timer: Timer
 
@@ -195,9 +196,11 @@ func _start_attack() -> void:
 	state = State.ATTACK
 	
 	attack_pivot.visible = true
+	attack_slash_visual.visible = false # wait before slash plays
 	sword_hitbox.monitoring = true
 	
 	sprite.play("attack")
+	#attack_slash_visual.visible = true
 	
 	await get_tree().create_timer(attack_duration).timeout
 	
@@ -213,7 +216,9 @@ func _on_attack_delay_timer_timeout() -> void:
 
 func _update_attack(delta: float) -> void:
 	_apply_gravity(delta)
-	velocity.x = move_toward(velocity.x, 0, speed)
+	
+	if is_on_floor():
+		velocity.x = move_toward(velocity.x, 0, speed)
 #endregion
 
 #region CLIMB
@@ -269,10 +274,10 @@ func _on_invuln_end():
 func _flash_loop() -> void:
 	while flashing:
 		sprite.modulate.a = 0.0
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.05).timeout
 
 		sprite.modulate.a = 1.0
-		await get_tree().create_timer(0.1).timeout
+		await get_tree().create_timer(0.05).timeout
 #endregion
 
 #region MISC

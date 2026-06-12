@@ -21,10 +21,6 @@ shader = ExtResource("5_061yh")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_amount = 0.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5m37j"]
-atlas = ExtResource("7_gallu")
-region = Rect2(0, 0, 48, 16)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_vcmon"]
 atlas = ExtResource("7_gallu")
 region = Rect2(48, 0, 48, 16)
@@ -73,17 +69,14 @@ region = Rect2(16, 0, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5m37j")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_vcmon")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mgqku")
 }],
-"loop": true,
+"loop": false,
 "name": &"attack",
-"speed": 5.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -152,7 +145,6 @@ script = ExtResource("1_gallu")
 [node name="HealthComponent" type="Node" parent="." unique_id=1416142201 node_paths=PackedStringArray("defense_component")]
 script = ExtResource("2_an6q6")
 max_health = 16
-invulnerability_duration = 2.0
 defense_component = NodePath("../DefenseComponent")
 metadata/_custom_type_script = "uid://bp60vdvwyxe7f"
 
@@ -160,7 +152,7 @@ metadata/_custom_type_script = "uid://bp60vdvwyxe7f"
 script = ExtResource("3_x44r4")
 sprite = NodePath("../AnimatedSprite2D")
 health_component = NodePath("../HealthComponent")
-flash_duration = 0.5
+flash_duration = 0.2
 metadata/_custom_type_script = "uid://c00fny1ika60u"
 
 [node name="DefenseComponent" type="Node" parent="." unique_id=608194184]
@@ -173,7 +165,7 @@ script = ExtResource("5_uw7o4")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1158637556]
 material = SubResource("ShaderMaterial_uw7o4")
 sprite_frames = SubResource("SpriteFrames_gallu")
-animation = &"walk"
+animation = &"attack"
 autoplay = "default"
 
 [node name="WorldCollisionShape" type="CollisionShape2D" parent="." unique_id=1714244896]
@@ -207,8 +199,8 @@ position = Vector2(17.5, 1)
 shape = SubResource("RectangleShape2D_1des2")
 debug_color = Color(0.99607843, 0, 0.20784314, 0.41960785)
 
-[node name="AttackVisual" type="Sprite2D" parent="AttackPivot" unique_id=858482314]
-position = Vector2(18, 1)
+[node name="AttackSlashVisual" type="Sprite2D" parent="AttackPivot" unique_id=858482314]
+position = Vector2(25, 1)
 texture = ExtResource("8_761t5")
 
 [node name="DashTimer" type="Timer" parent="." unique_id=1907390099]
