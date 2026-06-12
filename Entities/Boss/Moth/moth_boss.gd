@@ -3,6 +3,8 @@ extends CharacterBody2D
 @onready var sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var flash_component: FlashComponent = $FlashComponent
 @onready var player: CharacterBody2D
+@onready var attack_pivot: Node2D = $AttackPivot
+@onready var bullet_spawn: Sprite2D = $AttackPivot/BulletSpawn
 
 @onready var room = $".."
 @onready var projectile = load("res://Entities/Projectiles/projectile.tscn")
@@ -18,6 +20,7 @@ func _physics_process(_delta: float) -> void:
 		player =  get_tree().get_first_node_in_group("Player")
 	var direction: int = sign(self.global_position.x - player.global_position.x)
 	sprite_2d.flip_h = direction > 0
+	attack_pivot.scale.x = -1 if direction > 0 else 1
 	
 	move_and_slide()
 
@@ -25,7 +28,7 @@ func attack() -> void:
 	var instance = projectile.instantiate()
 	var future_position = player.global_position + (player.global_position - player.previous_location) * 5
 	instance.direction = global_position - future_position
-	instance.spawn_pos = global_position
+	instance.spawn_pos = bullet_spawn.global_position
 	instance.spawn_rot = rotation
 	instance.fire_delay = 0.01
 	instance.get_node("HitboxComponent").stat_component = stat_component

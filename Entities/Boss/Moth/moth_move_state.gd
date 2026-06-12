@@ -2,6 +2,7 @@ extends State
 
 @onready var enemy: CharacterBody2D = $"../.."
 @onready var extra_info_label: Label = $"../../DebugStateLabel/ExtraStateInfo"
+@onready var sprite: AnimatedSprite2D = $"../../AnimatedSprite2D"
 
 #Vector2(28, 168), Vector2(28, 120), Vector2(28, 72), Vector2(223, 168), Vector2(223, 120), Vector2(223, 72)
 var positions: Array[Vector2] = [Vector2(28, 168), Vector2(28, 120), Vector2(28, 72), Vector2(223, 168), Vector2(223, 120), Vector2(223, 72)]
@@ -26,6 +27,7 @@ func randomize_position():
 func enter() -> void:
 	randomize_position()
 	extra_info_label.show()
+	sprite.play("fly")
 
 func exit() -> void: 
 	enemy.velocity = Vector2.ZERO
