@@ -10,8 +10,7 @@ enum State {
 }
 var state = State.NORMAL
 
-var player_facing = 1
-
+#region VARIABLES
 #Components
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_pivot := $AttackPivot
@@ -36,6 +35,7 @@ var dash_locked: bool = false
 @export var speed: float = 200.0
 @export var jump_velocity: float = -125
 var previous_location: Vector2
+var player_facing = 1
 
 # coyote time
 @export var coyote_time := 0.1
@@ -47,8 +47,9 @@ var can_interact: bool = false
 #Climbing
 @export var climb_speed: float = 50.0
 
+#Knockback
 var knockback_velocity: Vector2 = Vector2.ZERO
-
+#endregion
 
 func _ready() -> void:
 	attack_pivot.visible = false
@@ -87,9 +88,8 @@ func _physics_process(delta: float) -> void:
 	
 	previous_location = global_position
 	move_and_slide()
-	
 
-#NORMAL MOVEMENT
+#region NORMAL
 func _update_normal(delta: float) -> void:
 	
 	_apply_gravity(delta)
@@ -128,7 +128,9 @@ func _update_normal(delta: float) -> void:
 	
 	#Movement
 	_check_movement()
+#endregion
 
+#region MOVEMENT
 func _check_movement() -> void:
 	var dir := Input.get_axis("D_Pad_Left", "D_Pad_Right")
 	
@@ -142,15 +144,15 @@ func _check_movement() -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		sprite.play("default")
+#endregion
 
-
-#GRAVITY
+#region GRAVITY
 func _apply_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * gravity_modifier * delta
-		
+#endregion
 
-#DASH
+#region DASH
 func _start_dash() -> void:
 	state = State.DASH
 	dash_locked = true
@@ -186,9 +188,9 @@ func _unlock_dash():
 	health_component.is_invulnerable = false
 	sprite.play("default")
 	dash_delay_timer.start(dash_delay)
+#endregion
 
-
-#ATTACK
+#region ATTACK
 func _start_attack() -> void:
 	state = State.ATTACK
 	
@@ -212,9 +214,9 @@ func _on_attack_delay_timer_timeout() -> void:
 func _update_attack(delta: float) -> void:
 	_apply_gravity(delta)
 	velocity.x = move_toward(velocity.x, 0, speed)
+#endregion
 
-
-#CLIMB
+#region CLIMB
 func _start_climb() -> void:
 	state = State.CLIMB
 	
@@ -230,9 +232,9 @@ func _update_climb(_delta: float) -> void:
 		velocity.y = climb_speed
 	
 	_check_movement()
+#endregion
 
-
-#HITSTUN
+#region HITSTUN
 func apply_attack(attack: Attack, attacker_pos: Vector2):
 	state = State.HITSTUN
 	var dir = (global_position - attacker_pos).normalized()
@@ -251,8 +253,9 @@ func _update_hitstun(delta: float) -> void:
 	if is_on_floor():
 		state = State.NORMAL
 		knockback_velocity = Vector2.ZERO
+#endregion
 
-#INVULNERABLE FLASH
+#region INVULNERABLE FLASH
 var flashing: bool = false
 
 func _on_invuln_start():
@@ -270,9 +273,9 @@ func _flash_loop() -> void:
 
 		sprite.modulate.a = 1.0
 		await get_tree().create_timer(0.1).timeout
+#endregion
 
-
-#MISC
+#region MISC
 func die() -> void:
 	pass
 func _on_interactbox_component_body_entered(_body: Node2D) -> void:
@@ -280,3 +283,4 @@ func _on_interactbox_component_body_entered(_body: Node2D) -> void:
 
 func _on_interactbox_component_body_exited(_body: Node2D) -> void:
 	can_interact = false
+#endregion
