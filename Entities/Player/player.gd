@@ -40,6 +40,7 @@ func _ready() -> void:
 	health_component.died.connect(die)
 
 func _physics_process(delta: float) -> void:
+	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * gravity_modifier * delta
