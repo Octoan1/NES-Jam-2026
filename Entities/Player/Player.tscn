@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://crjb7kc537dum" path="res://Aseprite/player_walk-Sheet.png" id="8_061yh"]
 [ext_resource type="Texture2D" uid="uid://dsw7j0e3akagt" path="res://Assets/PLACEHOLDER_attack.png" id="8_761t5"]
 [ext_resource type="Texture2D" uid="uid://c8l4w2q3cwoc2" path="res://Aseprite/player/player_climbing-Sheet.png" id="8_samso"]
-[ext_resource type="Script" uid="uid://bv4g7seykfa7j" path="res://Scripts/Components/defense_component.gd" id="10_hacra"]
+[ext_resource type="Script" path="res://Scripts/Components/defense_component.gd" id="10_hacra"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uw7o4"]
 shader = ExtResource("5_061yh")
