@@ -6,7 +6,8 @@ enum State {
 	HITSTUN,
 	ATTACK,
 	DASH,
-	CLIMB
+	CLIMB,
+	DUCK
 }
 var state = State.NORMAL
 
@@ -19,6 +20,7 @@ var state = State.NORMAL
 @onready var dash_timer := $DashTimer
 @onready var dash_delay_timer: Timer = $DashDelayTimer
 @onready var health_component: HealthComponent = $HealthComponent
+@onready var hurtbox_collision_shape: CollisionShape2D = $HurtboxComponent/HurtboxCollisionShape
 
 #Attack Variables
 @export var attack_duration: float = 0.5
@@ -84,6 +86,9 @@ func _physics_process(delta: float) -> void:
 		State.CLIMB:
 			_update_climb(delta)
 			
+		State.DUCK:
+			_update_duck(delta)
+			
 		State.NORMAL:
 			_update_normal(delta)
 	
@@ -106,6 +111,7 @@ func _update_normal(delta: float) -> void:
 		if not Input.is_action_pressed("D_Pad_Up"):
 			velocity.y = jump_velocity
 			coyote_timer = 0.0
+		# Dash Jump
 		if Input.is_action_pressed("D_Pad_Up") and not dash_locked:
 			velocity.y = jump_velocity
 			coyote_timer = 0.0
@@ -113,7 +119,7 @@ func _update_normal(delta: float) -> void:
 			return
 	
 	#Dash
-	if Input.is_action_pressed("D_Pad_Down") and Input.is_action_just_pressed("A_Button") and not dash_locked:
+	if Input.is_action_pressed("D_Pad_Down") and Input.is_action_just_pressed("A_Button") and not dash_locked and is_on_floor():
 		_start_dash()
 		return
 	
@@ -125,6 +131,11 @@ func _update_normal(delta: float) -> void:
 	#CLIMB
 	if can_interact and Input.is_action_pressed("D_Pad_Up"):
 		_start_climb()
+		return
+	
+	# Duck
+	if is_on_floor() and Input.is_action_pressed("D_Pad_Down"):
+		_start_duck()
 		return
 	
 	#Movement
@@ -158,27 +169,30 @@ func _apply_gravity(delta: float) -> void:
 
 #region DASH
 func _start_dash() -> void:
+	if dash_locked:
+		return
+	
 	state = State.DASH
-	dash_locked = true
+	#dash_locked = true
 	
 	health_component.is_invulnerable = true
 	sprite.play("roll")
 	
 	dash_timer.start(dash_duration)
 
-func _update_dash(delta: float) -> void:
-	if dash_locked and is_on_floor() and dash_timer.is_stopped() and dash_delay_timer.is_stopped():
-		_unlock_dash()
-		return
+func _update_dash(delta):
 	velocity.x = player_facing * dash_speed
 	_apply_gravity(delta)
 
-func _on_dash_timer_timeout() -> void:
-	dash_timer.stop()
-	if is_on_floor():
-		_unlock_dash()
-	else:
-		pass
+	if dash_timer.is_stopped() and is_on_floor():
+		_end_dash()
+
+func _end_dash():
+	state = State.NORMAL
+	health_component.is_invulnerable = false
+	dash_locked = true
+	dash_delay_timer.start(dash_delay)
+
 
 func _on_dash_delay_timer_timeout() -> void:
 	dash_delay_timer.stop()
@@ -227,10 +241,10 @@ func _update_attack(delta: float) -> void:
 #region CLIMB
 func _start_climb() -> void:
 	state = State.CLIMB
+	
 	sprite.flip_h = false
 	sprite.play("climbing")
 
-	
 
 func _update_climb(_delta: float) -> void:
 	if not can_interact:
@@ -239,6 +253,12 @@ func _update_climb(_delta: float) -> void:
 	
 	sprite.play()
 	
+	# jump off ladder
+	if Input.is_action_just_pressed("A_Button"):
+		velocity.y = jump_velocity
+		state = State.NORMAL
+		return
+
 	if Input.is_action_pressed("D_Pad_Up"):
 		velocity.y = -climb_speed
 	elif Input.is_action_pressed("D_Pad_Down"):
@@ -289,6 +309,34 @@ func _flash_loop() -> void:
 
 		sprite.modulate.a = 1.0
 		await get_tree().create_timer(0.05).timeout
+#endregion
+
+#region DUCK
+func _start_duck() -> void:
+	state = State.DUCK
+	sprite.play("duck")
+	velocity.x = 0
+	hurtbox_collision_shape.global_position = self.global_position
+	hurtbox_collision_shape.shape.size.y = 5.0
+	hurtbox_collision_shape.global_position.y += 5
+
+func _update_duck(_delta: float) -> void:
+	if Input.is_action_just_pressed("B_Button"):
+		_start_attack()
+		_reset_hurtbox()
+	
+	elif Input.is_action_just_pressed("A_Button"):
+		_start_dash()
+		_reset_hurtbox()
+	
+	elif Input.is_action_just_released("D_Pad_Down"):
+		state = State.NORMAL
+		_reset_hurtbox()
+		return
+
+func _reset_hurtbox() -> void:
+	hurtbox_collision_shape.shape.size.y = 13.0
+	hurtbox_collision_shape.global_position = self.global_position
 #endregion
 
 #region MISC

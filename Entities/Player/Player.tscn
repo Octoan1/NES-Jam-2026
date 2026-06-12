@@ -185,7 +185,7 @@ script = ExtResource("5_uw7o4")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1158637556]
 material = SubResource("ShaderMaterial_uw7o4")
 sprite_frames = SubResource("SpriteFrames_gallu")
-animation = &"climbing"
+animation = &"duck"
 autoplay = "default"
 
 [node name="WorldCollisionShape" type="CollisionShape2D" parent="." unique_id=1714244896]
