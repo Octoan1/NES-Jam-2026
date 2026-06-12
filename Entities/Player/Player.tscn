@@ -12,7 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://cgg6fc10yy41e" path="res://Aseprite/player_roll-Sheet.png" id="7_lmeus"]
 [ext_resource type="Texture2D" uid="uid://crjb7kc537dum" path="res://Aseprite/player_walk-Sheet.png" id="8_061yh"]
 [ext_resource type="Texture2D" uid="uid://dsw7j0e3akagt" path="res://Assets/PLACEHOLDER_attack.png" id="8_761t5"]
-[ext_resource type="Script" path="res://Scripts/Components/defense_component.gd" id="10_hacra"]
+[ext_resource type="Script" uid="uid://bv4g7seykfa7j" path="res://Scripts/Components/defense_component.gd" id="10_hacra"]
+[ext_resource type="Texture2D" uid="uid://c8ogkuqecjd3i" path="res://Aseprite/player/player_jump.png" id="11_hl213"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uw7o4"]
 shader = ExtResource("5_061yh")
@@ -25,6 +26,10 @@ region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gallu"]
 atlas = ExtResource("6_061yh")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tepoh"]
+atlas = ExtResource("11_hl213")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uw7o4"]
@@ -71,6 +76,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"duck",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tepoh")
+}],
+"loop": true,
+"name": &"jump",
 "speed": 5.0
 }, {
 "frames": [{
@@ -148,7 +161,7 @@ dodge_chance = 0.5
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1158637556]
 material = SubResource("ShaderMaterial_uw7o4")
 sprite_frames = SubResource("SpriteFrames_gallu")
-animation = &"roll"
+animation = &"jump"
 autoplay = "default"
 
 [node name="WorldCollisionShape" type="CollisionShape2D" parent="." unique_id=1714244896]
