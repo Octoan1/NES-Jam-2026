@@ -21,19 +21,19 @@ var state = State.NORMAL
 
 #Attack Variables
 @export var attack_duration: float = 0.15
-@export var attack_delay: float = 0.2
+@export var attack_delay: float = 0.5
 var attack_delay_timer: Timer
 
 #Dash Variables
-@export var dash_speed: float = 800.0
-@export var dash_duration: float = 0.1
+@export var dash_speed: float = 125.0
+@export var dash_duration: float = 0.5
 @export var dash_delay: float = 0.5
 var dash_locked: bool = false
 
 #Player Stats
-@export var gravity_modifier: float = 0.2
-@export var speed: float = 200.0
-@export var jump_velocity: float = -125
+@export var gravity_modifier: float = 0.6
+@export var speed: float = 50.0
+@export var jump_velocity: float = -150
 var previous_location: Vector2
 var player_facing = 1
 
