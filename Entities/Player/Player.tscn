@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://buxpwecnlehmm"]
 
-[ext_resource type="Script" uid="uid://dha2h40hql2pn" path="res://Entities/Player/player.gd" id="1_1iada"]
+[ext_resource type="Script" uid="uid://cxnq2tk5mmtsk" path="res://Updated_Player.gd" id="1_gallu"]
 [ext_resource type="Script" uid="uid://bp60vdvwyxe7f" path="res://Scripts/Components/health_component.gd" id="2_an6q6"]
 [ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="3_vweq0"]
 [ext_resource type="Script" uid="uid://c00fny1ika60u" path="res://Scripts/Components/flash_color_component.gd" id="3_x44r4"]
@@ -120,7 +120,7 @@ size = Vector2(9, 15)
 
 [node name="Player" type="CharacterBody2D" unique_id=316049185 groups=["Player"]]
 collision_layer = 2
-script = ExtResource("1_1iada")
+script = ExtResource("1_gallu")
 attack_delay = 0.5
 dash_speed = 125.0
 dash_duration = 0.5

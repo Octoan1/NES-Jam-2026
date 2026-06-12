@@ -23,7 +23,7 @@ func _physics_process(_delta: float) -> void:
 
 func attack() -> void:
 	var instance = projectile.instantiate()
-	var future_position = player.global_position + (player.global_position - player.previous_location)
+	var future_position = player.global_position + (player.global_position - player.previous_location) * 5
 	instance.direction = global_position - future_position
 	instance.spawn_pos = global_position
 	instance.spawn_rot = rotation
