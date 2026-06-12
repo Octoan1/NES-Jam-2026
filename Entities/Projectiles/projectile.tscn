@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://m222hb2ihbou"]
+
+[ext_resource type="Script" uid="uid://b8w6i36ejo8rc" path="res://Entities/Projectiles/projectile.gd" id="1_x5b6o"]
+[ext_resource type="Texture2D" uid="uid://bd1rv0wm7tp87" path="res://Assets/PLACEHOLDER_projectice.png" id="2_rca8h"]
+[ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="3_6kijj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vpfrp"]
+radius = 3.0
+
+[node name="Projectile" type="CharacterBody2D" unique_id=641781973]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_x5b6o")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1439783530]
+texture = ExtResource("2_rca8h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1601691918]
+visible = false
+shape = SubResource("CircleShape2D_vpfrp")
+debug_color = Color(0.99473137, 0, 0.22478187, 0.41960785)
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=1960692251]
+collision_layer = 16
+collision_mask = 2
+script = ExtResource("3_6kijj")
+metadata/_custom_type_script = "uid://b1c4qcf1gisb4"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1192437153]
+shape = SubResource("CircleShape2D_vpfrp")
+debug_color = Color(0.99473137, 0, 0.22478187, 0.41960785)
+
+[node name="DespawnComponent" type="Area2D" parent="." unique_id=385660535]
+collision_layer = 0
+collision_mask = 64
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DespawnComponent" unique_id=109022619]
+shape = SubResource("CircleShape2D_vpfrp")
+debug_color = Color(0.99473137, 0, 0.22478187, 0.41960785)
+
+[connection signal="body_entered" from="DespawnComponent" to="." method="_on_despawn_component_body_entered"]

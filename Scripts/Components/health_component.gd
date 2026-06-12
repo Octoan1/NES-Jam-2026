@@ -10,26 +10,33 @@ class_name HealthComponent
 
 var health: float
 var is_invulnerable: bool = false
+var invul_timer: Timer
 
 
 signal died
 signal damaged
 signal health_changed(current_health: float, max_health: float)
+signal invulnerability_started
+signal invulnerability_ended
 
 func _ready() -> void:
 	health = max_health
+	invul_timer = Timer.new()
+	invul_timer.wait_time = invulnerability_duration
+	self.add_child(invul_timer)
+	invul_timer.timeout.connect(_on_invul_timer_timeout)
 	
 #func damage_health(attack: Attack):
-func damage_health(attack_damage: float) -> void:
+func damage_health(attack_damage: float) -> bool:
 	if is_invulnerable:
 		if debug_mode:
 			print(owner.name + " is invulnerable right now")
-		return
+		return false
 	
 	if defense_component:
 		attack_damage = defense_component.modify_damage(attack_damage)
 		if attack_damage <= 0:
-			return
+			return false
 	
 	health -= attack_damage
 	
@@ -46,8 +53,14 @@ func damage_health(attack_damage: float) -> void:
 	
 	if invulnerability_duration > 0:
 		start_invulnerability()
+	return true
 	
 func start_invulnerability() -> void:
 	is_invulnerable = true
-	await get_tree().create_timer(invulnerability_duration).timeout
+	invulnerability_started.emit()
+	invul_timer.start(invulnerability_duration)
+
+func _on_invul_timer_timeout() -> void:
+	invul_timer.stop()
 	is_invulnerable = false
+	invulnerability_ended.emit()

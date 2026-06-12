@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://buxpwecnlehmm" path="res://Entities/Player/Player.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://wxffyjyjg2dj" path="res://Levels/werewolf_boss_fight.tscn" id="3_h2yge"]
-[ext_resource type="PackedScene" uid="uid://p8kp02s5o2hh" path="res://Entities/Boss/werewolf_boss.tscn" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://p8kp02s5o2hh" path="res://Entities/Boss/Werewolf/werewolf_boss.tscn" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://cqas1sibe4giw" path="res://UI/HUD/hud.tscn" id="4_lquwl"]
 
 [node name="Main" type="Node2D" unique_id=1017056218]
@@ -21,9 +21,6 @@ position = Vector2(111, 158)
 
 [node name="Player" parent="." unique_id=316049185 instance=ExtResource("1_ig7tw")]
 position = Vector2(166, 163)
-dash_speed = 200.0
-dash_duration = 0.25
-speed = 50.0
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=748962196]
 

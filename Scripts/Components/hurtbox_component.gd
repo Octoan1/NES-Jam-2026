@@ -4,6 +4,7 @@ class_name HurtboxComponent
 @export var debug_mode: bool = false
 
 @export var health_component : HealthComponent
+@onready var entity := $".."
 
 
 func _ready() -> void:
@@ -14,10 +15,25 @@ func _ready() -> void:
 		printerr("ERROR: HurtboxComponent missing HealthComponent on: " + owner.name)
 
 
-#func hurt(attack: Attack):
-func hurt(attack: float) -> void:
+func hurt(attack: Attack, stats: StatComponent, attacker_pos: Vector2) -> void:
 	if debug_mode:
 		print(owner.name + " Hurtbox Hit")
 	
-	if health_component:
-		health_component.damage_health(attack)
+	var damage_output = attack.attack_damage * stats.attack_mult
+	var critical_roll = randf_range(0, 1)
+	if critical_roll <= stats.crit_chance:
+		damage_output *= stats.crit_mult
+	elif stats.critical_fail == true:
+		damage_output = 0
+
+	if not health_component:
+		return
+		
+	var did_damage = health_component.damage_health(damage_output)
+	
+	if not did_damage:
+		return  # <-- CRITICAL
+		
+	if entity and attack.knockback_force > 0.0:
+		entity.apply_attack(attack, attacker_pos)
+	

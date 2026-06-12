@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1iltet1xnhom"
-path="res://.godot/imported/placeholder_tilemap.png-9b588fa0b01f719d1ec15634a3bdfc57.ctex"
+uid="uid://n5yokddfos8a"
+path="res://.godot/imported/duck.png-3c1781411e1cee65d21f81d2f203636e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://placeholder_tilemap.png"
-dest_files=["res://.godot/imported/placeholder_tilemap.png-9b588fa0b01f719d1ec15634a3bdfc57.ctex"]
+source_file="res://Aseprite/duck.png"
+dest_files=["res://.godot/imported/duck.png-3c1781411e1cee65d21f81d2f203636e.ctex"]
 
 [params]
 

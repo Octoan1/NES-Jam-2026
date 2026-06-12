@@ -1,15 +1,118 @@
 [gd_scene format=3 uid="uid://buxpwecnlehmm"]
 
 [ext_resource type="Script" uid="uid://dha2h40hql2pn" path="res://Entities/Player/player.gd" id="1_1iada"]
-[ext_resource type="Texture2D" uid="uid://dmcl1vnqtexq4" path="res://Aseprite/player_16x16.png" id="2_1iada"]
 [ext_resource type="Script" uid="uid://bp60vdvwyxe7f" path="res://Scripts/Components/health_component.gd" id="2_an6q6"]
-[ext_resource type="Material" uid="uid://duji81tg8exu8" path="res://Assets/flash_white_material.tres" id="3_hj1c0"]
 [ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="3_vweq0"]
 [ext_resource type="Script" uid="uid://c00fny1ika60u" path="res://Scripts/Components/flash_color_component.gd" id="3_x44r4"]
 [ext_resource type="AudioStream" uid="uid://cjuoup7ehnmle" path="res://Audio/PLACEHOLDER_hit_sound.wav" id="4_1des2"]
 [ext_resource type="Script" uid="uid://b33upjirfs7dt" path="res://Scripts/Components/hurtbox_component.gd" id="4_t38ms"]
+[ext_resource type="Shader" uid="uid://blmvfgvk3bx8a" path="res://Entities/flash_color.gdshader" id="5_061yh"]
+[ext_resource type="Script" path="res://Scripts/Components/stat_component.gd" id="5_uw7o4"]
+[ext_resource type="Texture2D" uid="uid://cnm02utrgxnb5" path="res://Aseprite/player_duck.png" id="6_061yh"]
+[ext_resource type="Texture2D" uid="uid://dlpss007jrsa" path="res://Aseprite/player.png" id="6_hacra"]
+[ext_resource type="Texture2D" uid="uid://cgg6fc10yy41e" path="res://Aseprite/player_roll-Sheet.png" id="7_lmeus"]
+[ext_resource type="Texture2D" uid="uid://crjb7kc537dum" path="res://Aseprite/player_walk-Sheet.png" id="8_061yh"]
 [ext_resource type="Texture2D" uid="uid://dsw7j0e3akagt" path="res://Assets/PLACEHOLDER_attack.png" id="8_761t5"]
-[ext_resource type="Script" uid="uid://bv4g7seykfa7j" path="res://Scripts/Components/defense_component.gd" id="10_hacra"]
+[ext_resource type="Texture2D" uid="uid://bghjv36vlmqhf" path="res://icon.svg" id="8_gallu"]
+[ext_resource type="Script" path="res://Scripts/Components/defense_component.gd" id="10_hacra"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uw7o4"]
+shader = ExtResource("5_061yh")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flash_amount = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lmeus"]
+atlas = ExtResource("6_hacra")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gallu"]
+atlas = ExtResource("6_061yh")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uw7o4"]
+atlas = ExtResource("7_lmeus")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_samso"]
+atlas = ExtResource("7_lmeus")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hl213"]
+atlas = ExtResource("7_lmeus")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e34i1"]
+atlas = ExtResource("7_lmeus")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h6pxy"]
+atlas = ExtResource("7_lmeus")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l80rc"]
+atlas = ExtResource("8_061yh")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l2mqv"]
+atlas = ExtResource("8_061yh")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5m37j"]
+atlas = ExtResource("8_gallu")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gallu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lmeus")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gallu")
+}],
+"loop": true,
+"name": &"duck",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uw7o4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_samso")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hl213")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e34i1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h6pxy")
+}],
+"loop": true,
+"name": &"roll",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l80rc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l2mqv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5m37j")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uw7o4"]
 shader = ExtResource("5_061yh")
@@ -111,24 +214,29 @@ size = Vector2(8, 13)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1des2"]
 size = Vector2(23, 10)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gallu"]
+size = Vector2(9, 15)
+
 [node name="Player" type="CharacterBody2D" unique_id=316049185 groups=["Player"]]
 collision_layer = 2
 script = ExtResource("1_1iada")
-dash_speed = 300.0
+attack_delay = 0.5
+dash_speed = 125.0
+dash_duration = 0.5
 gravity_modifier = 0.6
-speed = 100.0
-jump_velocity = -250.0
+speed = 50.0
+jump_velocity = -150.0
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1416142201 node_paths=PackedStringArray("defense_component")]
 script = ExtResource("2_an6q6")
-debug_mode = true
 max_health = 16
+invulnerability_duration = 2.0
 defense_component = NodePath("../DefenseComponent")
 metadata/_custom_type_script = "uid://bp60vdvwyxe7f"
 
 [node name="FlashComponent" type="Node" parent="." unique_id=568026781 node_paths=PackedStringArray("sprite", "health_component")]
 script = ExtResource("3_x44r4")
-sprite = NodePath("../Sprite")
+sprite = NodePath("../AnimatedSprite2D")
 health_component = NodePath("../HealthComponent")
 flash_duration = 0.5
 metadata/_custom_type_script = "uid://c00fny1ika60u"
@@ -136,7 +244,6 @@ metadata/_custom_type_script = "uid://c00fny1ika60u"
 [node name="DefenseComponent" type="Node" parent="." unique_id=608194184]
 script = ExtResource("10_hacra")
 dodge_chance = 0.5
-metadata/_custom_type_script = "uid://bv4g7seykfa7j"
 
 [node name="StatComponent" type="Node" parent="." unique_id=622095798]
 script = ExtResource("5_uw7o4")
@@ -144,7 +251,6 @@ script = ExtResource("5_uw7o4")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1158637556]
 material = SubResource("ShaderMaterial_uw7o4")
 sprite_frames = SubResource("SpriteFrames_gallu")
-animation = &"walk"
 autoplay = "default"
 
 [node name="WorldCollisionShape" type="CollisionShape2D" parent="." unique_id=1714244896]
@@ -166,10 +272,11 @@ debug_color = Color(0, 1, 0, 0.108)
 
 [node name="AttackPivot" type="Node2D" parent="." unique_id=1609111732]
 
-[node name="SwordHitbox" type="Area2D" parent="AttackPivot" unique_id=1573164488]
+[node name="SwordHitbox" type="Area2D" parent="AttackPivot" unique_id=1573164488 node_paths=PackedStringArray("stat_component")]
 collision_layer = 4
 collision_mask = 8
 script = ExtResource("3_vweq0")
+stat_component = NodePath("../../StatComponent")
 metadata/_custom_type_script = "uid://b1c4qcf1gisb4"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackPivot/SwordHitbox" unique_id=432494613]
@@ -189,4 +296,17 @@ one_shot = true
 stream = ExtResource("4_1des2")
 volume_db = -10.0
 
+[node name="InteractboxComponent" type="Area2D" parent="." unique_id=1965909229]
+collision_layer = 64
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractboxComponent" unique_id=263315518]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_gallu")
+
+[node name="DashDelayTimer" type="Timer" parent="." unique_id=624474928]
+
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="body_entered" from="InteractboxComponent" to="." method="_on_interactbox_component_body_entered"]
+[connection signal="body_exited" from="InteractboxComponent" to="." method="_on_interactbox_component_body_exited"]
+[connection signal="timeout" from="DashDelayTimer" to="." method="_on_dash_delay_timer_timeout"]

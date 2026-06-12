@@ -45,12 +45,15 @@ func _physics_process(delta: float) -> void:
 
 
 func on_child_transition(state: State, new_state_name: String) -> void:
+	print("Recieved")
 	# called state not current state
 	if state != current_state:
+		print("State != current_state")
 		return
 		
 	var new_state = states.get(new_state_name.to_lower())
 	if !new_state: # exists check
+		print("!new_state")
 		return
 		
 	if current_state:

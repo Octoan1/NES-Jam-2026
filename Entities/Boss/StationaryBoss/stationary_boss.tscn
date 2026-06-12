@@ -2,12 +2,15 @@
 
 [ext_resource type="Script" uid="uid://bp60vdvwyxe7f" path="res://Scripts/Components/health_component.gd" id="1_o1jj8"]
 [ext_resource type="Script" uid="uid://c00fny1ika60u" path="res://Scripts/Components/flash_color_component.gd" id="2_craum"]
-[ext_resource type="Texture2D" uid="uid://ctsyjqd138lpa" path="res://Assets/PLACEHOLDER_stationary_boss.png" id="3_craum"]
 [ext_resource type="Script" uid="uid://b33upjirfs7dt" path="res://Scripts/Components/hurtbox_component.gd" id="3_jhid3"]
 [ext_resource type="Shader" uid="uid://blmvfgvk3bx8a" path="res://Entities/flash_color.gdshader" id="3_u51qa"]
+[ext_resource type="Script" uid="uid://bagscl1ugnifq" path="res://Scripts/Components/stat_component.gd" id="3_yxowt"]
+[ext_resource type="Texture2D" uid="uid://muyjhvxwf44g" path="res://Aseprite/dracula-boss.png" id="4_k4ubn"]
 [ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="4_yaibl"]
 [ext_resource type="Script" uid="uid://cfv7usv2c3fyj" path="res://Scripts/Components/state_machine.gd" id="6_jhid3"]
-[ext_resource type="Script" uid="uid://cl2bneq34l7gv" path="res://Entities/Boss/StationaryBoss/attack.gd" id="7_yaibl"]
+[ext_resource type="Texture2D" uid="uid://cxolf1uhyd8sb" path="res://Aseprite/placeholder_tilemap.png" id="7_k4ubn"]
+[ext_resource type="Script" uid="uid://dq0qm6ova0it6" path="res://Scripts/Components/attack.gd" id="7_kb8pd"]
+[ext_resource type="Script" uid="uid://cl2bneq34l7gv" path="res://Entities/Boss/StationaryBoss/bat_attack.gd" id="7_yaibl"]
 [ext_resource type="PackedScene" uid="uid://cdqa3e0wafdb6" path="res://Entities/Boss/StationaryBoss/bullet.tscn" id="8_woq1o"]
 [ext_resource type="Script" uid="uid://w2uowg72iris" path="res://Entities/Boss/StationaryBoss/rest.gd" id="10_mvkti"]
 [ext_resource type="Texture2D" uid="uid://co6qhba4or38c" path="res://Aseprite/dracula/revenge_attack-Sheet.png" id="10_qymvn"]
@@ -24,7 +27,12 @@ shader_parameter/flash_amount = 0.0
 size = Vector2(20, 29)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_woq1o"]
-size = Vector2(29, 32)
+size = Vector2(29, 51)
+
+[sub_resource type="Resource" id="Resource_yxowt"]
+script = ExtResource("7_kb8pd")
+attack_damage = 1.0
+metadata/_custom_type_script = "uid://dq0qm6ova0it6"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o1jj8"]
 size = Vector2(22, 27)
@@ -137,6 +145,8 @@ collision_layer = 0
 
 [node name="HealthComponent" type="Node" parent="." unique_id=156778617]
 script = ExtResource("1_o1jj8")
+debug_mode = true
+max_health = 15
 metadata/_custom_type_script = "uid://bp60vdvwyxe7f"
 
 [node name="FlashComponent" type="Node" parent="." unique_id=808951294 node_paths=PackedStringArray("sprite", "health_component")]
@@ -145,9 +155,12 @@ sprite = NodePath("../Sprite2D")
 health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://c00fny1ika60u"
 
+[node name="StatComponent" type="Node" parent="." unique_id=386433424]
+script = ExtResource("3_yxowt")
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1612677395]
 material = SubResource("ShaderMaterial_mvkti")
-texture = ExtResource("3_craum")
+texture = ExtResource("4_k4ubn")
 
 [node name="WorldCollider" type="CollisionShape2D" parent="." unique_id=1574827782]
 position = Vector2(0, 1.5)
@@ -161,18 +174,20 @@ health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://b33upjirfs7dt"
 
 [node name="HurtboxCollisionShape" type="CollisionShape2D" parent="HurtboxComponent" unique_id=416852503]
-position = Vector2(-0.5, 0)
+position = Vector2(4.5, 6.5)
 shape = SubResource("RectangleShape2D_woq1o")
 debug_color = Color(0, 0.99735785, 0, 0.42000002)
 
-[node name="HitboxComponent" type="Area2D" parent="." unique_id=634745186]
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=634745186 node_paths=PackedStringArray("stat_component")]
 collision_layer = 16
 collision_mask = 2
 script = ExtResource("4_yaibl")
+attack = SubResource("Resource_yxowt")
+stat_component = NodePath("../StatComponent")
 metadata/_custom_type_script = "uid://b1c4qcf1gisb4"
 
 [node name="HitboxCollisionShape" type="CollisionShape2D" parent="HitboxComponent" unique_id=1582484898]
-position = Vector2(-0.5, 1)
+position = Vector2(5, -3.5)
 shape = SubResource("RectangleShape2D_o1jj8")
 debug_color = Color(1, 0, 0, 0.42000002)
 
@@ -221,16 +236,46 @@ offset_bottom = 20.0
 label_settings = SubResource("LabelSettings_mvkti")
 horizontal_alignment = 1
 
+[node name="BatRight" type="Marker2D" parent="." unique_id=1983369877]
+position = Vector2(160, 32)
+
+[node name="BatLeft" type="Marker2D" parent="." unique_id=274926536]
+position = Vector2(-160, 32)
+
+[node name="BloodProjectileSpawns" type="Node2D" parent="." unique_id=1719833919]
+
+[node name="Spawn1" type="Marker2D" parent="BloodProjectileSpawns" unique_id=24114749]
+position = Vector2(-25, -36)
+
+[node name="Spawn2" type="Marker2D" parent="BloodProjectileSpawns" unique_id=1219276179]
+position = Vector2(-13, -43)
+
+[node name="Spawn3" type="Marker2D" parent="BloodProjectileSpawns" unique_id=1882472317]
+position = Vector2(0, -47)
+
+[node name="Spawn4" type="Marker2D" parent="BloodProjectileSpawns" unique_id=1708254905]
+position = Vector2(13, -43)
+
+[node name="Spawn5" type="Marker2D" parent="BloodProjectileSpawns" unique_id=1775393999]
+position = Vector2(25, -36)
+
+[node name="RainLeft" type="Marker2D" parent="." unique_id=1668647656]
+position = Vector2(-124, -106)
+
+[node name="RainRight" type="Marker2D" parent="." unique_id=1058634107]
+position = Vector2(124, -106)
+
 [node name="StateMachine" type="Node" parent="." unique_id=1459848849 node_paths=PackedStringArray("debug_state_label", "initial_state")]
 script = ExtResource("6_jhid3")
 show_state_label = true
 debug_state_label = NodePath("../DebugStateLabel")
-initial_state = NodePath("Attack")
+initial_state = NodePath("BloodRainAttack")
 metadata/_custom_type_script = "uid://cfv7usv2c3fyj"
 
-[node name="Attack" type="Node" parent="StateMachine" unique_id=115041271]
+[node name="BatAttack" type="Node" parent="StateMachine" unique_id=115041271]
 script = ExtResource("7_yaibl")
-bullet_speed = 50.0
+bullet_speed = 150.0
+revenge_threshold = 3
 bullet_scene = ExtResource("8_woq1o")
 
 [node name="Rest" type="Node" parent="StateMachine" unique_id=1845242707]

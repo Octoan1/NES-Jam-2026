@@ -4,11 +4,20 @@ class_name HitboxComponent
 signal hit
 
 @export var debug_mode: bool = false
+@export var attack: Attack
+
+@export var stat_component : StatComponent
+@onready var entity := $".."
+
 
 func _ready() -> void:
 	self.monitoring = true
 	self.monitorable = false
 	
+	if not attack:
+		attack = Attack.new()
+	if not stat_component:
+		stat_component = StatComponent.new()
 	#area_entered.connect(_on_hitbox_component_area_entered)
 
 
@@ -22,11 +31,8 @@ func _physics_process(_delta: float) -> void:
 			
 			if debug_mode:
 				print(hurtbox.name + " - owned by: " + hurtbox.owner.name)
-			
-			var attack: float = 1.0
-		
-			hurtbox.hurt(attack)
-		
+				
+			hurtbox.hurt(attack, stat_component, entity.global_position)
 			hit.emit()
 			
 
