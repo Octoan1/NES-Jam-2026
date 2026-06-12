@@ -10,16 +10,28 @@
 [ext_resource type="Script" path="res://Scripts/Components/stat_component.gd" id="5_uw7o4"]
 [ext_resource type="Texture2D" uid="uid://cnm02utrgxnb5" path="res://Aseprite/player_duck.png" id="6_061yh"]
 [ext_resource type="Texture2D" uid="uid://dlpss007jrsa" path="res://Aseprite/player.png" id="6_hacra"]
+[ext_resource type="Texture2D" uid="uid://cean1jobgk6w2" path="res://Aseprite/player_attack-Sheet.png" id="7_gallu"]
 [ext_resource type="Texture2D" uid="uid://cgg6fc10yy41e" path="res://Aseprite/player_roll-Sheet.png" id="7_lmeus"]
 [ext_resource type="Texture2D" uid="uid://crjb7kc537dum" path="res://Aseprite/player_walk-Sheet.png" id="8_061yh"]
 [ext_resource type="Texture2D" uid="uid://dsw7j0e3akagt" path="res://Assets/PLACEHOLDER_attack.png" id="8_761t5"]
-[ext_resource type="Texture2D" uid="uid://bghjv36vlmqhf" path="res://icon.svg" id="8_gallu"]
-[ext_resource type="Script" path="res://Scripts/Components/defense_component.gd" id="10_hacra"]
+[ext_resource type="Script" uid="uid://bv4g7seykfa7j" path="res://Scripts/Components/defense_component.gd" id="10_hacra"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uw7o4"]
 shader = ExtResource("5_061yh")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_amount = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5m37j"]
+atlas = ExtResource("7_gallu")
+region = Rect2(0, 0, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcmon"]
+atlas = ExtResource("7_gallu")
+region = Rect2(48, 0, 48, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mgqku"]
+atlas = ExtResource("7_gallu")
+region = Rect2(96, 0, 48, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lmeus"]
 atlas = ExtResource("6_hacra")
@@ -157,6 +169,20 @@ region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gallu"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5m37j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vcmon")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mgqku")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lmeus")
