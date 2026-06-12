@@ -90,7 +90,6 @@ func _physics_process(delta: float) -> void:
 	elif not is_on_floor():
 		velocity += get_gravity() * gravity_modifier * delta
 		coyote_timer -= delta
-		waiting_to_land = true
 	else: 
 		coyote_timer = coyote_time
 	
@@ -114,7 +113,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("A_Button") and (is_on_floor() or coyote_timer > 0.0) and not is_dashing and not is_climbing and can_move and not Input.is_action_pressed("D_Pad_Down"):
 		# trying to dash + jump
 		if Input.is_action_pressed("D_Pad_Up"):
-			if not is_climbing and can_dash:
+			if not is_climbing and not dash_locked:
 				_start_dash()
 				velocity.y = jump_velocity
 				coyote_timer = 0.0
