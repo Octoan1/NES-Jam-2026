@@ -92,7 +92,7 @@ func _physics_process(delta: float) -> void:
 	else: 
 		coyote_timer = coyote_time
 	
-	if dash_locked and is_on_floor() and not is_dashing and dash_delay_timer.is_stopped():
+	if dash_locked and is_on_floor() and dash_timer.is_stopped() and dash_delay_timer.is_stopped():
 		_unlock_dash()
 	
 	if is_dashing:
@@ -181,7 +181,6 @@ func _start_dash() -> void:
 func _on_dash_timer_timeout() -> void:
 	print("Dash Finished")
 	dash_timer.stop()
-	is_dashing = false
 	if is_on_floor():
 		_unlock_dash()
 	else:
