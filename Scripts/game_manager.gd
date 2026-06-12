@@ -44,6 +44,7 @@ var death_book_timer: Timer
 var lucky_dice_active = false
 var meteor_timer: Timer
 const METEOR = preload("uid://cl4v4vyxveypp")
+var enemy: CharacterBody2D
 
 
 func _ready():
@@ -95,19 +96,23 @@ func begin_boss():
 	if player.health_component.is_connected("died", player_killed) == false:
 		player.health_component.connect("died", player_killed)
 	
-	apply_relics(player)
-	
 	for child in main_scene.get_children():
 		# if StationaryBoss: Connect death signal
 		if child.name == "StationaryBoss":
 			child.get_child(0).connect("died", boss_killed)
+			enemy = child
 		elif child.name == "MothBoss":
 			child.get_child(0).connect("died", boss_killed)
+			enemy = child
+		
+		
 		
 		# update the hud
 		if child.name == "UI":
 			child.get_child(0).update_health(player.health_component.health, player.health_component.max_health)
 		
+	
+	apply_relics(player)
 	
 
 func apply_relics(player: CharacterBody2D):
@@ -192,7 +197,17 @@ func debug_boss_kill():
 # player has a 50% chance to deal double damage
 # player has a 50% chance to deal 0 damage
 func LuckyCoin(player: CharacterBody2D):
-	print("So lucky!")
+	print("Lucky coin active")
+	player.get_node("StatComponent").crit_mult = 2
+	player.get_node("StatComponent").crit_chance = 0.5
+	
+	# downside:
+	player.get_node("StatComponent").critical_fail = true
+	
+	print("Player crit mult: ", player.get_node("StatComponent").crit_mult)
+	print("Player crit chance: ", player.get_node("StatComponent").crit_chance)
+	print("Player critical fail: ", player.get_node("StatComponent").critical_fail)
+	
 
 # Each time the player attacks the boss, their attack becomes stronger
 # Every 5 seconds passed without attacking the boss, the player's attack becomes weaker
@@ -205,6 +220,8 @@ func LuckyDice(player: CharacterBody2D):
 	# pro and con modify player, so this will be handled
 	# in the 'begin_boss()'
 	player.get_node("DefenseComponent").dodge_chance = 0.1
+	enemy.get_node("StatComponent").crit_mult = 2
+	enemy.get_node("StatComponent").crit_chance = 0.1
 
 # Doubles the positive effect of the next relic.
 # Doubles the negative effect of the next relic.

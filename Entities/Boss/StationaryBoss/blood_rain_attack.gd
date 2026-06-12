@@ -16,7 +16,7 @@ extends State
 @onready var player: CharacterBody2D
 @onready var rain_left: Marker2D = $"../../RainLeft"
 @onready var rain_right: Marker2D = $"../../RainRight"
-
+@onready var stat_component: StatComponent = $"../../StatComponent"
 
 # state nodes
 @onready var attack_timer: Timer
@@ -68,6 +68,7 @@ func _on_attack_timer_timeout() -> void:
 	bullet.target = Vector2(bullet_x, bullet_y + 10)
 	
 	bullet.move_speed = bullet_speed
+	bullet.get_child(1).stat_component = stat_component
 	add_child(bullet)
 	
 	current_count += 1

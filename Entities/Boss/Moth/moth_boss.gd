@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var projectile = load("res://Entities/Projectiles/projectile.tscn")
 
 @export var gravity_modifier: float = 0.6
+@onready var stat_component: StatComponent = $StatComponent
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("Player")
@@ -26,6 +27,7 @@ func attack() -> void:
 	instance.spawn_pos = global_position
 	instance.spawn_rot = rotation
 	instance.fire_delay = 0.01
+	instance.get_node("HitboxComponent").stat_component = stat_component
 	room.add_child.call_deferred(instance)
 
 func big_attack() -> void:
@@ -37,6 +39,7 @@ func big_attack() -> void:
 		instance.spawn_pos = global_position - 10 * dir
 		instance.spawn_rot = rotation
 		instance.fire_delay = 1.0
+		instance.get_node("HitboxComponent").stat_component = stat_component
 		room.add_child.call_deferred(instance)
 
 func _on_health_component_damaged() -> void:

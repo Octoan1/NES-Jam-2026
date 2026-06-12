@@ -19,11 +19,14 @@ func _ready() -> void:
 		BulletType.BAT:
 			animated_sprite_2d.play("bat")
 			$HitboxComponent.scale *= 2
+			$HitboxComponent.attack.attack_damage = 2
 		BulletType.FIREBALL:
 			animated_sprite_2d.play("fireball")
+			$HitboxComponent.attack.attack_damage = 2
 		BulletType.BLOOD_RAIN:
 			animated_sprite_2d.play("blood_rain")
 			$HitboxComponent.scale = Vector2(.5, 1)
+			$HitboxComponent.attack.attack_damage = 1
 
 func _physics_process(delta: float) -> void:
 	self.global_position += direction * move_speed * delta

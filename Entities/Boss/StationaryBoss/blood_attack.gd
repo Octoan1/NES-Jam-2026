@@ -15,6 +15,7 @@ extends State
 @onready var enemy: CharacterBody2D = $"../.."
 @onready var player: CharacterBody2D
 @onready var blood_projectile_spawns: Node2D = $"../../BloodProjectileSpawns"
+@onready var stat_component: StatComponent = $"../../StatComponent"
 
 
 
@@ -44,6 +45,7 @@ func enter() -> void:
 		bullet.move_speed = 0
 		bullets.append(bullet)
 		bullet.type = Bullet.BulletType.FIREBALL
+		bullet.get_child(1).stat_component = stat_component
 		await get_tree().create_timer(bullet_spawn_delay).timeout
 		add_child(bullet)
 	
