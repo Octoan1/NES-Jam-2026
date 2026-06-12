@@ -106,10 +106,10 @@ func begin_boss():
 		enemy = main_scene.find_child("MothBoss")
 		enemy.get_child(0).connect("died", boss_killed)
 	
+	apply_relics(player)
+	
 	# update UI
 	main_scene.find_child("UI").get_child(0).update_health(player.health_component.health, player.health_component.max_health)
-	
-	apply_relics(player)
 	
 
 func apply_relics(player: CharacterBody2D):
