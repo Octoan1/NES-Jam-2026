@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 #Stats
-var SPEED: float = 100.0
+var SPEED: float = 175.0
 var direction: Vector2
 var spawn_pos: Vector2
 var spawn_rot: float

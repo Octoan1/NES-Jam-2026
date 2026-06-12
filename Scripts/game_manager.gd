@@ -44,6 +44,8 @@ var death_book_timer: Timer
 var lucky_dice_active = false
 var meteor_timer: Timer
 const METEOR = preload("uid://cl4v4vyxveypp")
+var enemy: CharacterBody2D
+var mister_sword_timer: Timer
 
 
 func _ready():
@@ -82,6 +84,7 @@ func reset_relics():
 	]
 
 func begin_boss():
+	enemy = CharacterBody2D.new()
 	if current_round % 2 == 0:
 		main_scene = bosses[0].instantiate()
 	else:
@@ -95,19 +98,18 @@ func begin_boss():
 	if player.health_component.is_connected("died", player_killed) == false:
 		player.health_component.connect("died", player_killed)
 	
+	# connect enemy death signal
+	if current_round % 2 == 0:
+		enemy = main_scene.find_child("StationaryBoss")
+		enemy.get_child(0).connect("died", boss_killed)
+	else:
+		enemy = main_scene.find_child("MothBoss")
+		enemy.get_child(0).connect("died", boss_killed)
+	
 	apply_relics(player)
 	
-	for child in main_scene.get_children():
-		# if StationaryBoss: Connect death signal
-		if child.name == "StationaryBoss":
-			child.get_child(0).connect("died", boss_killed)
-		elif child.name == "MothBoss":
-			child.get_child(0).connect("died", boss_killed)
-		
-		# update the hud
-		if child.name == "UI":
-			child.get_child(0).update_health(player.health_component.health, player.health_component.max_health)
-		
+	# update UI
+	main_scene.find_child("UI").get_child(0).update_health(player.health_component.health, player.health_component.max_health)
 	
 
 func apply_relics(player: CharacterBody2D):
@@ -119,6 +121,8 @@ func disable_relics():
 		death_book_timer.stop()
 	if meteor_timer:
 		meteor_timer.stop()
+	if mister_sword_timer:
+		mister_sword_timer.stop()
 
 func boss_killed():
 	canvas_layer = get_tree().current_scene.find_child("CanvasLayer", true, false)
@@ -192,12 +196,41 @@ func debug_boss_kill():
 # player has a 50% chance to deal double damage
 # player has a 50% chance to deal 0 damage
 func LuckyCoin(player: CharacterBody2D):
-	print("So lucky!")
+	print("Lucky coin active")
+	player.get_node("StatComponent").crit_mult = 2
+	player.get_node("StatComponent").crit_chance = 0.5
+	
+	# downside:
+	player.get_node("StatComponent").critical_fail = true
+	
+	print("Player crit mult: ", player.get_node("StatComponent").crit_mult)
+	print("Player crit chance: ", player.get_node("StatComponent").crit_chance)
+	print("Player critical fail: ", player.get_node("StatComponent").critical_fail)
+	
 
 # Each time the player attacks the boss, their attack becomes stronger
 # Every 5 seconds passed without attacking the boss, the player's attack becomes weaker
 func AncientMask(player: CharacterBody2D):
-	print("Stony!")
+	player.find_child("HealthComponent").damaged.connect(strengthen_player.bind(player))
+	
+	# if enemy attack mult is default, just set it to 2
+	# otherwise, (say, there is another attack mult in play) add them together
+	if enemy.get_node("StatComponent").attack_mult == 1:
+		enemy.get_node("StatComponent").attack_mult = 2
+	else:
+		enemy.get_node("StatComponent").attack_mult += 2
+
+func strengthen_player(player: CharacterBody2D):
+	var player_health = player.find_child("HealthComponent").health
+	
+	if player_health <= 12 and player_health > 8:
+		player.get_node("StatComponent").attack_mult = 2
+	elif player_health <= 8 and player_health > 4:
+		player.get_node("StatComponent").attack_mult = 3
+	elif player_health <= 4 and player_health > 0:
+		player.get_node("StatComponent").attack_mult = 4
+
+
 
 # 10% chance to ignore an instance of damage.
 # 10% chance to take double damage
@@ -205,6 +238,8 @@ func LuckyDice(player: CharacterBody2D):
 	# pro and con modify player, so this will be handled
 	# in the 'begin_boss()'
 	player.get_node("DefenseComponent").dodge_chance = 0.1
+	enemy.get_node("StatComponent").crit_mult += 2
+	enemy.get_node("StatComponent").crit_chance = 0.1
 
 # Doubles the positive effect of the next relic.
 # Doubles the negative effect of the next relic.
@@ -242,7 +277,7 @@ func spawn_meteor():
 		meteor.target = Vector2(meteor_x, meteor_y + 10)
 		
 		meteor.move_speed = 30
-		add_child(meteor)
+		main_scene.add_child(meteor)
 	meteor_timer.start()
 
 # A ghost summon helps you in battle.
@@ -302,7 +337,22 @@ func GemGauntlet(player: CharacterBody2D):
 	#player.dodge_chance = player.dodge_chance / 2
 	
 
-# Your sword now shoots a projectile
-# Your attacks are slower
+# Damaging the boss heals you
+# You lose health over time
 func MisterSword(player: CharacterBody2D):
-	print("Legendary")
+	# timer setup
+	mister_sword_timer = Timer.new()
+	add_child(mister_sword_timer)
+	mister_sword_timer.wait_time = 1.5
+	mister_sword_timer.timeout.connect(damage_player.bind(player))
+	mister_sword_timer.start()
+	
+	enemy.find_child("HealthComponent").damaged.connect(heal_player.bind(player))
+	
+
+func damage_player(player: CharacterBody2D):
+	player.find_child("HealthComponent").modify_health(-1.0)
+	mister_sword_timer.start()
+
+func heal_player(player: CharacterBody2D):
+	player.find_child("HealthComponent").modify_health(1.0)

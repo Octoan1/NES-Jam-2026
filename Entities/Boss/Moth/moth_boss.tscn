@@ -5,9 +5,11 @@
 [ext_resource type="Script" uid="uid://c00fny1ika60u" path="res://Scripts/Components/flash_color_component.gd" id="2_r8104"]
 [ext_resource type="Shader" uid="uid://blmvfgvk3bx8a" path="res://Entities/flash_color.gdshader" id="3_vuhki"]
 [ext_resource type="Texture2D" uid="uid://bwkaesoa2q8ro" path="res://Aseprite/moth_fly.png" id="4_ldkik"]
+[ext_resource type="Script" uid="uid://bagscl1ugnifq" path="res://Scripts/Components/stat_component.gd" id="4_qcoie"]
 [ext_resource type="Script" uid="uid://b33upjirfs7dt" path="res://Scripts/Components/hurtbox_component.gd" id="5_dxnel"]
 [ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="6_bv62r"]
 [ext_resource type="Script" uid="uid://cfv7usv2c3fyj" path="res://Scripts/Components/state_machine.gd" id="7_eucj0"]
+[ext_resource type="Resource" uid="uid://buo6xxhom5u37" path="res://Entities/Boss/Moth/Moth_Attack.tres" id="8_qcoie"]
 [ext_resource type="Script" uid="uid://pn868vudnt0" path="res://Entities/Boss/Moth/moth_attack_state.gd" id="10_1soyj"]
 [ext_resource type="Script" uid="uid://bipyax8686giy" path="res://Entities/Boss/Moth/moth_big_attack_state.gd" id="11_j7pap"]
 [ext_resource type="AudioStream" uid="uid://cjuoup7ehnmle" path="res://Audio/PLACEHOLDER_hit_sound.wav" id="12_d3m2i"]
@@ -70,15 +72,16 @@ script = ExtResource("1_r8104")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=717674945]
 script = ExtResource("1_j7pap")
-debug_mode = true
 metadata/_custom_type_script = "uid://bp60vdvwyxe7f"
 
 [node name="FlashComponent" type="Node" parent="." unique_id=23116292 node_paths=PackedStringArray("sprite", "health_component")]
 script = ExtResource("2_r8104")
-debug_mode = true
 sprite = NodePath("../AnimatedSprite2D")
 health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://c00fny1ika60u"
+
+[node name="StatComponent" type="Node" parent="." unique_id=1442779537]
+script = ExtResource("4_qcoie")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1534595438]
 material = SubResource("ShaderMaterial_1abaq")
@@ -105,12 +108,14 @@ position = Vector2(2, 0)
 shape = SubResource("RectangleShape2D_x35n3")
 debug_color = Color(0, 1, 0, 0.1764706)
 
-[node name="HitboxComponent" type="Area2D" parent="." unique_id=1776901103]
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=1776901103 node_paths=PackedStringArray("stat_component")]
 position = Vector2(0, -3.5)
 scale = Vector2(1.1199995, 0.6000008)
 collision_layer = 16
 collision_mask = 2
 script = ExtResource("6_bv62r")
+attack = ExtResource("8_qcoie")
+stat_component = NodePath("../StatComponent")
 metadata/_custom_type_script = "uid://b1c4qcf1gisb4"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1641977185]
@@ -138,7 +143,6 @@ horizontal_alignment = 1
 
 [node name="StateMachine" type="Node" parent="." unique_id=1611596430 node_paths=PackedStringArray("debug_state_label", "initial_state")]
 script = ExtResource("7_eucj0")
-debug_mode = true
 debug_state_label = NodePath("../DebugStateLabel")
 initial_state = NodePath("Moth Move")
 metadata/_custom_type_script = "uid://cfv7usv2c3fyj"

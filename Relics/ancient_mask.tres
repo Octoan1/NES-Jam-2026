@@ -6,7 +6,7 @@
 script = ExtResource("1_8whit")
 name = "Ancient Mask"
 description = "Better wear sunscreen"
-pro = "Each time the player attacks the boss, their attack becomes stronger"
-con = "Every 5 seconds passed without attacking the boss, the player's attack becomes weaker"
+pro = "You deal more damage the lower health you have"
+con = "You take double damage"
 effect_name = "AncientMask"
 metadata/_custom_type_script = "uid://b45x76ks38rs1"

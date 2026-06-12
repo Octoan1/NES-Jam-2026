@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://87p2souyu1h2" path="res://Aseprite/bat-Sheet.png" id="2_dk0ok"]
 [ext_resource type="Texture2D" uid="uid://c2usjvffryk77" path="res://Aseprite/blood_rain.png" id="3_7qncf"]
 [ext_resource type="Texture2D" uid="uid://cortmr1sgyqqi" path="res://Aseprite/fireball.png" id="4_b7do4"]
+[ext_resource type="Script" uid="uid://dq0qm6ova0it6" path="res://Scripts/Components/attack.gd" id="6_7qncf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b7do4"]
 atlas = ExtResource("2_dk0ok")
@@ -65,6 +66,11 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Resource" id="Resource_fnsbg"]
+script = ExtResource("6_7qncf")
+attack_damage = 1.0
+metadata/_custom_type_script = "uid://dq0qm6ova0it6"
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_2kk5f"]
 radius = 3.0
 
@@ -81,6 +87,7 @@ collision_layer = 16
 collision_mask = 2
 script = ExtResource("1_v5eym")
 debug_mode = true
+attack = SubResource("Resource_fnsbg")
 metadata/_custom_type_script = "uid://b1c4qcf1gisb4"
 
 [node name="HitboxCollisionShape" type="CollisionShape2D" parent="HitboxComponent" unique_id=1256599237]
