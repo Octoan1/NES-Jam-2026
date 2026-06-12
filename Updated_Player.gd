@@ -12,8 +12,8 @@ var state = State.NORMAL
 
 var player_facing = 1
 
-#Siblings
-@onready var sprite := $AnimatedSprite2D
+#Components
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var attack_pivot := $AttackPivot
 @onready var sword_hitbox := $AttackPivot/SwordHitbox
 @onready var dash_timer := $DashTimer
@@ -24,6 +24,7 @@ var player_facing = 1
 @export var attack_duration: float = 0.15
 @export var attack_delay: float = 0.2
 var can_attack: bool = true
+var attack_delay_timer: Timer
 
 #Dash Variables
 @export var dash_speed: float = 800.0
@@ -68,6 +69,11 @@ func _ready() -> void:
 	health_component.invulnerability_started.connect(_on_invuln_start)
 	health_component.invulnerability_ended.connect(_on_invuln_end)
 	dash_delay_timer.stop()
+	
+	attack_delay_timer = Timer.new()
+	self.add_child(attack_delay_timer)
+	attack_delay_timer.timeout.connect(_on_attack_delay_timer_timeout)
+	attack_delay_timer.stop()
 
 func _physics_process(delta: float) -> void:
 	if state == State.HITSTUN:
@@ -149,6 +155,136 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 
+#NORMAL MOVEMENT
+func _update_normal(delta: float) -> void:
+	
+	_apply_gravity(delta)
+	
+	#Ground check / coyote
+	if is_on_floor():
+		coyote_timer = 0.1
+	else:
+		coyote_time -= delta
+	
+	#Jump
+	if Input.is_action_just_pressed("A_Button") and (is_on_floor() or coyote_timer > 0.0) and not Input.is_action_pressed("D_Pad_Down"):
+		velocity.y = jump_velocity
+		coyote_timer = 0.0
+		if Input.is_action_pressed("D_Pad_Up") and not is_climbing and not dash_locked:
+			_start_dash()
+			return
+	
+	#Dash
+	if Input.is_action_pressed("D_Pad_Down") and Input.is_action_just_pressed("A_Button") and not dash_locked:
+		_start_dash()
+		return
+	
+	#Attack
+	if Input.is_action_just_pressed("B_Button") and attack_delay_timer.is_stopped():
+		_start_attack()
+		return
+	
+	#Movement
+	var dir := Input.get_axis("D_Pad_Left", "D_Pad_Right")
+	
+	if dir != 0:
+		velocity.x = dir * speed
+		player_facing = sign(dir)
+		
+		sprite.play("walk")
+		sprite.flip_h = dir < 0
+	else:
+		velocity.x = move_toward(velocity.x, 0, speed)
+		sprite.play("default")
+
+
+#GRAVITY
+func _apply_gravity(delta: float) -> void:
+	if not is_on_floor():
+		velocity += get_gravity() * gravity_modifier * delta
+		
+
+#DASH
+func _start_dash() -> void:
+	state = State.DASH
+	dash_locked = true
+	
+	health_component.is_invulnerable = true
+	sprite.play("roll")
+	
+	dash_timer.start(dash_duration)
+
+func _update_dash(delta: float) -> void:
+	if dash_locked and is_on_floor() and dash_timer.is_stopped() and dash_delay_timer.is_stopped():
+		_unlock_dash()
+		return
+	velocity.x = player_facing * dash_speed
+	_apply_gravity(delta)
+
+func _on_dash_timer_timeout() -> void:
+	dash_timer.stop()
+	if is_on_floor():
+		_unlock_dash()
+	else:
+		pass
+
+func _on_dash_delay_timer_timeout() -> void:
+	dash_delay_timer.stop()
+	dash_locked = false
+
+func _unlock_dash():
+	if not dash_locked:
+		return
+		
+	state = State.NORMAL
+	health_component.is_invulnerable = false
+	sprite.play("default")
+	dash_delay_timer.start(dash_delay)
+
+
+#ATTACK
+func _start_attack() -> void:
+	state = State.ATTACK
+	
+	attack_pivot.visible = true
+	sword_hitbox.monitoring = true
+	
+	sprite.play("attack")
+	
+	await get_tree().create_timer(attack_duration).timeout
+	
+	attack_pivot.visible = false
+	sword_hitbox.monitoring = false
+	
+	state = State.NORMAL
+	
+	attack_delay_timer.start(attack_delay)
+
+func _on_attack_delay_timer_timeout() -> void:
+	attack_delay_timer.stop()
+
+func _update_attack(delta: float) -> void:
+	_apply_gravity(delta)
+	velocity.x = move_toward(velocity.x, 0, speed)
+
+
+#CLIMB
+func _update_climb(_delta: float) -> void:
+	if not can_interact:
+		state = State.NORMAL
+		return
+	
+	if Input.is_action_pressed("D_Pad_Up"):
+		velocity.y = -climb_speed
+	else:
+		velocity.y = climb_speed
+
+
+
+
+
+
+
 func _trigger_attack() -> void:
 	attack_pivot.visible = true
 	sword_hitbox.monitoring = true
@@ -169,34 +305,13 @@ func _trigger_attack() -> void:
 	
 	can_attack = true
 	
-	
-func _start_dash() -> void:
-	is_dashing = true
-	dash_locked = true
-	health_component.is_invulnerable = true
-	sprite.play("roll")
-	
-	dash_timer.start(dash_duration)
 
-func _on_dash_timer_timeout() -> void:
-	dash_timer.stop()
-	if is_on_floor():
-		_unlock_dash()
-	else:
-		pass
-	
-func _unlock_dash():
-	if not dash_locked:
-		return
-		
-	is_dashing = false
-	health_component.is_invulnerable = false
-	sprite.play("default")
-	dash_delay_timer.start(dash_delay)
 
-func _on_dash_delay_timer_timeout() -> void:
-	dash_delay_timer.stop()
-	dash_locked = false
+
+	
+
+
+
 
 #
 #func player_take_damage(amount: int) -> void:
@@ -212,10 +327,8 @@ func _on_dash_delay_timer_timeout() -> void:
 func die() -> void:
 	pass
 
-
 func _on_interactbox_component_body_entered(_body: Node2D) -> void:
 	can_interact = true
-
 
 func _on_interactbox_component_body_exited(_body: Node2D) -> void:
 	can_interact = false
