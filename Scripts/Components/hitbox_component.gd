@@ -7,6 +7,8 @@ signal hit
 @export var attack: Attack
 
 @export var stat_component : StatComponent
+@onready var entity := $".."
+
 
 func _ready() -> void:
 	self.monitoring = true
@@ -29,11 +31,8 @@ func _physics_process(_delta: float) -> void:
 			
 			if debug_mode:
 				print(hurtbox.name + " - owned by: " + hurtbox.owner.name)
-			
-			
-			hurtbox.hurt(attack, stat_component)
-			
-			
+				
+			hurtbox.hurt(attack, stat_component, entity.global_position)
 			hit.emit()
 			
 
