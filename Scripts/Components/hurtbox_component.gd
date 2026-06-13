@@ -32,7 +32,7 @@ func hurt(attack: Attack, stats: StatComponent, attacker_pos: Vector2) -> void:
 	var did_damage = health_component.damage_health(damage_output)
 	
 	if not did_damage:
-		return  # <-- CRITICAL
+		return
 		
 	if entity and attack.knockback_force > 0.0:
 		entity.apply_attack(attack, attacker_pos)
