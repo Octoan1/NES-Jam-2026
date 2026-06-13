@@ -10,6 +10,7 @@ extends State
 # node references
 @onready var enemy: CharacterBody2D = $"../.."
 @onready var player: CharacterBody2D
+@onready var sprite: AnimatedSprite2D = $"../../AnimatedSprite2D"
 
 # state nodes
 @onready var rest_timer: Timer
@@ -29,9 +30,11 @@ func enter() -> void:
 	attacked_count = 0
 	if rest_timer.is_stopped():
 		rest_timer.start()
+	sprite.play("rest")
 	
 func exit() -> void:
 	rest_timer.stop()
+	sprite.play("default")
 	pass
 
 
