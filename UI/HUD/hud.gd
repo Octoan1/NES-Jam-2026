@@ -3,13 +3,18 @@ extends Control
 @onready var health_container: HBoxContainer = $TextureRect/Control/HealthContainer
 
 @export var heart_scene: PackedScene
+@onready var game_timer: Timer = $GameTimer
 
 var player: CharacterBody2D
 var health_points: Array[TextureRect]
+var time: int
+@onready var time_label: Label = $TextureRect/Control/Time
+
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("Player")
 	player.health_component.health_changed.connect(update_health)
+	time = 0
 	
 	create_hearts(player.health_component.max_health)
 	
@@ -38,3 +43,14 @@ func update_health(current_health: float, max_health: float) -> void:
 
 	for i in range(health_points.size()):
 		health_points[i].visible = i < current_health
+
+
+func _on_game_timer_timeout() -> void:
+	time += 1
+	if time < 10 and time > 0:
+		time_label.text = "Time 000" + str(time)
+	if time < 100 and time >= 10:
+		time_label.text = "Time 00" + str(time)
+	if time < 1000 and time >= 100:
+		time_label.text = "Time 0" + str(time)
+	
