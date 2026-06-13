@@ -159,12 +159,18 @@ func _check_movement() -> void:
 		
 		if state == State.CLIMB: return # stop cimbing visuals override
 		sprite.play("default")
+
+	if velocity.y < 0:
+		sprite.play("jump")
+	elif velocity.y > 1:
+		sprite.play("fall")
 #endregion
 
 #region GRAVITY
 func _apply_gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * gravity_modifier * delta
+
 #endregion
 
 #region DASH

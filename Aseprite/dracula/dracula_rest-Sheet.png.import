@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://87p2souyu1h2"
-path="res://.godot/imported/bat-Sheet.png-0f7b7acf2e0349ceae86fa5675f588b2.ctex"
+uid="uid://br77q1j6fr4ye"
+path="res://.godot/imported/dracula_rest-Sheet.png-daa3a1c5dc03daa9c15b13be9a8d1c4b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Aseprite/bat-Sheet.png"
-dest_files=["res://.godot/imported/bat-Sheet.png-0f7b7acf2e0349ceae86fa5675f588b2.ctex"]
+source_file="res://Aseprite/dracula/dracula_rest-Sheet.png"
+dest_files=["res://.godot/imported/dracula_rest-Sheet.png-daa3a1c5dc03daa9c15b13be9a8d1c4b.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcx50a0yfjxi5"
-path="res://.godot/imported/player_jump.png-1fd64d7ffa9623f12b2077a917eb6191.ctex"
+uid="uid://dinvrukgb6d3t"
+path="res://.godot/imported/moth_fly.png-09c87ad31df71c4ffe61873214cec98c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Aseprite/player/player_jump.png"
-dest_files=["res://.godot/imported/player_jump.png-1fd64d7ffa9623f12b2077a917eb6191.ctex"]
+source_file="res://Aseprite/moth/moth_fly.png"
+dest_files=["res://.godot/imported/moth_fly.png-09c87ad31df71c4ffe61873214cec98c.ctex"]
 
 [params]
 

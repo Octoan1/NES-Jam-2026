@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bwkaesoa2q8ro"
-path="res://.godot/imported/moth_fly.png-6550ec51d152fadf343b9c94822daff1.ctex"
+uid="uid://qr23a04t11ah"
+path="res://.godot/imported/bat-Sheet.png-f850cfbf16711f7df535d9d6d06c8c0e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Aseprite/moth_fly.png"
-dest_files=["res://.godot/imported/moth_fly.png-6550ec51d152fadf343b9c94822daff1.ctex"]
+source_file="res://Aseprite/dracula/bat-Sheet.png"
+dest_files=["res://.godot/imported/bat-Sheet.png-f850cfbf16711f7df535d9d6d06c8c0e.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://muyjhvxwf44g"
-path="res://.godot/imported/dracula-boss.png-177ebcc0f02bc30da478406000e20150.ctex"
+uid="uid://cqv0cbali6kix"
+path="res://.godot/imported/player_fall.png-0b7c16bffde2628e3778c38ed6ba2950.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Aseprite/dracula-boss.png"
-dest_files=["res://.godot/imported/dracula-boss.png-177ebcc0f02bc30da478406000e20150.ctex"]
+source_file="res://Aseprite/player/player_fall.png"
+dest_files=["res://.godot/imported/player_fall.png-0b7c16bffde2628e3778c38ed6ba2950.ctex"]
 
 [params]
 

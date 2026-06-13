@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cortmr1sgyqqi"
-path="res://.godot/imported/fireball.png-f7411362c23c1c77a1cd3ff2966f67e2.ctex"
+uid="uid://bt4biipfpvc7k"
+path="res://.godot/imported/dracula-boss.png-a197d3f3fc03c46b5f19c6bbd3e0c024.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Aseprite/fireball.png"
-dest_files=["res://.godot/imported/fireball.png-f7411362c23c1c77a1cd3ff2966f67e2.ctex"]
+source_file="res://Aseprite/dracula/dracula-boss.png"
+dest_files=["res://.godot/imported/dracula-boss.png-a197d3f3fc03c46b5f19c6bbd3e0c024.ctex"]
 
 [params]
 

@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="1_v5eym"]
 [ext_resource type="Script" uid="uid://c7mivwrvli5ot" path="res://Entities/Boss/StationaryBoss/bullet.gd" id="1_vewwk"]
 [ext_resource type="Texture2D" uid="uid://bd1rv0wm7tp87" path="res://Assets/PLACEHOLDER_projectice.png" id="2_2kk5f"]
-[ext_resource type="Texture2D" uid="uid://87p2souyu1h2" path="res://Aseprite/bat-Sheet.png" id="2_dk0ok"]
-[ext_resource type="Texture2D" uid="uid://c2usjvffryk77" path="res://Aseprite/blood_rain.png" id="3_7qncf"]
-[ext_resource type="Texture2D" uid="uid://cortmr1sgyqqi" path="res://Aseprite/fireball.png" id="4_b7do4"]
+[ext_resource type="Texture2D" uid="uid://qr23a04t11ah" path="res://Aseprite/dracula/bat-Sheet.png" id="2_dk0ok"]
+[ext_resource type="Texture2D" uid="uid://4bxen36cyh1" path="res://Aseprite/dracula/blood_rain.png" id="3_7qncf"]
+[ext_resource type="Texture2D" uid="uid://cwd0ji3njg3ih" path="res://Aseprite/dracula/fireball.png" id="4_b7do4"]
 [ext_resource type="Script" uid="uid://dq0qm6ova0it6" path="res://Scripts/Components/attack.gd" id="6_7qncf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b7do4"]

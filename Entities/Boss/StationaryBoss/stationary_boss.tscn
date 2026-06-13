@@ -5,8 +5,9 @@
 [ext_resource type="Script" uid="uid://b33upjirfs7dt" path="res://Scripts/Components/hurtbox_component.gd" id="3_jhid3"]
 [ext_resource type="Shader" uid="uid://blmvfgvk3bx8a" path="res://Entities/flash_color.gdshader" id="3_u51qa"]
 [ext_resource type="Script" uid="uid://bagscl1ugnifq" path="res://Scripts/Components/stat_component.gd" id="3_yxowt"]
-[ext_resource type="Texture2D" uid="uid://muyjhvxwf44g" path="res://Aseprite/dracula-boss.png" id="4_k4ubn"]
+[ext_resource type="Texture2D" uid="uid://bt4biipfpvc7k" path="res://Aseprite/dracula/dracula-boss.png" id="4_k4ubn"]
 [ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="4_yaibl"]
+[ext_resource type="Texture2D" uid="uid://br77q1j6fr4ye" path="res://Aseprite/dracula/dracula_rest-Sheet.png" id="6_em0ae"]
 [ext_resource type="Script" uid="uid://cfv7usv2c3fyj" path="res://Scripts/Components/state_machine.gd" id="6_jhid3"]
 [ext_resource type="Texture2D" uid="uid://cxolf1uhyd8sb" path="res://Aseprite/placeholder_tilemap.png" id="7_k4ubn"]
 [ext_resource type="Script" uid="uid://dq0qm6ova0it6" path="res://Scripts/Components/attack.gd" id="7_kb8pd"]
@@ -22,6 +23,68 @@
 shader = ExtResource("3_u51qa")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flash_amount = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nn5wi"]
+atlas = ExtResource("4_k4ubn")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8pmik"]
+atlas = ExtResource("6_em0ae")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r6tpv"]
+atlas = ExtResource("6_em0ae")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ais3i"]
+atlas = ExtResource("6_em0ae")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_824y8"]
+atlas = ExtResource("6_em0ae")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjfxf"]
+atlas = ExtResource("6_em0ae")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hsym8"]
+atlas = ExtResource("6_em0ae")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8pmik"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nn5wi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8pmik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r6tpv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ais3i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_824y8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mjfxf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hsym8")
+}],
+"loop": true,
+"name": &"rest",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_craum"]
 size = Vector2(20, 29)
@@ -151,22 +214,26 @@ metadata/_custom_type_script = "uid://bp60vdvwyxe7f"
 
 [node name="FlashComponent" type="Node" parent="." unique_id=808951294 node_paths=PackedStringArray("sprite", "health_component")]
 script = ExtResource("2_craum")
-sprite = NodePath("../Sprite2D")
+sprite = NodePath("../AnimatedSprite2D")
 health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://c00fny1ika60u"
 
 [node name="StatComponent" type="Node" parent="." unique_id=386433424]
 script = ExtResource("3_yxowt")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1612677395]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=423240695]
 material = SubResource("ShaderMaterial_mvkti")
-texture = ExtResource("4_k4ubn")
+sprite_frames = SubResource("SpriteFrames_8pmik")
+animation = &"rest"
+frame_progress = 0.33970404
 
 [node name="WorldCollider" type="CollisionShape2D" parent="." unique_id=1574827782]
+visible = false
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_craum")
 
 [node name="HurtboxComponent" type="Area2D" parent="." unique_id=1658875023 node_paths=PackedStringArray("health_component")]
+visible = false
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("3_jhid3")
@@ -179,6 +246,7 @@ shape = SubResource("RectangleShape2D_woq1o")
 debug_color = Color(0, 0.99735785, 0, 0.42000002)
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=634745186 node_paths=PackedStringArray("stat_component")]
+visible = false
 collision_layer = 16
 collision_mask = 2
 script = ExtResource("4_yaibl")
@@ -197,6 +265,7 @@ sprite_frames = SubResource("SpriteFrames_wa7xa")
 autoplay = "default"
 
 [node name="RevengeHitbox" type="Area2D" parent="." unique_id=1033769106 node_paths=PackedStringArray("stat_component")]
+visible = false
 position = Vector2(0, 2)
 collision_mask = 2
 monitoring = false

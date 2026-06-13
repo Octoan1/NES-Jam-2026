@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bcx50a0yfjxi5"
-path="res://.godot/imported/player_jump.png-1fd64d7ffa9623f12b2077a917eb6191.ctex"
+uid="uid://4bxen36cyh1"
+path="res://.godot/imported/blood_rain.png-db1f35aafefbf40f47cefcf2900330d2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Aseprite/player/player_jump.png"
-dest_files=["res://.godot/imported/player_jump.png-1fd64d7ffa9623f12b2077a917eb6191.ctex"]
+source_file="res://Aseprite/dracula/blood_rain.png"
+dest_files=["res://.godot/imported/blood_rain.png-db1f35aafefbf40f47cefcf2900330d2.ctex"]
 
 [params]
 

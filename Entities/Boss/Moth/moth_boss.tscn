@@ -4,12 +4,14 @@
 [ext_resource type="Script" uid="uid://cwk8ipnps8137" path="res://Entities/Boss/Moth/moth_boss.gd" id="1_r8104"]
 [ext_resource type="Script" uid="uid://c00fny1ika60u" path="res://Scripts/Components/flash_color_component.gd" id="2_r8104"]
 [ext_resource type="Shader" uid="uid://blmvfgvk3bx8a" path="res://Entities/flash_color.gdshader" id="3_vuhki"]
-[ext_resource type="Texture2D" uid="uid://bwkaesoa2q8ro" path="res://Aseprite/moth_fly.png" id="4_ldkik"]
+[ext_resource type="Texture2D" uid="uid://dinvrukgb6d3t" path="res://Aseprite/moth/moth_fly.png" id="4_ldkik"]
 [ext_resource type="Script" uid="uid://bagscl1ugnifq" path="res://Scripts/Components/stat_component.gd" id="4_qcoie"]
 [ext_resource type="Script" uid="uid://b33upjirfs7dt" path="res://Scripts/Components/hurtbox_component.gd" id="5_dxnel"]
 [ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="6_bv62r"]
 [ext_resource type="Script" uid="uid://cfv7usv2c3fyj" path="res://Scripts/Components/state_machine.gd" id="7_eucj0"]
+[ext_resource type="Texture2D" uid="uid://b4ge3mlv2aohr" path="res://Aseprite/moth/moth_shoot-Sheet.png" id="7_x500x"]
 [ext_resource type="Resource" uid="uid://buo6xxhom5u37" path="res://Entities/Boss/Moth/Moth_Attack.tres" id="8_qcoie"]
+[ext_resource type="Texture2D" uid="uid://bd1rv0wm7tp87" path="res://Assets/PLACEHOLDER_projectice.png" id="9_re0up"]
 [ext_resource type="Script" uid="uid://pn868vudnt0" path="res://Entities/Boss/Moth/moth_attack_state.gd" id="10_1soyj"]
 [ext_resource type="Script" uid="uid://bipyax8686giy" path="res://Entities/Boss/Moth/moth_big_attack_state.gd" id="11_j7pap"]
 [ext_resource type="AudioStream" uid="uid://cjuoup7ehnmle" path="res://Audio/PLACEHOLDER_hit_sound.wav" id="12_d3m2i"]
@@ -28,6 +30,26 @@ region = Rect2(0, 0, 48, 32)
 atlas = ExtResource("4_ldkik")
 region = Rect2(48, 0, 48, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_re0up"]
+atlas = ExtResource("7_x500x")
+region = Rect2(0, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3chho"]
+atlas = ExtResource("7_x500x")
+region = Rect2(48, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_041ns"]
+atlas = ExtResource("7_x500x")
+region = Rect2(96, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fr5x3"]
+atlas = ExtResource("7_x500x")
+region = Rect2(144, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34lru"]
+atlas = ExtResource("7_x500x")
+region = Rect2(192, 0, 48, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_hruly"]
 animations = [{
 "frames": [{
@@ -45,8 +67,28 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qcoie")
 }],
-"loop": false,
+"loop": true,
 "name": &"fly",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_re0up")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3chho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_041ns")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fr5x3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_34lru")
+}],
+"loop": false,
+"name": &"shoot",
 "speed": 5.0
 }]
 
@@ -87,6 +129,7 @@ script = ExtResource("4_qcoie")
 material = SubResource("ShaderMaterial_1abaq")
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_hruly")
+animation = &"shoot"
 autoplay = "default"
 
 [node name="WorldCollisionShape" type="CollisionShape2D" parent="." unique_id=512823649]
@@ -107,6 +150,13 @@ metadata/_custom_type_script = "uid://b33upjirfs7dt"
 position = Vector2(2, 0)
 shape = SubResource("RectangleShape2D_x35n3")
 debug_color = Color(0, 1, 0, 0.1764706)
+
+[node name="AttackPivot" type="Node2D" parent="." unique_id=2054174933]
+
+[node name="BulletSpawn" type="Sprite2D" parent="AttackPivot" unique_id=1346013610]
+visible = false
+position = Vector2(12, -2)
+texture = ExtResource("9_re0up")
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=1776901103 node_paths=PackedStringArray("stat_component")]
 position = Vector2(0, -3.5)
