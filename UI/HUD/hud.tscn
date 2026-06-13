@@ -49,6 +49,9 @@ offset_bottom = 9.0
 text = "Time 0000"
 label_settings = ExtResource("2_fccik")
 
+[node name="GameTimer" type="Timer" parent="TextureRect/Control" unique_id=711194222]
+autostart = true
+
 [node name="Stage" type="Label" parent="TextureRect/Control" unique_id=1822240640]
 layout_mode = 0
 offset_left = 192.0
@@ -73,3 +76,5 @@ offset_top = 16.0
 offset_right = 58.0
 offset_bottom = 24.0
 theme_override_constants/separation = 1
+
+[connection signal="timeout" from="TextureRect/Control/GameTimer" to="." method="_on_game_timer_timeout"]

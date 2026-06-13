@@ -414,8 +414,9 @@ func MisterSword():
 	
 
 func damage_player():
-	player.find_child("HealthComponent").modify_health(-1.0)
-	mister_sword_timer.start()
+	if player:
+		player.find_child("HealthComponent").modify_health(-1.0)
+		mister_sword_timer.start()
 
 func heal_player():
 	player.find_child("HealthComponent").modify_health(1.0)
