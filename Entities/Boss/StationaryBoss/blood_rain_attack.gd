@@ -17,6 +17,7 @@ extends State
 @onready var rain_left: Marker2D = $"../../RainLeft"
 @onready var rain_right: Marker2D = $"../../RainRight"
 @onready var stat_component: StatComponent = $"../../StatComponent"
+@onready var sprite: AnimatedSprite2D = $"../../AnimatedSprite2D"
 
 # state nodes
 @onready var attack_timer: Timer
@@ -46,10 +47,12 @@ func enter() -> void:
 	attacked_count = 0
 	if attack_timer.is_stopped():
 		attack_timer.start()
+	sprite.play("blood_rain")
 	
 func exit() -> void:
 	attack_timer.stop()
 	finish_timer.stop()
+	sprite.play("default")
 
 
 func update(_delta: float) -> void:

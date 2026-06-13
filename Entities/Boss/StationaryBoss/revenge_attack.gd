@@ -11,6 +11,7 @@ extends State
 @onready var player: CharacterBody2D
 @onready var revenge_hitbox: HitboxComponent = $"../../RevengeHitbox"
 @onready var revenge_sprite: AnimatedSprite2D = $"../../RevengeSprite"
+@onready var sprite: AnimatedSprite2D = $"../../AnimatedSprite2D"
 
 # state nodes
 @onready var charge_timer: Timer
@@ -34,15 +35,21 @@ func _ready() -> void:
 	
 	add_child(charge_timer)
 	add_child(attack_timer)
+	
+	sprite.animation_finished.connect(_on_charge_timer_timeout)
 
 func enter() -> void:
-	if charge_timer.is_stopped():
-		charge_timer.start()
+	#if charge_timer.is_stopped():
+		#charge_timer.start()
+	sprite.play("revenge")
+	
 	
 func exit() -> void:
 	attack_timer.stop()
 	revenge_sprite.hide()
 	revenge_hitbox.monitoring = false
+	sprite.play("default")
+
 
 
 func update(_delta: float) -> void:
@@ -50,6 +57,9 @@ func update(_delta: float) -> void:
 	pass
 
 func _on_charge_timer_timeout() -> void:
+	if sprite.animation != "revenge":
+		return 
+		
 	charge_timer.stop()
 	revenge_hitbox.scale = Vector2.ZERO
 	

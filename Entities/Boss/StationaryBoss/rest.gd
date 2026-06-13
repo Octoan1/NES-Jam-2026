@@ -23,8 +23,9 @@ func _ready() -> void:
 	# create timer
 	rest_timer = Timer.new()
 	rest_timer.wait_time = rest_length
-	rest_timer.timeout.connect(_on_rest_timer_timeout)
+	#rest_timer.timeout.connect(_on_rest_timer_timeout)
 	add_child(rest_timer)
+	sprite.animation_finished.connect(_on_rest_timer_timeout)
 
 func enter() -> void:
 	attacked_count = 0
@@ -44,6 +45,9 @@ func update(_delta: float) -> void:
 		Transitioned.emit(self, "RevengeAttack")
 
 func _on_rest_timer_timeout() -> void:
+	if sprite.animation != "rest":
+		return
+	
 	var attack_choice = randi_range(0, 2)
 	if attack_choice == 0:
 		#Transitioned.emit(self, "bat_attack")

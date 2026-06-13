@@ -129,7 +129,7 @@ func _update_normal(delta: float) -> void:
 		return
 	
 	#CLIMB (Input.is_action_just_pressed("D_Pad_Up"))
-	if can_interact and Input.is_action_pressed("D_Pad_Up"):
+	if can_interact and Input.is_action_just_pressed("D_Pad_Up"):
 		_start_climb()
 		return
 	
