@@ -48,7 +48,7 @@ func exit() -> void:
 	attack_timer.stop()
 	revenge_sprite.hide()
 	revenge_hitbox.monitoring = false
-	sprite.play("default")
+	sprite.play("idle")
 
 
 

@@ -35,7 +35,7 @@ func enter() -> void:
 	
 func exit() -> void:
 	rest_timer.stop()
-	sprite.play("default")
+	sprite.play("idle")
 	pass
 
 

@@ -52,7 +52,7 @@ func enter() -> void:
 func exit() -> void:
 	attack_timer.stop()
 	finish_timer.stop()
-	sprite.play("default")
+	sprite.play("idle")
 
 
 func update(_delta: float) -> void:
