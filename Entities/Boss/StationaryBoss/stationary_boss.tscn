@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://b33upjirfs7dt" path="res://Scripts/Components/hurtbox_component.gd" id="3_jhid3"]
 [ext_resource type="Shader" uid="uid://blmvfgvk3bx8a" path="res://Entities/flash_color.gdshader" id="3_u51qa"]
 [ext_resource type="Script" uid="uid://bagscl1ugnifq" path="res://Scripts/Components/stat_component.gd" id="3_yxowt"]
-[ext_resource type="Texture2D" uid="uid://muyjhvxwf44g" path="res://Aseprite/dracula-boss.png" id="4_k4ubn"]
+[ext_resource type="Texture2D" uid="uid://bt4biipfpvc7k" path="res://Aseprite/dracula/dracula-boss.png" id="4_k4ubn"]
 [ext_resource type="Script" uid="uid://b1c4qcf1gisb4" path="res://Scripts/Components/hitbox_component.gd" id="4_yaibl"]
 [ext_resource type="Script" uid="uid://cfv7usv2c3fyj" path="res://Scripts/Components/state_machine.gd" id="6_jhid3"]
 [ext_resource type="Texture2D" uid="uid://cxolf1uhyd8sb" path="res://Aseprite/placeholder_tilemap.png" id="7_k4ubn"]

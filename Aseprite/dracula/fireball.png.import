@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2usjvffryk77"
-path="res://.godot/imported/blood_rain.png-28b343a2bc1419e688bc9a3e0faaeff9.ctex"
+uid="uid://cwd0ji3njg3ih"
+path="res://.godot/imported/fireball.png-3a74619334e2dd143a2fd2335ed5a88f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Aseprite/blood_rain.png"
-dest_files=["res://.godot/imported/blood_rain.png-28b343a2bc1419e688bc9a3e0faaeff9.ctex"]
+source_file="res://Aseprite/dracula/fireball.png"
+dest_files=["res://.godot/imported/fireball.png-3a74619334e2dd143a2fd2335ed5a88f.ctex"]
 
 [params]
 
