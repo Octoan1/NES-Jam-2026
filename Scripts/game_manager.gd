@@ -40,12 +40,28 @@ var bosses = [STATIONARY_BOSS_FIGHT, MOTH_BOSS_FIGHT]
 var current_round: int = 0
 
 # relic relevant vars:
+var enemy: CharacterBody2D
+var player: CharacterBody2D
+
+# death book:
 var death_book_timer: Timer
-var lucky_dice_active = false
+
+# meteor:
 var meteor_timer: Timer
 const METEOR = preload("uid://cl4v4vyxveypp")
-var enemy: CharacterBody2D
+
+# mister sword:
 var mister_sword_timer: Timer
+
+# ghost tape:
+var ghost_tape_timer: Timer
+
+# gold_ring:
+var gold_ring_active: bool = false
+var start_ring_timer: bool = false
+var player_dodge_chance: float
+var max_madness: float = 5.0
+var current_madness: float = 0.0
 
 
 func _ready():
@@ -94,9 +110,10 @@ func begin_boss():
 	get_tree().current_scene.add_child(main_scene)
 	
 	# connect player to the scene
-	var player = get_tree().get_first_node_in_group("Player")
+	player = get_tree().get_first_node_in_group("Player")
 	if player.health_component.is_connected("died", player_killed) == false:
 		player.health_component.connect("died", player_killed)
+	
 	
 	# connect enemy death signal
 	if current_round % 2 == 0:
@@ -106,15 +123,16 @@ func begin_boss():
 		enemy = main_scene.find_child("MothBoss")
 		enemy.get_child(0).connect("died", boss_killed)
 	
-	apply_relics(player)
+	apply_relics()
+	player_dodge_chance = player.get_node("DefenseComponent").dodge_chance
 	
 	# update UI
 	main_scene.find_child("UI").get_child(0).update_health(player.health_component.health, player.health_component.max_health)
 	
 
-func apply_relics(player: CharacterBody2D):
+func apply_relics():
 	for relic in inventory:
-		self.call(relic.effect_name, player)
+		self.call(relic.effect_name)
 
 func disable_relics():
 	if death_book_timer:
@@ -123,6 +141,12 @@ func disable_relics():
 		meteor_timer.stop()
 	if mister_sword_timer:
 		mister_sword_timer.stop()
+	if ghost_tape_timer:
+		ghost_tape_timer.stop()
+	if gold_ring_active:
+		current_madness = 0
+		gold_ring_active = false
+		start_ring_timer = false
 
 func boss_killed():
 	canvas_layer = get_tree().current_scene.find_child("CanvasLayer", true, false)
@@ -163,7 +187,7 @@ func relic_selected(relic: Relic):
 	call_deferred("begin_boss")
 
 # DEBUG COMMANDS
-func _process(_delta):
+func _process(delta):
 	if Input.is_action_just_pressed("boss_1"):
 		debug_boss_kill()
 		current_round = 0
@@ -175,6 +199,32 @@ func _process(_delta):
 		current_round = 1
 		await get_tree().create_timer(0.01).timeout
 		begin_boss()
+	
+	if gold_ring_active:
+		if player.sprite.animation == "default":
+			# set the player's dodge chance to 100% just once
+			if start_ring_timer == false:
+				player.get_node("DefenseComponent").dodge_chance = 1
+				start_ring_timer = true
+			current_madness += delta
+			
+			
+		
+		if player.sprite.animation != "default":
+			if start_ring_timer == true:
+				player.get_node("DefenseComponent").dodge_chance = player_dodge_chance
+				start_ring_timer = false
+			current_madness -= delta
+		
+	
+	if current_madness >= max_madness:
+		current_madness = 0
+		#gold_ring_active = false
+		kill_player()
+	
+	if current_madness <= 0:
+		current_madness = 0
+	
 
 func debug_boss_kill():
 	# check for death book relic
@@ -195,7 +245,7 @@ func debug_boss_kill():
 
 # player has a 50% chance to deal double damage
 # player has a 50% chance to deal 0 damage
-func LuckyCoin(player: CharacterBody2D):
+func LuckyCoin():
 	print("Lucky coin active")
 	player.get_node("StatComponent").crit_mult = 2
 	player.get_node("StatComponent").crit_chance = 0.5
@@ -208,10 +258,10 @@ func LuckyCoin(player: CharacterBody2D):
 	print("Player critical fail: ", player.get_node("StatComponent").critical_fail)
 	
 
-# Each time the player attacks the boss, their attack becomes stronger
-# Every 5 seconds passed without attacking the boss, the player's attack becomes weaker
-func AncientMask(player: CharacterBody2D):
-	player.find_child("HealthComponent").damaged.connect(strengthen_player.bind(player))
+# You deal more damage the lower health you have
+# You take double damage
+func AncientMask():
+	player.find_child("HealthComponent").damaged.connect(strengthen_player)
 	
 	# if enemy attack mult is default, just set it to 2
 	# otherwise, (say, there is another attack mult in play) add them together
@@ -220,7 +270,7 @@ func AncientMask(player: CharacterBody2D):
 	else:
 		enemy.get_node("StatComponent").attack_mult += 2
 
-func strengthen_player(player: CharacterBody2D):
+func strengthen_player():
 	var player_health = player.find_child("HealthComponent").health
 	
 	if player_health <= 12 and player_health > 8:
@@ -234,7 +284,7 @@ func strengthen_player(player: CharacterBody2D):
 
 # 10% chance to ignore an instance of damage.
 # 10% chance to take double damage
-func LuckyDice(player: CharacterBody2D):
+func LuckyDice():
 	# pro and con modify player, so this will be handled
 	# in the 'begin_boss()'
 	player.get_node("DefenseComponent").dodge_chance = 0.1
@@ -243,11 +293,11 @@ func LuckyDice(player: CharacterBody2D):
 
 # Doubles the positive effect of the next relic.
 # Doubles the negative effect of the next relic.
-func MonkeyPaw(player: CharacterBody2D):
+func MonkeyPaw():
 	print("How dubious.")
 
 # Meteors occasionally fall from the sky
-func Meteors(_player: CharacterBody2D):
+func Meteors():
 	meteor_timer = Timer.new()
 	add_child(meteor_timer)
 	
@@ -280,19 +330,32 @@ func spawn_meteor():
 		main_scene.add_child(meteor)
 	meteor_timer.start()
 
-# A ghost summon helps you in battle.
-# Must beat the boss in 60 seconds or you die
-func GhostTape(player: CharacterBody2D):
-	print("Spooky!")
+# The player attacks faster
+# Must beat the boss in 50 seconds or you die
+func GhostTape():
+	ghost_tape_timer = Timer.new()
+	add_child(ghost_tape_timer)
+	
+	ghost_tape_timer.wait_time = 50.0
+	ghost_tape_timer.one_shot = true
+	
+	ghost_tape_timer.timeout.connect(kill_player)
+	
+	player.attack_duration = player.attack_duration / 2
+	player.attack_delay = player.attack_delay / 2
+	ghost_tape_timer.start()
+
+func kill_player():
+	player.find_child("HealthComponent").modify_health(-999.0)
 
 # In battle, 20 fingers will spawn over time. Collect them all to automatically win the fight.
 # The boss deals triple damage to the player.
-func CursedFinger(player: CharacterBody2D):
+func CursedFinger():
 	print("Yummy")
 
 # The boss automatically dies after 60 seconds
 # Player has 1 health
-func DeathBook(player: CharacterBody2D):
+func DeathBook():
 	# positive effect:
 	death_book_timer = Timer.new()
 	add_child(death_book_timer)
@@ -312,12 +375,12 @@ func DeathBook(player: CharacterBody2D):
 
 # When standing still you are invulnerable
 # You cannot attack while invulnerable, nor survive for more than 5 seconds in this state.
-func GoldRing(player: CharacterBody2D):
-	print("Maddening")
+func GoldRing():
+	gold_ring_active = true
 
 # Move faster
 # Floor is slippery
-func ToyTruck(_player: CharacterBody2D):
+func ToyTruck():
 	# positive effect:
 	#player.speed = 400.0
 	# negative effect:
@@ -326,7 +389,7 @@ func ToyTruck(_player: CharacterBody2D):
 
 # Adds 6 powerful relics into the loot pool. (Can be selected as future rewards.)
 # Lose 50% of all stats
-func GemGauntlet(player: CharacterBody2D):
+func GemGauntlet():
 	print("Blockbustery")
 	# positive effect:
 	
@@ -339,20 +402,20 @@ func GemGauntlet(player: CharacterBody2D):
 
 # Damaging the boss heals you
 # You lose health over time
-func MisterSword(player: CharacterBody2D):
+func MisterSword():
 	# timer setup
 	mister_sword_timer = Timer.new()
 	add_child(mister_sword_timer)
 	mister_sword_timer.wait_time = 1.5
-	mister_sword_timer.timeout.connect(damage_player.bind(player))
+	mister_sword_timer.timeout.connect(damage_player)
 	mister_sword_timer.start()
 	
-	enemy.find_child("HealthComponent").damaged.connect(heal_player.bind(player))
+	enemy.find_child("HealthComponent").damaged.connect(heal_player)
 	
 
-func damage_player(player: CharacterBody2D):
+func damage_player():
 	player.find_child("HealthComponent").modify_health(-1.0)
 	mister_sword_timer.start()
 
-func heal_player(player: CharacterBody2D):
+func heal_player():
 	player.find_child("HealthComponent").modify_health(1.0)

@@ -6,7 +6,7 @@
 script = ExtResource("1_w2lqn")
 name = "Gold Ring"
 description = "The power is overwhelming. Maddening even."
-pro = "When standing still you are invulnerable"
-con = "You cannot attack while invulnerable, nor survive for more than 5 seconds in this state"
+pro = "When doing nothing you are invulnerable"
+con = "Doing nothing builds up madness. Moving reduces madness. Too much madness and you die."
 effect_name = "GoldRing"
 metadata/_custom_type_script = "uid://b45x76ks38rs1"

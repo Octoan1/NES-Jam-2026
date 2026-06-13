@@ -6,7 +6,7 @@
 script = ExtResource("1_1ljx5")
 name = "Lucky Coin"
 description = "A shiny, golden coin emanating a gloomy aura."
-pro = "Player has a 50% chance to deal double damage"
-con = "Player has a 50% chance to deal no damage."
+pro = "You have a 50% chance to deal double damage"
+con = "You have a 50% chance to deal no damage."
 effect_name = "LuckyCoin"
 metadata/_custom_type_script = "uid://b45x76ks38rs1"
