@@ -1,11 +1,17 @@
 [gd_resource type="Resource" script_class="Relic" format=3 uid="uid://dxvosg3q6gow4"]
 
+[ext_resource type="Texture2D" uid="uid://d0cdos1dsc41g" path="res://Aseprite/relics/relic_sheet.png" id="1_cxnvj"]
 [ext_resource type="Script" uid="uid://b45x76ks38rs1" path="res://Scripts/relic.gd" id="1_w2lqn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gogtb"]
+atlas = ExtResource("1_cxnvj")
+region = Rect2(8, 0, 8, 8)
 
 [resource]
 script = ExtResource("1_w2lqn")
 name = "Gold Ring"
 description = "The power is overwhelming. Maddening even."
+icon = SubResource("AtlasTexture_gogtb")
 pro = "When doing nothing you are invulnerable"
 con = "Doing nothing builds up madness. Moving reduces madness. Too much madness and you die."
 effect_name = "GoldRing"

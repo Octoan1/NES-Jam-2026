@@ -1,11 +1,17 @@
 [gd_resource type="Resource" script_class="Relic" format=3 uid="uid://bljbanuhony4o"]
 
+[ext_resource type="Texture2D" uid="uid://d0cdos1dsc41g" path="res://Aseprite/relics/relic_sheet.png" id="1_mfohb"]
 [ext_resource type="Script" uid="uid://b45x76ks38rs1" path="res://Scripts/relic.gd" id="1_mo230"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s57h0"]
+atlas = ExtResource("1_mfohb")
+region = Rect2(48, 0, 8, 8)
 
 [resource]
 script = ExtResource("1_mo230")
 name = "Ghost Tape"
 description = "Don't watch this at 3am!"
+icon = SubResource("AtlasTexture_s57h0")
 pro = "You attack twice as fast"
 con = "You must beat the boss in 50 seconds or you die"
 effect_name = "GhostTape"

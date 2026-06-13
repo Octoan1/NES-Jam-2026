@@ -1,11 +1,17 @@
 [gd_resource type="Resource" script_class="Relic" format=3 uid="uid://u5oprj86qys3"]
 
+[ext_resource type="Texture2D" uid="uid://d0cdos1dsc41g" path="res://Aseprite/relics/relic_sheet.png" id="1_375wq"]
 [ext_resource type="Script" uid="uid://b45x76ks38rs1" path="res://Scripts/relic.gd" id="1_elfk8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cejaq"]
+atlas = ExtResource("1_375wq")
+region = Rect2(24, 0, 8, 8)
 
 [resource]
 script = ExtResource("1_elfk8")
 name = "Lucky Dice"
 description = "Go ahead, roll the dice."
+icon = SubResource("AtlasTexture_cejaq")
 pro = "10% chance to ignore an instance of damage."
 con = "10% chance to take double damage"
 effect_name = "LuckyDice"

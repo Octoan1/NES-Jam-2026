@@ -1,11 +1,17 @@
 [gd_resource type="Resource" script_class="Relic" format=3 uid="uid://bi65ciq16gnck"]
 
 [ext_resource type="Script" uid="uid://b45x76ks38rs1" path="res://Scripts/relic.gd" id="1_5wwda"]
+[ext_resource type="Texture2D" uid="uid://d0cdos1dsc41g" path="res://Aseprite/relics/relic_sheet.png" id="1_bsois"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_knrim"]
+atlas = ExtResource("1_bsois")
+region = Rect2(40, 0, 8, 8)
 
 [resource]
 script = ExtResource("1_5wwda")
 name = "Meteors"
 description = "Back from extinction"
+icon = SubResource("AtlasTexture_knrim")
 pro = "Meteors occasionally fall from the sky"
 con = "Meteors occasionally fall from the sky"
 effect_name = "Meteors"

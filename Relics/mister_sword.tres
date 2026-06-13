@@ -1,11 +1,17 @@
 [gd_resource type="Resource" script_class="Relic" format=3 uid="uid://lsk0psi5tvrf"]
 
 [ext_resource type="Script" uid="uid://b45x76ks38rs1" path="res://Scripts/relic.gd" id="1_1hjbn"]
+[ext_resource type="Texture2D" uid="uid://d0cdos1dsc41g" path="res://Aseprite/relics/relic_sheet.png" id="1_8ipcx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gqh6h"]
+atlas = ExtResource("1_8ipcx")
+region = Rect2(72, 0, 8, 8)
 
 [resource]
 script = ExtResource("1_1hjbn")
 name = "Mister Sword"
 description = "Legendary yet, refined."
+icon = SubResource("AtlasTexture_gqh6h")
 pro = "Your sword now shoots a projectile"
 con = "Your attacks are slower"
 effect_name = "MisterSword"
